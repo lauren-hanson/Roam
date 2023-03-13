@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom"
-import { Login } from "../components/auth/Login"
-import { Register } from "../components/auth/Register"
+import { Login } from "../../src/components/auth/Login"
+import { Register } from "../../src/components/auth/Register"
 import { Authorized } from "./Authorized"
 
 export const ApplicationViews = ({ token, setToken }) => {
