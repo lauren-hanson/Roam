@@ -1,0 +1,24 @@
+.tripHeader {
+    font-weight: bolder; 
+    font-size: 25px; 
+    margin-left: 25px; 
+}
+
+.myTripList {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.myTrip {
+    border: 1px solid black; 
+    width: 33.33%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    margin: 20px; 
+}
+
+.tagList { 
+    display: flex; 
+    flex-flow: row wrap; 
+}
