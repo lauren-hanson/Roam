@@ -23,7 +23,39 @@ export const MyTrips = ({ token }) => {
                 style={{ textDecoration: "none", color: "inherit" }}
                 to={`/trips/${myTrips?.id}`}
                 className="hover"
-            ><TripDetails token={token} trips={myTrips} /></Link>
+            >
+                <section className="myTripList">
+                    {
+                        myTrips.map((trip) => (
+                            <>
+                                < div key={trip.id} className="myTrip" >
+                                    <p>{trip.start_date} - {trip.end_date}</p>
+                                    <h5>A little about the weather...</h5>
+                                    <p>{trip.weather}</p>
+                                    <div className="destinationList">
+                                    <h5>Stops Along the way...</h5>
+                                        {trip.destination.map((d) => (
+                                            <li>{d.location}</li>))}
+                                    </div>
+                                    <h5>Highlights...</h5>
+                                    <div>{trip.notes}</div>
+
+                                    <div className="tagList">
+                                        {trip.tag.map((t) => (
+                                            <ol>{t.type}</ol>))}
+                                    </div>
+
+                                    <div className="buttonContainer">
+                                        <button>Complete?</button>
+                                        <button>Edit</button>
+                                        <button>Delete</button>
+                                    </div>
+                                </div>
+                            </>
+                        ))
+                    }
+                </section>
+            </Link>
         </section>
     </>
 
