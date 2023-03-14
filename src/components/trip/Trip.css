@@ -1,7 +1,7 @@
 .tripHeader {
-    font-weight: bolder; 
-    font-size: 25px; 
-    margin-left: 25px; 
+    font-weight: bolder;
+    font-size: 25px;
+    margin-left: 25px;
 }
 
 .myTripList {
@@ -10,15 +10,38 @@
 }
 
 .myTrip {
-    border: 1px solid black; 
+    border: 1px solid black;
     width: 33.33%;
     display: flex;
     flex-direction: column;
     padding: 20px;
-    margin: 20px; 
+    margin: 20px;
 }
 
-.tagList { 
-    display: flex; 
-    flex-flow: row wrap; 
+.addNewTripForm {
+    padding: 50px 100px;
+    margin-left: 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    border: 1px solid #cccccc;
+    width: fit-content;
+}
+
+.tags {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    float: left;
+
+}
+
+.tagLabel {
+    margin-right: 15px;
+    line-height: 20px;
+    display: flex;
+    flex-direction: row;
+    font-size: 18px;
+    margin-left: 10px;
 }

@@ -15,7 +15,6 @@ export const NavBar = ({ token, setToken }) => {
                     {/* <img src={Logo} height="3rem" alt="Roam Logo" />{" "} */}
                     <h1 className="roamHeader">Roam</h1>
                 </a>
-              
             </div>
             <div className="navbar-menu">
                 <div className="navbar-start">
@@ -44,7 +43,7 @@ export const NavBar = ({ token, setToken }) => {
                         {
                             token ? (
                                 <button
-                                    className="button is-rounded"
+                                    className="button"
                                     onClick={() => {
                                         setToken("");
                                         navigate("/login");
@@ -54,10 +53,10 @@ export const NavBar = ({ token, setToken }) => {
                                 </button>
                             ) : (
                                 <>
-                                    <Link to="/register" className="button is-rounded is-link">
+                                    <Link to="/register" className="button">
                                         Register
                                     </Link>
-                                    <Link to="/login" className="button is-rounded is-outlined">
+                                    <Link to="/login" className="button">
                                         Login
                                     </Link>
                                 </>
