@@ -26,3 +26,11 @@ export const addDestination = (destination) => {
         body: JSON.stringify(destination),
     })
 }
+
+export const getFinalDestination = () => {
+    return fetch("http://localhost:8000/tripdestinations?status__type=FinalDestination", {
+        headers: {
+            Authorization: `Token ${localStorage.getItem("roam_token")}`,
+        },
+    }).then((res) => res.json())
+}

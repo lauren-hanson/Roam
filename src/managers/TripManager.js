@@ -55,4 +55,13 @@ export const updatePost = (id, tripBody) => {
         },
         body: JSON.stringify(tripBody),
     });
-};
+}
+
+export const getFinalDestination = () => {
+    return fetch('http://localhost:8000/tripdestinations?status=isFinalDestination', {
+        headers: {
+            Authorization: `Token ${localStorage.getItem("roam_token")}`,
+        },
+    }).then((res) => res.json())
+}
+   

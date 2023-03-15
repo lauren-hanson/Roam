@@ -4,6 +4,14 @@
     margin-left: 25px;
 }
 
+.myTripHome {
+    display: inline-flex;
+    border: 1px solid black;
+    width: 10%;
+    padding: 20px;
+    margin: 20px;
+}
+
 .myTripList {
     display: flex;
     flex-flow: row wrap;

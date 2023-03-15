@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react"
 import { useNavigate, Link } from "react-router-dom"
-import { getMyTrips } from "../../managers/TripManager"
+import { getMyTrips, getFinalDestination } from "../../managers/TripManager"
 import { TripDetails } from "./TripDetails"
 import "./Trip.css"
 
 export const MyTrips = ({ token }) => {
 
     const [myTrips, setMyTrips] = useState([])
+    // const [finalDestination, setFinalDestination] = useState([])
+
     const tokenInt = parseInt(token)
     const navigate = useNavigate()
 
     useEffect(() => {
-        getMyTrips(tokenInt)
-            .then((tripData) => setMyTrips(tripData))
+        getMyTrips(tokenInt).then((tripData) => setMyTrips(tripData))
+        // getFinalDestination(tokenInt).then((finalDestination) => setFinalDestination(finalDestination))
     }, [])
 
     return <>
@@ -33,7 +35,7 @@ export const MyTrips = ({ token }) => {
                                     <h5>A little about the weather...</h5>
                                     <p>{trip.weather}</p>
                                     <div className="destinationList">
-                                    <h5>Stops Along the way...</h5>
+                                        <h5>Stops Along the way...</h5>
                                         {trip.destination.map((d) => (
                                             <li>{d.location}</li>))}
                                     </div>
