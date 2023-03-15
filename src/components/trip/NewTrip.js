@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef } from "react"
 import { useNavigate } from 'react-router-dom'
 import { addNewTrip } from "../../managers/TripManager"
+import { addDestination } from "../../managers/DestinationManager"
 import { getTags } from "../../managers/TagManager"
-import { getStates } from "../../managers/StateManager"
+// import { getStates } from "../../managers/StateManager"
 import "./Trip.css"
 
 
@@ -11,7 +12,15 @@ export const NewTrip = ({ token }) => {
     const [trip, setNewTrip] = useState({})
     const [tags, setTags] = useState([])
     const [tagsToAPI, setTagsToAPI] = useState([])
-    const [states, setStates] = useState([])
+    const [destinationsToAPI, setDestinationsToAPI] = useState([])
+    // const [states, setStates] = useState([])
+    const [startDestination, setStartDestination] = useState({
+        id: 0, 
+        location: "", 
+        state: "", 
+        latitude: null, 
+        longitutde: null
+    })
 
     const navigate = useNavigate()
 
@@ -24,7 +33,7 @@ export const NewTrip = ({ token }) => {
     useEffect(
         () => {
             getTags().then((tagData) => setTags(tagData))
-            getStates().then((stateData) => setStates(stateData))
+            // getStates().then((stateData) => setStates(stateData))
         }, [])
 
     const tagPromise = (body) => {
@@ -37,68 +46,153 @@ export const NewTrip = ({ token }) => {
         })
     }
 
+    const destinationPromise = (body) => {
+        return fetch(`http://localhost:8000/destinations`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(body),
+        })
+    }
+
     const publishNewTrip = () => {
+
+        // const destinationId = parseInt(trip.destinationId)
 
         addNewTrip({
             weather: trip.weather,
-            start_date: trip.start_date,
-            end_date: trip.end_date,
+            startDate: trip.startDate,
+            endDate: trip.endDate,
             notes: trip.notes,
-            user_id: parseInt(token)
+            user_id: parseInt(token),
+            public: false,
+            tag: tagsToAPI
         })
             .then((res) => res.json())
             .then((res) => {
                 let APITags = tagsToAPI.map(tag => {
                     return {
                         tag_id: tag,
-                        post_id: res.id
+                        trip_id: res.id
                     }
                 })
                 Promise.all(APITags.map(tag => {
                     tagPromise(tag)
                 }))
             })
-            .then(() => navigate("/trips"))
+
+            // .then((res) => {
+            //     let APIDestinations = destinationsToAPI.map(destination => {
+            //         return {
+            //             destination_id: destination,
+            //             trip_id: res.id
+            //         }
+            //     })
+            //     Promise.all(APIDestinations.map(destination => {
+            //         destinationPromise(destination)
+            //     }))
+            // })
+
+            .then(() => navigate("/"))
     }
     return (<>
         <h2>Tell us about your next trip...</h2>
         <form className="addNewTripForm">
-            <fieldset>
+            {/* <fieldset>
                 <div>
                     <label htmlFor="destination">Where are you going?</label>
                     <br></br>
                     <input
                         type="text"
-                        name="city"
+                        name="destination"
                         required autoFocus
-                        className="cityInput"
+                        className="locationInput"
                         placeholder="City Name..."
-                        onChange={handleNewPostInfo} />
+                        onChange={(event) => {
+                            if (event.target.checked) {
+                                let copy = [...destinationsToAPI]
+                                copy.push(event.target.name)
+                                setDestinationsToAPI(copy)
+                            } else {
+                                let copy = [...destinationsToAPI]
+                                let index = copy.indexOf(event.target.name)
+                                copy.splice(index)
+                                setDestinationsToAPI(copy)
+                            }
+                        }}
+                    />
                 </div>
-            </fieldset>
-            <fieldset>
-                <div className="state">
+                <div>
+                    <br></br>
+                    <input
+                        type="text"
+                        name="destination"
+                        required autoFocus
+                        className="stateInput"
+                        placeholder="State..."
+                        onChange={setDestinationsToAPI}
+                    />
+                </div>
+
+                <div>
+                    <br></br>
+                    <input
+                        type="text"
+                        name="latitude"
+                        required autoFocus
+                        className="latitudeInput"
+                        placeholder="Latitude..."
+                        onChange={handleNewPostInfo}
+                    />
+                </div>
+
+                <div>
+                    <br></br>
+                    <input
+                        type="text"
+                        name="longitude"
+                        required autoFocus
+                        className="longitudeInput"
+                        placeholder="Longitude..."
+                        onChange={handleNewPostInfo}
+                    />
+                </div> */}
+
+            {/* <div className="state">
                     <select
                         name="stateId"
                         className="stateInput"
                         value={trip.stateId}
-                        onChange={(trip) => {
+                        onChange={(state) => {
                             const copy = { ...trip }
-                            copy.stateId = parseInt(trip.target.value)
-                            setNewTrip(copy)
+                            copy.stateId = parseInt(state.target.value)
+                            handleNewPostInfo(copy)
                         }}
                     >
                         <option value="0">State Select</option>
                         {states.map((state) => {
-                            <option
+                            return <option
                                 key={`state--${state.id}`}
                                 value={state.id}
                             >{state.label}</option>
                         })}
-
                     </select>
+                </div> */}
+            {/* <button>Add Destination</button>
+            </fieldset> */}
+            {/* <fieldset>
+                <div>
+                    <label>Weather</label>
+                    <textarea
+                        type="text"
+                        name="weather"
+                        rows="10"
+                        cols="75"
+                        placeholder="What's the weather forecast?"
+                        onChange={setNewTrip} />
                 </div>
-            </fieldset>
+            </fieldset>  */}
             <fieldset>
                 <div>
                     <label htmlFor="startDate">When do you plan on leaving?</label>
@@ -123,7 +217,7 @@ export const NewTrip = ({ token }) => {
 
                 </div>
             </fieldset>
-            <fieldset>
+            {/* <fieldset>
                 <div>
                     <label htmlFor="destinations">What stop would you like to make?</label>
                     <br></br>
@@ -133,24 +227,23 @@ export const NewTrip = ({ token }) => {
                         required autoFocus
                         className="cityInput"
                         placeholder="City"
-                        onChange={handleNewPostInfo} />
+                        // onChange={setNewTrip} 
+                        />
                 </div>
-            </fieldset>
-            <fieldset>
                 <div className="state">
                     <select
                         name="stateId"
                         className="stateInput"
                         value={trip.stateId}
-                        onChange={(trip) => {
-                            const copy = { ...trip }
-                            copy.stateId = parseInt(trip.target.value)
-                            setNewTrip(copy)
-                        }}
+                        // onChange={(trip) => {
+                        //     const copy = { ...trip }
+                        //     copy.stateId = parseInt(trip.target.value)
+                        //     setNewDestination(copy)
+                        // }}
                     >
                         <option value="0">State Select</option>
                         {states.map((state) => {
-                            <option
+                            return <option
                                 key={`state--${state.id}`}
                                 value={state.id}
                             >{state.label}</option>
@@ -158,7 +251,8 @@ export const NewTrip = ({ token }) => {
 
                     </select>
                 </div>
-            </fieldset>
+                <button>Add Stop</button>
+            </fieldset> */}
             <fieldset>
                 <div>
                     {tags.map(tag => (
@@ -199,21 +293,41 @@ export const NewTrip = ({ token }) => {
             <fieldset>
                 <div>
                     <label htmlFor="public">Would you like this trip to be public for your followers?</label>
-                    <input
-                        type="radio"
-                        name="public"
-                        required autoFocus
-                        className="publicInput"
-                        onChange={handleNewPostInfo} />
-                    <label>Yes</label>
-                    <input
-                        type="radio"
-                        name="public"
-                        required autoFocus
-                        className="publicInput"
-                        onChange={handleNewPostInfo} />
-                    <label>No</label>
+                    <div className="radioLabel">
+                        <input
 
+                            type="radio"
+                            className="form-control"
+                            value={true}
+                            name="public"
+                            onClick={
+                                () => {
+                                    const copy = { ...trip }
+                                    copy.public = true
+                                    handleNewPostInfo(copy)
+                                }
+                            }
+                        />
+                        <label className="radioLabel">Yes</label>
+
+                        <input
+
+                            type="radio"
+                            className="form-control"
+                            value={false}
+                            name="public"
+                            onClick={
+                                () => {
+                                    const copy = { ...trip }
+                                    copy.musicianRequest = false
+                                    handleNewPostInfo(copy)
+                                }
+                            }
+
+                        />
+                        <label className="radioLabel" >No</label>
+
+                    </div>
                 </div>
             </fieldset>
 

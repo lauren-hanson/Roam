@@ -14,10 +14,10 @@ export const ApplicationViews = ({ token, setToken }) => {
 				<Route path="/register" element={<Register setToken={setToken} />} />
 				<Route path="/">
 					<Route index element={<MyTrips token={token} />} />
+					<Route path="newtrip" element={<NewTrip token={token} />} />
 				</Route>
 				<Route element={<Authorized token={token} />} >
 					<Route path="/trips" >
-						<Route path="newtrip" element={<NewTrip token={token} />} />
 					</Route>
 				</Route>
 			</Routes>

@@ -17,11 +17,11 @@ export const MyTrips = ({ token }) => {
 
     return <>
         <h2 className="tripHeader">My Trips</h2>
-        <div><button onClick={() => navigate(`/trips/newtrip`)}>+</button>New Trip</div>
+        <div><button onClick={() => navigate(`/newtrip`)}>+</button>New Trip</div>
         <section className="myTripList">
             <Link
                 style={{ textDecoration: "none", color: "inherit" }}
-                to={`/trips/${myTrips?.id}`}
+                to={`/${myTrips?.id}`}
                 className="hover"
             >
                 <section className="myTripList">
