@@ -7,14 +7,12 @@ import "./Trip.css"
 export const MyTrips = ({ token }) => {
 
     const [myTrips, setMyTrips] = useState([])
-    // const [finalDestination, setFinalDestination] = useState([])
 
     const tokenInt = parseInt(token)
     const navigate = useNavigate()
 
     useEffect(() => {
         getMyTrips(tokenInt).then((tripData) => setMyTrips(tripData))
-        // getFinalDestination(tokenInt).then((finalDestination) => setFinalDestination(finalDestination))
     }, [])
 
     return <>

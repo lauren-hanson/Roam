@@ -12,7 +12,7 @@ export const NewTrip = ({ token }) => {
     const [trip, setNewTrip] = useState({})
     const [tags, setTags] = useState([])
     const [tagsToAPI, setTagsToAPI] = useState([])
-    const [destinationsToAPI, setDestinationsToAPI] = useState([])
+    const [newDestination, setNewDestination] = useState({})
     // const [states, setStates] = useState([])
 
     const navigate = useNavigate()
@@ -24,9 +24,9 @@ export const NewTrip = ({ token }) => {
     }
 
     const handleStartDestinationInfo = (event) => {
-        const startDestination = Object.assign({}, trip)
+        const startDestination = Object.assign({}, newDestination)
         startDestination[event.target.name] = event.target.value
-        addDestination(startDestination)
+        setNewDestination(startDestination)
     }
 
     useEffect(
@@ -45,15 +45,16 @@ export const NewTrip = ({ token }) => {
         })
     }
 
-    // const destinationPromise = (body) => {
-    //     return fetch(`http://localhost:8000/tripdestination`, {
-    //         method: "POST",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify(body),
-    //     })
-    // }
+    const destinationPromise = (body) => {
+        return fetch(`http://localhost:8000/tripdestination`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(body),
+        })
+    }
+
 
     const publishNewTrip = () => {
 
@@ -67,8 +68,16 @@ export const NewTrip = ({ token }) => {
             user_id: parseInt(token),
             public: false,
             tag: tagsToAPI,
-            destination: trip.newStartDestination
+            destination: trip.destinationId
         })
+
+        // addDestination({
+        //     location: newDestination.location,
+        //     state: newDestination.state,
+        //     latitude: newDestination.latitude,
+        //     longitude: newDestination.location
+        // })
+
             .then((res) => res.json())
             .then((res) => {
                 let APITags = tagsToAPI.map(tag => {
@@ -82,20 +91,30 @@ export const NewTrip = ({ token }) => {
                 }))
             })
 
-            // .then((res) => {
-            //     let APIDestinations = destinationsToAPI.map(destination => {
-            //         return {
-            //             destination_id: destination,
-            //             trip_id: res.id, 
-            //         
-            //         }
-            //     })
-            //     Promise.all(APIDestinations.map(destination => {
-            //         destinationPromise(destination)
-            //     }))
-            // })
+            .then((res) => {
+                let APIDestinations = newDestination.map(destination => {
+                    return {
+                        destination_id: destination,
+                        trip_id: res.id, 
+                    
+                    }
+                })
+                Promise.all(APIDestinations.map(destination => {
+                    destinationPromise(destination)
+                }))
+            })
 
             .then(() => navigate("/"))
+    }
+
+    const createNewDestination = (event) => { 
+        event.preventDefault() 
+        addDestination(newDestination) 
+            .then((response) => { 
+                const newTrip = Object.assign({}, trip)
+                newTrip.destinationId = response.id
+                setNewTrip(newTrip)
+            })
     }
     return (<>
         <h2>Tell us about your next trip...</h2>
@@ -160,23 +179,15 @@ export const NewTrip = ({ token }) => {
                         })}
                     </select>
                 </div> */}
-                <button>Add Destination</button>
+                <button 
+                    onClick={createNewDestination}>
+                        Add Destination
+                </button>
             </fieldset>
-            {/* <fieldset>
-                <div>
-                    <label>Weather</label>
-                    <textarea
-                        type="text"
-                        name="weather"
-                        rows="10"
-                        cols="75"
-                        placeholder="What's the weather forecast?"
-                        onChange={setNewTrip} />
-                </div>
-            </fieldset>  */}
             <fieldset>
                 <div>
                     <label htmlFor="startDate">When do you plan on leaving?</label>
+                    <br></br>
                     <input
                         type="date"
                         name="startDate"
@@ -189,6 +200,7 @@ export const NewTrip = ({ token }) => {
             <fieldset>
                 <div>
                     <label htmlFor="endDate">When are you coming home?</label>
+                    <br></br>
                     <input
                         type="date"
                         name="endDate"
@@ -238,19 +250,12 @@ export const NewTrip = ({ token }) => {
                 <div>
                     {tags.map(tag => (
                         <div className="tags">
-                            <label className="tagLabel">
-                                <option
-                                    key={`tag--${tag.id}`}
-                                    value={tag.id}
-                                >
-                                    {tag.type}
-                                </option>
-                            </label>
+
                             <input
                                 name="tagId"
                                 type="checkbox"
                                 required autoFocus
-                                className="form-control"
+                                className="checkbox"
                                 placeholder="tag"
                                 value={tag.id}
                                 onChange={(event) => {
@@ -266,6 +271,14 @@ export const NewTrip = ({ token }) => {
                                     }
                                 }}
                             />
+                            <label className="tagLabel">
+                                <option
+                                    key={`tag--${tag.id}`}
+                                    value={tag.id}
+                                >
+                                    {tag.type}
+                                </option>
+                            </label>
                         </div>
                     ))}
 
@@ -278,7 +291,7 @@ export const NewTrip = ({ token }) => {
                         <input
 
                             type="radio"
-                            className="form-control"
+                            className="radioButton"
                             value={true}
                             name="public"
                             onClick={
@@ -294,7 +307,7 @@ export const NewTrip = ({ token }) => {
                         <input
 
                             type="radio"
-                            className="form-control"
+                            className="radioButton"
                             value={false}
                             name="public"
                             onClick={
