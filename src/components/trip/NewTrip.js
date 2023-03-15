@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react"
 import { useNavigate } from 'react-router-dom'
 import { addNewTrip } from "../../managers/TripManager"
 import { getTags } from "../../managers/TagManager"
+import { getStates } from "../../managers/StateManager"
 import "./Trip.css"
 
 
@@ -10,6 +11,7 @@ export const NewTrip = ({ token }) => {
     const [trip, setNewTrip] = useState({})
     const [tags, setTags] = useState([])
     const [tagsToAPI, setTagsToAPI] = useState([])
+    const [states, setStates] = useState([])
 
     const navigate = useNavigate()
 
@@ -22,7 +24,18 @@ export const NewTrip = ({ token }) => {
     useEffect(
         () => {
             getTags().then((tagData) => setTags(tagData))
+            getStates().then((stateData) => setStates(stateData))
         }, [])
+
+    const tagPromise = (body) => {
+        return fetch(`http://localhost:8000/triptags`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(body),
+        })
+    }
 
     const publishNewTrip = () => {
 
@@ -34,17 +47,17 @@ export const NewTrip = ({ token }) => {
             user_id: parseInt(token)
         })
             .then((res) => res.json())
-            // .then((res) => {
-            //     let APITags = tagsToAPI.map(tag => {
-            //         return {
-            //             tag_id: tag,
-            //             post_id: res.id
-            //         }
-            //     })
-            //     Promise.all(APITags.map(tag => {
-            //         tagPromise(tag)
-            //     }))
-            // })
+            .then((res) => {
+                let APITags = tagsToAPI.map(tag => {
+                    return {
+                        tag_id: tag,
+                        post_id: res.id
+                    }
+                })
+                Promise.all(APITags.map(tag => {
+                    tagPromise(tag)
+                }))
+            })
             .then(() => navigate("/trips"))
     }
     return (<>
@@ -52,26 +65,43 @@ export const NewTrip = ({ token }) => {
         <form className="addNewTripForm">
             <fieldset>
                 <div>
-                    <label for="destination">Where are you going?</label>
+                    <label htmlFor="destination">Where are you going?</label>
+                    <br></br>
                     <input
                         type="text"
                         name="city"
                         required autoFocus
                         className="cityInput"
-                        placeholder="City"
-                        onChange={handleNewPostInfo} />
-                    <input
-                        type="text"
-                        name="state"
-                        required autoFocus
-                        className="stateInput"
-                        placeholder="State"
+                        placeholder="City Name..."
                         onChange={handleNewPostInfo} />
                 </div>
             </fieldset>
             <fieldset>
+                <div className="state">
+                    <select
+                        name="stateId"
+                        className="stateInput"
+                        value={trip.stateId}
+                        onChange={(trip) => {
+                            const copy = { ...trip }
+                            copy.stateId = parseInt(trip.target.value)
+                            setNewTrip(copy)
+                        }}
+                    >
+                        <option value="0">State Select</option>
+                        {states.map((state) => {
+                            <option
+                                key={`state--${state.id}`}
+                                value={state.id}
+                            >{state.label}</option>
+                        })}
+
+                    </select>
+                </div>
+            </fieldset>
+            <fieldset>
                 <div>
-                    <label for="startDate">When do you plan on leaving?</label>
+                    <label htmlFor="startDate">When do you plan on leaving?</label>
                     <input
                         type="date"
                         name="startDate"
@@ -83,7 +113,7 @@ export const NewTrip = ({ token }) => {
             </fieldset>
             <fieldset>
                 <div>
-                    <label for="endDate">When are you coming home?</label>
+                    <label htmlFor="endDate">When are you coming home?</label>
                     <input
                         type="date"
                         name="endDate"
@@ -95,7 +125,8 @@ export const NewTrip = ({ token }) => {
             </fieldset>
             <fieldset>
                 <div>
-                    <label for="destinations">What stops would you like to make?</label>
+                    <label htmlFor="destinations">What stop would you like to make?</label>
+                    <br></br>
                     <input
                         type="text"
                         name="city"
@@ -103,14 +134,29 @@ export const NewTrip = ({ token }) => {
                         className="cityInput"
                         placeholder="City"
                         onChange={handleNewPostInfo} />
-                    <input
-                        type="text"
-                        name="state"
-                        required autoFocus
+                </div>
+            </fieldset>
+            <fieldset>
+                <div className="state">
+                    <select
+                        name="stateId"
                         className="stateInput"
-                        placeholder="State"
-                        onChange={handleNewPostInfo} />
+                        value={trip.stateId}
+                        onChange={(trip) => {
+                            const copy = { ...trip }
+                            copy.stateId = parseInt(trip.target.value)
+                            setNewTrip(copy)
+                        }}
+                    >
+                        <option value="0">State Select</option>
+                        {states.map((state) => {
+                            <option
+                                key={`state--${state.id}`}
+                                value={state.id}
+                            >{state.label}</option>
+                        })}
 
+                    </select>
                 </div>
             </fieldset>
             <fieldset>
@@ -152,13 +198,21 @@ export const NewTrip = ({ token }) => {
             </fieldset>
             <fieldset>
                 <div>
-                    <label for="public">Would you like this trip to be public for your followers?</label>
+                    <label htmlFor="public">Would you like this trip to be public for your followers?</label>
                     <input
                         type="radio"
                         name="public"
                         required autoFocus
                         className="publicInput"
                         onChange={handleNewPostInfo} />
+                    <label>Yes</label>
+                    <input
+                        type="radio"
+                        name="public"
+                        required autoFocus
+                        className="publicInput"
+                        onChange={handleNewPostInfo} />
+                    <label>No</label>
 
                 </div>
             </fieldset>
