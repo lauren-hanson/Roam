@@ -48,7 +48,7 @@ export const deleteTrip = (id) => {
 
 }
 
-export const updatePost = (id, tripBody) => {
+export const updateTrip = (id, tripBody) => {
     return fetch(`http://localhost:8000/trips/${id}`, {
         method: "PUT",
         headers: {
