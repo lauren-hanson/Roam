@@ -11,7 +11,6 @@ export const TripDetails = ({ token, trips }) => {
                 trips.map((trip) => (
                     <>
                         < div key={trip.id} className="myTrip" >
-
                             <p>{trip.start_date} - {trip.end_date}</p>
                             A little about the weather...
                             <p>{trip.weather}</p>
