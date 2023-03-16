@@ -35,6 +35,7 @@ export const addNewTrip = (trip) => {
         },
         body: JSON.stringify(trip),
     })
+    .then((res) => res.json())
 }
 
 export const deleteTrip = (id) => {
@@ -44,6 +45,7 @@ export const deleteTrip = (id) => {
             "Authorization": `Token ${localStorage.getItem("roam_token")}`
         },
     })
+
 }
 
 export const updatePost = (id, tripBody) => {
@@ -75,6 +77,7 @@ export const addTripDestination = (tripDestination) => {
         },
         body: JSON.stringify(tripDestination),
     })
+    
 }
 
 export const addTripTag = (tripTag) => {
@@ -87,5 +90,6 @@ export const addTripTag = (tripTag) => {
         },
         body: JSON.stringify(tripTag),
     })
+    
 }
    

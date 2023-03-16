@@ -1,21 +1,17 @@
 import { useEffect, useState } from "react"
 import { useNavigate, Link, useParams } from "react-router-dom"
-import { getSingleTrip } from "../../managers/TripManager"
 import { getFinalDestination } from "../../managers/DestinationManager"
-import { TripDetails } from './TripDetails'
 import "./Trip.css"
 
-export const TripList = ({ token }) => {
+export const TripList = ({ trips, token }) => {
 
     const tokenInt = parseInt(token)
-    const [singleTrip, setSingleTrip] = useState([])
     const [finalDestination, setFinalDestination] = useState([])
     const { tripId } = useParams()
     const navigate = useNavigate()
 
     useEffect(() => {
         getFinalDestination(tokenInt).then((finalDestination) => setFinalDestination(finalDestination))
-        getSingleTrip(tripId).then(setSingleTrip)
     }, [, tripId])
 
     return <>
@@ -27,15 +23,14 @@ export const TripList = ({ token }) => {
                     <>
                         <Link
                             style={{ textDecoration: "none", color: "inherit" }}
-                            to={`/${tripId}`}
+                            to={`/trips/${final?.trip?.id}`}
                             className="hover"
                         >
                             <div key={final.id} className="myTripHome">
                                 <p>{final.destination.state}</p>
                             </div>
-
-
                         </Link>
+
                     </>))
             }
         </section>
