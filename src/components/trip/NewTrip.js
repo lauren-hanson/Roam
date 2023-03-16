@@ -12,14 +12,15 @@ export const NewTrip = ({ token }) => {
         id: 0,
         location: "",
         state: "",
-        latitude: 0.0,
-        longitude: 0.0
+        latitude: 0,
+        longitude: 0
     })
 
     const [destinations, setDestinations] = useState([])
     const [trip, setNewTrip] = useState({
         destinationId: 0,
         startDate: "",
+        title: "",
         endDate: "",
         notes: "",
         public: false
@@ -64,6 +65,7 @@ export const NewTrip = ({ token }) => {
                     startDate: trip.startDate,
                     endDate: trip.endDate,
                     notes: trip.notes,
+                    title: trip.title,
                     user_id: parseInt(token),
                     public: false,
                     tag: tagsToAPI,
@@ -76,7 +78,7 @@ export const NewTrip = ({ token }) => {
 
                         Promise.all([addNewTag(tagsToAPI), addTripDestination(tripDestinations), addTripTag(tripTags)])
                             .then(() => {
-                                navigate("/");
+                                navigate("/trips");
                             })
                     });
             })
@@ -97,6 +99,19 @@ export const NewTrip = ({ token }) => {
         <form className="addNewTripForm">
             <fieldset>
                 <div>
+                    <label htmlFor="title">Title: </label>
+                    <br></br>
+                    <input
+                        type="text"
+                        name="title"
+                        required autoFocus
+                        className="titleInput"
+                        onChange={handleNewTripInfo} />
+                    <br></br>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div>
                     <label htmlFor="destination">Where are you going?</label>
                     <br></br>
                     <input
@@ -104,7 +119,7 @@ export const NewTrip = ({ token }) => {
                         name="location"
                         required autoFocus
                         className="locationInput"
-                        placeholder="City Name..."
+                        placeholder="City..."
                         onChange={handleStartDestinationInfo} />
                     <br></br>
                     <input

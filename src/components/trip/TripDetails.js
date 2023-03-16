@@ -1,21 +1,35 @@
 import { useEffect, useState } from "react"
-import { useParams, Link } from "react-router-dom"
-import { getSingleTrip } from "../../managers/TripManager"
+import { useParams, Link, useNavigate } from "react-router-dom"
+import { getSingleTrip, deleteTrip } from "../../managers/TripManager"
 import "./Trip.css"
 
 export const TripDetails = ({ token }) => {
 
+    const navigate = useNavigate()
     const tokenInt = parseInt(token)
     const [trip, setTrip] = useState({
-        destination: [], 
+        destination: [],
         tag: []
     })
-    
+
     const { tripId } = useParams()
 
     useEffect(() => {
         getSingleTrip(tripId).then(setTrip)
     }, [, tripId])
+
+    const deleteWindow = () => {
+        if (
+            window.confirm(
+                "Are you sure you want to bail on this adventure?"
+            )
+        ) {
+            deleteTrip(tripId).then(() => navigate("/trips"))
+        } else {
+            navigate(`/trips/${trip.id}`)
+        }
+    }
+
 
     return <>
         <section className="singleTrip">
@@ -27,9 +41,9 @@ export const TripDetails = ({ token }) => {
                             <div>Trip Dates: {trip?.start_date} - {trip?.end_date}</div>
                         </section>
                     </span>
-                    {/* <Link to={`/users/${trip?.traveler?.id}`}>
+                    <Link to={`/users/${trip?.traveler?.id}`}>
                         <h2>{trip?.traveler?.full_name}</h2>
-                    </Link> */}
+                    </Link>
                     < div key={trip.id} className="myTrip" >
                         <div>
                             <h4>A little about the weather...</h4>
@@ -50,13 +64,27 @@ export const TripDetails = ({ token }) => {
                         </div>
 
                         <div className="buttonContainer">
-                            <button>Edit</button>
-                            <button>Delete</button>
+                            <button className="editButton"
+                                onClick={() => {
+                                    navigate(`/trips/edit/${trip.id}`)
+                                }}
+
+                            >
+                                Edit
+                            </button>
+                            <button className="deleteTrip"
+                                onClick={(e) => {
+                                    e.preventDefault()
+                                    deleteWindow()
+                                }}
+                            >
+                                Delete
+                            </button>
                         </div>
                     </div>
                 </section>
             </div>
-    </section>
+        </section>
     </>
 
 }
