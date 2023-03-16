@@ -1,42 +1,50 @@
 import { useState, useEffect, useRef } from "react"
 import { useNavigate } from 'react-router-dom'
-import { addNewTrip, addTripDestination } from "../../managers/TripManager"
+import { addNewTrip, addTripDestination, addTripTag, getSingleTrip } from "../../managers/TripManager"
 import { getDestinations, addDestination } from "../../managers/DestinationManager"
-import { getTags } from "../../managers/TagManager"
-import { addNewTag, getPostTags } from "../../managers/TagManager"
-// import { getStates } from "../../managers/StateManager"
+import { getTags, addNewTag } from "../../managers/TagManager"
 import "./Trip.css"
-
 
 export const NewTrip = ({ token }) => {
 
-    const [trip, setNewTrip] = useState({})
+    const navigate = useNavigate()
+    const [newDestination, setNewDestination] = useState({
+        id: 0,
+        location: "",
+        state: "",
+        latitude: 0.0,
+        longitude: 0.0
+    })
+
+    const [destinations, setDestinations] = useState([])
+    const [trip, setNewTrip] = useState({
+        destinationId: 0,
+        startDate: "",
+        endDate: "",
+        notes: "",
+        public: false
+    })
+
     const [tags, setTags] = useState([])
     const [tagsToAPI, setTagsToAPI] = useState([])
-    const [destinations, setDestinations] = useState([])
-    const [newDestination, setNewDestination] = useState({})
-    // const [states, setStates] = useState([])
 
-    const navigate = useNavigate()
+    useEffect(
+        () => {
+            getTags().then((tagData) => setTags(tagData))
+            getDestinations().then((destinationData) => setDestinations(destinationData))
+        }, [])
 
     const handleStartDestinationInfo = (event) => {
         const startDestination = Object.assign({}, newDestination)
         startDestination[event.target.name] = event.target.value
         setNewDestination(startDestination)
     }
+
     const handleNewTripInfo = (event) => {
         const newTrip = Object.assign({}, trip)
         newTrip[event.target.name] = event.target.value
         setNewTrip(newTrip)
     }
-
-
-    useEffect(
-        () => {
-            getTags().then((tagData) => setTags(tagData))
-            getDestinations().then((destinationData) => setDestinations(destinationData))
-            // getStates().then((stateData) => setStates(stateData))
-        }, [])
 
     const tagPromise = (body) => {
         return fetch(`http://localhost:8000/triptags`, {
@@ -48,69 +56,40 @@ export const NewTrip = ({ token }) => {
         })
     }
 
-    const destinationPromise = (body) => {
-        return fetch(`http://localhost:8000/tripdestinations`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(body),
-        })
-    }
-
     const publishNewTrip = () => {
 
-        const destinationId = parseInt(trip.destinationId)
+        addDestination(newDestination)
+            .then((destination) => {
+                const newTrip = {
+                    startDate: trip.startDate,
+                    endDate: trip.endDate,
+                    notes: trip.notes,
+                    user_id: parseInt(token),
+                    public: false,
+                    tag: tagsToAPI,
+                    destination: destination.id
+                }
+                addNewTrip(newTrip)
+                    .then((trip) => {
+                        const tripTags = tagsToAPI.map((tag) => ({ tag_id: tag, trip_id: trip.id }));
+                        const tripDestinations = [{ destination_id: destination.id, trip_id: trip.id }];
 
-        addNewTrip({
-            startDate: trip.startDate,
-            endDate: trip.endDate,
-            notes: trip.notes,
-            user_id: parseInt(token),
-            public: false,
-            tag: tagsToAPI,
-            destination: destinationId
-        })
-
-            .then((res) => res.json())
-            .then((res) => {
-                let APITags = tagsToAPI.map(tag => {
-                    return {
-                        tag_id: tag,
-                        trip_id: res.id
-                    }
-                })
-                Promise.all(APITags.map(tag => {
-                    tagPromise(tag)
-                }))
+                        Promise.all([addNewTag(tagsToAPI), addTripDestination(tripDestinations), addTripTag(tripTags)])
+                            .then(() => {
+                                navigate("/");
+                            })
+                    });
             })
-
-            // .then((res) => {
-            //     let APIDestinations = newDestination.map(destination => {
-            //         return {
-            //             destination_id: destination,
-            //             trip_id: res.id, 
-
-            //         }
-            //     })
-            //     Promise.all(APIDestinations.map(destination => {
-            //         destinationPromise(destination)
-            //     }))
-            // })
-
-            .then(() => navigate("/"))
     }
 
     const createNewDestination = (event) => {
         event.preventDefault()
         addDestination(newDestination)
-            .then((response) => {
-                const newDestination = Object.assign({}, trip)
-                newDestination.destinationId = response.id
-                setNewDestination(newDestination)
+            .then((destination) => {
+                const newTrip = Object.assign({}, trip)
+                newTrip.destinationId = destination.id;
+                setNewTrip(newTrip)
             })
-            
-
     }
 
     return (<>
@@ -156,26 +135,6 @@ export const NewTrip = ({ token }) => {
                     />
                 </div>
 
-                {/* <div className="state">
-                    <select
-                        name="stateId"
-                        className="stateInput"
-                        value={trip.stateId}
-                        onChange={(state) => {
-                            const copy = { ...trip }
-                            copy.stateId = parseInt(state.target.value)
-                            handleNewTripInfo(copy)
-                        }}
-                    >
-                        <option value="0">State Select</option>
-                        {states.map((state) => {
-                            return <option
-                                key={`state--${state.id}`}
-                                value={state.id}
-                            >{state.label}</option>
-                        })}
-                    </select>
-                </div> */}
                 <button
                     onClick={createNewDestination}>
                     Add Destination
@@ -204,45 +163,8 @@ export const NewTrip = ({ token }) => {
                         required autoFocus
                         className="title-form-control"
                         onChange={handleNewTripInfo} />
-
                 </div>
             </fieldset>
-            {/* <fieldset>
-                <div>
-                    <label htmlFor="destinations">What stop would you like to make?</label>
-                    <br></br>
-                    <input
-                        type="text"
-                        name="city"
-                        required autoFocus
-                        className="cityInput"
-                        placeholder="City"
-                        // onChange={setNewTrip} 
-                        />
-                </div>
-                <div className="state">
-                    <select
-                        name="stateId"
-                        className="stateInput"
-                        value={trip.stateId}
-                        // onChange={(trip) => {
-                        //     const copy = { ...trip }
-                        //     copy.stateId = parseInt(trip.target.value)
-                        //     setNewDestination(copy)
-                        // }}
-                    >
-                        <option value="0">State Select</option>
-                        {states.map((state) => {
-                            return <option
-                                key={`state--${state.id}`}
-                                value={state.id}
-                            >{state.label}</option>
-                        })}
-
-                    </select>
-                </div>
-                <button>Add Stop</button>
-            </fieldset> */}
             <fieldset>
                 <div>
                     {tags.map(tag => (
@@ -278,7 +200,22 @@ export const NewTrip = ({ token }) => {
                             </label>
                         </div>
                     ))}
-
+                </div>
+            </fieldset>
+            <fieldset>
+                <div>
+                    <textarea
+                        type="textbox"
+                        rows="5"
+                        cols="30"
+                        name="notes"
+                        required
+                        defaultValue={trip.notes}
+                        autoFocus
+                        className="form-control"
+                        placeholder="Leave some notes about the trip..."
+                        onChange={handleNewTripInfo}
+                    />
                 </div>
             </fieldset>
             <fieldset>

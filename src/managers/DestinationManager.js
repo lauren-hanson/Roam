@@ -25,6 +25,7 @@ export const addDestination = (destination) => {
         },
         body: JSON.stringify(destination),
     })
+    .then((res) => res.json())
 }
 
 export const getFinalDestination = () => {

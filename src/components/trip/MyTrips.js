@@ -22,7 +22,7 @@ export const MyTrips = ({ token }) => {
 
     return <>
         <h2 className="tripHeader">My Trips</h2>
-        <div><button onClick={() => navigate(`newtrip`)}>+</button>New Trip</div>
+       
         <section className="myTripList">
             <Link
                 style={{ textDecoration: "none", color: "inherit" }}
@@ -34,6 +34,7 @@ export const MyTrips = ({ token }) => {
                         myTrips.map((trip) => (
                             <>
                                 < div key={trip.id} className="myTrip" >
+                                    <h2>STATE</h2>
                                     <p>{trip.start_date} - {trip.end_date}</p>
 
                                     <h5>A little about the weather...</h5>
