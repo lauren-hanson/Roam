@@ -26,6 +26,11 @@
     margin: 20px;
 }
 
+.singleTrip { 
+    margin-left: 25%; 
+
+}
+
 .addNewTripForm {
     padding: 50px 100px;
     margin-left: 10%;

@@ -5,7 +5,12 @@ import "./Trip.css"
 
 export const TripDetails = ({ token }) => {
 
-    const [trip, setTrip] = useState([])
+    const tokenInt = parseInt(token)
+    const [trip, setTrip] = useState({
+        destination: [], 
+        tag: []
+    })
+    
     const { tripId } = useParams()
 
     useEffect(() => {
@@ -13,74 +18,45 @@ export const TripDetails = ({ token }) => {
     }, [, tripId])
 
     return <>
-        <section className="myTripList">
-
-            <article className="posts__container">
-                <div className="single-my-post">
-                    <section className="myposts__content">
-                        <span style={{ fontWeight: "bold" }}>
-                            <section className="subscribe__postheader">
-                                <div class="title is-3">{trip.title}</div>
-                                <div>Trip Dates: {trip?.start_date} - {trip?.end_date}</div>
-                            </section>
-                        </span>
-                        <Link to={`/users/${trip?.traveler?.id}`}>
-                            <h2>{trip?.traveler?.full_name}</h2>
-                        </Link>
-                        < div key={trip.id} className="myTrip" >
-                            A little about the weather...
+        <section className="singleTrip">
+            <div className="single-trip">
+                <section className="myposts__content">
+                    <span style={{ fontWeight: "bold" }}>
+                        <section className="subscribe__postheader">
+                            <h2>{trip.title}</h2>
+                            <div>Trip Dates: {trip?.start_date} - {trip?.end_date}</div>
+                        </section>
+                    </span>
+                    {/* <Link to={`/users/${trip?.traveler?.id}`}>
+                        <h2>{trip?.traveler?.full_name}</h2>
+                    </Link> */}
+                    < div key={trip.id} className="myTrip" >
+                        <div>
+                            <h4>A little about the weather...</h4>
                             <p>{trip.weather}</p>
-                            {/* <div className="destinationList">
-                                {trip.destination.map((d) => (
-                                    <ol>{d.location}</ol>))}
-                            </div> */}
-                            <div>{trip.notes}</div>
-
-                            {/* <div className="tagList">
-                                {trip.tag.map((t) => (
-                                    <ol>{t.type}</ol>))}
-                            </div> */}
-
-                            <div className="buttonContainer">
-                                <button>Edit</button>
-                                <button>Delete</button>
-                            </div>
-
-
                         </div>
-                    </section>
-                </div>
-            </article>
+                        <div className="destinationList">
+                            <h4>Where are you going?</h4>
+                            {trip.destination.map((d) => (
+                                <ol>{d.location}</ol>))}
+                        </div>
+                        <div>
+                            <h4>Notes</h4>
+                            {trip.notes}
+                        </div>
+                        <div className="tagList">
+                            {trip.tag.map((t) => (
+                                <ol>{t.type}</ol>))}
+                        </div>
 
-            {/* {
-                            trips.map((trip) => (
-                                <>
-                                    < div key={trip.id} className="myTrip" >
-                                        <p>{trip.start_date} - {trip.end_date}</p>
-                                        A little about the weather...
-                                        <p>{trip.weather}</p>
-                                        <div className="destinationList">
-                                            {trip.destination.map((d) => (
-                                                <ol>{d.location}</ol>))}
-                                        </div>
-                                        <div>{trip.notes}</div>
-
-                                        <div className="tagList">
-                                            {trip.tag.map((t) => (
-                                                <ol>{t.type}</ol>))}
-                                        </div>
-
-                                        <div className="buttonContainer">
-                                            <button>Edit</button>
-                                            <button>Delete</button>
-                                        </div>
-
-
-                                    </div>
-                                </>
-                            ))
-                        } */}
-        </section>
+                        <div className="buttonContainer">
+                            <button>Edit</button>
+                            <button>Delete</button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+    </section>
     </>
 
 }
