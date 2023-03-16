@@ -64,4 +64,28 @@ export const getFinalDestination = () => {
         },
     }).then((res) => res.json())
 }
+
+export const addTripDestination = (tripDestination) => {
+    return fetch("http://localhost:8000/tripdestinations", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Token ${localStorage.getItem("roam_token")}`
+
+        },
+        body: JSON.stringify(tripDestination),
+    })
+}
+
+export const addTripTag = (tripTag) => {
+    return fetch("http://localhost:8000/triptags", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Token ${localStorage.getItem("roam_token")}`
+
+        },
+        body: JSON.stringify(tripTag),
+    })
+}
    

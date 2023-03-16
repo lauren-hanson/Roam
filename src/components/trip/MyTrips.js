@@ -1,23 +1,28 @@
 import { useEffect, useState } from "react"
 import { useNavigate, Link } from "react-router-dom"
-import { getMyTrips, getFinalDestination } from "../../managers/TripManager"
+import { getMyTrips } from "../../managers/TripManager"
+import { getFinalDestination } from "../../managers/DestinationManager"
 import { TripDetails } from "./TripDetails"
 import "./Trip.css"
 
 export const MyTrips = ({ token }) => {
 
     const [myTrips, setMyTrips] = useState([])
+    const [finalDestination, setFinalDestination] = useState([])
 
     const tokenInt = parseInt(token)
     const navigate = useNavigate()
 
     useEffect(() => {
         getMyTrips(tokenInt).then((tripData) => setMyTrips(tripData))
+        getFinalDestination(tokenInt).then((finalData) => setFinalDestination(finalData))
     }, [])
+
+
 
     return <>
         <h2 className="tripHeader">My Trips</h2>
-        <div><button onClick={() => navigate(`/newtrip`)}>+</button>New Trip</div>
+        <div><button onClick={() => navigate(`newtrip`)}>+</button>New Trip</div>
         <section className="myTripList">
             <Link
                 style={{ textDecoration: "none", color: "inherit" }}
@@ -30,6 +35,7 @@ export const MyTrips = ({ token }) => {
                             <>
                                 < div key={trip.id} className="myTrip" >
                                     <p>{trip.start_date} - {trip.end_date}</p>
+
                                     <h5>A little about the weather...</h5>
                                     <p>{trip.weather}</p>
                                     <div className="destinationList">

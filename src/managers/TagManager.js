@@ -14,3 +14,13 @@ export const getSingleTag = (id) => {
             }
         }).then((res) => res.json())
 }
+
+export const addNewTag = (triptag) => {
+    return fetch("http://localhost:8000/triptags", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(triptag),
+    });
+};

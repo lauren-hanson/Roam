@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef } from "react"
 import { useNavigate } from 'react-router-dom'
-import { addNewTrip } from "../../managers/TripManager"
-import { addDestination } from "../../managers/DestinationManager"
+import { addNewTrip, addTripDestination } from "../../managers/TripManager"
+import { getDestinations, addDestination } from "../../managers/DestinationManager"
 import { getTags } from "../../managers/TagManager"
+import { addNewTag, getPostTags } from "../../managers/TagManager"
 // import { getStates } from "../../managers/StateManager"
 import "./Trip.css"
 
@@ -12,26 +13,28 @@ export const NewTrip = ({ token }) => {
     const [trip, setNewTrip] = useState({})
     const [tags, setTags] = useState([])
     const [tagsToAPI, setTagsToAPI] = useState([])
+    const [destinations, setDestinations] = useState([])
     const [newDestination, setNewDestination] = useState({})
     // const [states, setStates] = useState([])
 
     const navigate = useNavigate()
-
-    const handleNewTripInfo = (event) => {
-        const newTrip = Object.assign({}, trip)
-        newTrip[event.target.name] = event.target.value
-        setNewTrip(newTrip)
-    }
 
     const handleStartDestinationInfo = (event) => {
         const startDestination = Object.assign({}, newDestination)
         startDestination[event.target.name] = event.target.value
         setNewDestination(startDestination)
     }
+    const handleNewTripInfo = (event) => {
+        const newTrip = Object.assign({}, trip)
+        newTrip[event.target.name] = event.target.value
+        setNewTrip(newTrip)
+    }
+
 
     useEffect(
         () => {
             getTags().then((tagData) => setTags(tagData))
+            getDestinations().then((destinationData) => setDestinations(destinationData))
             // getStates().then((stateData) => setStates(stateData))
         }, [])
 
@@ -46,7 +49,7 @@ export const NewTrip = ({ token }) => {
     }
 
     const destinationPromise = (body) => {
-        return fetch(`http://localhost:8000/tripdestination`, {
+        return fetch(`http://localhost:8000/tripdestinations`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -55,28 +58,19 @@ export const NewTrip = ({ token }) => {
         })
     }
 
-
     const publishNewTrip = () => {
 
-        // const destinationId = parseInt(trip.destinationId)
+        const destinationId = parseInt(trip.destinationId)
 
         addNewTrip({
-            weather: trip.weather,
             startDate: trip.startDate,
             endDate: trip.endDate,
             notes: trip.notes,
             user_id: parseInt(token),
             public: false,
             tag: tagsToAPI,
-            destination: trip.destinationId
+            destination: destinationId
         })
-
-        // addDestination({
-        //     location: newDestination.location,
-        //     state: newDestination.state,
-        //     latitude: newDestination.latitude,
-        //     longitude: newDestination.location
-        // })
 
             .then((res) => res.json())
             .then((res) => {
@@ -91,31 +85,34 @@ export const NewTrip = ({ token }) => {
                 }))
             })
 
-            .then((res) => {
-                let APIDestinations = newDestination.map(destination => {
-                    return {
-                        destination_id: destination,
-                        trip_id: res.id, 
-                    
-                    }
-                })
-                Promise.all(APIDestinations.map(destination => {
-                    destinationPromise(destination)
-                }))
-            })
+            // .then((res) => {
+            //     let APIDestinations = newDestination.map(destination => {
+            //         return {
+            //             destination_id: destination,
+            //             trip_id: res.id, 
+
+            //         }
+            //     })
+            //     Promise.all(APIDestinations.map(destination => {
+            //         destinationPromise(destination)
+            //     }))
+            // })
 
             .then(() => navigate("/"))
     }
 
-    const createNewDestination = (event) => { 
-        event.preventDefault() 
-        addDestination(newDestination) 
-            .then((response) => { 
-                const newTrip = Object.assign({}, trip)
-                newTrip.destinationId = response.id
-                setNewTrip(newTrip)
+    const createNewDestination = (event) => {
+        event.preventDefault()
+        addDestination(newDestination)
+            .then((response) => {
+                const newDestination = Object.assign({}, trip)
+                newDestination.destinationId = response.id
+                setNewDestination(newDestination)
             })
+            
+
     }
+
     return (<>
         <h2>Tell us about your next trip...</h2>
         <form className="addNewTripForm">
@@ -179,9 +176,9 @@ export const NewTrip = ({ token }) => {
                         })}
                     </select>
                 </div> */}
-                <button 
+                <button
                     onClick={createNewDestination}>
-                        Add Destination
+                    Add Destination
                 </button>
             </fieldset>
             <fieldset>
