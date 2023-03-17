@@ -1,33 +1,35 @@
 import { useState, useEffect, useRef } from "react"
 import { useNavigate } from 'react-router-dom'
-import { addNewTrip, addTripDestination, addTripTag, getSingleTrip } from "../../managers/TripManager"
+import { addNewTrip, addTripTag, getSingleTrip } from "../../managers/TripManager"
 import { getDestinations, addDestination } from "../../managers/DestinationManager"
 import { getTags, addNewTag } from "../../managers/TagManager"
 import "./Trip.css"
 
+// addTripDestination,
+
 export const NewTrip = ({ token }) => {
 
     const navigate = useNavigate()
+    const [showDestination, setShowDestination] = useState(false)
     const locationRef = useRef()
     const stateRef = useRef()
-    const latRef = useRef()
-    const longRef = useRef()
+
     const [destinations, setDestinations] = useState([])
     const [newDestination, setNewDestination] = useState({
-        id: 0,
         location: "",
-        state: "",
-        latitude: 0,
-        longitude: 0
+        state: ""
     })
 
     const [trip, setNewTrip] = useState({
-        destinationId: 0,
-        startDate: "",
+        destination: [],
+        tag: [],
+        weather: "",
+        start_date: "",
         title: "",
-        endDate: "",
+        end_date: "",
         notes: "",
-        public: false
+        public: false,
+        image_url: ""
     })
 
     const [tags, setTags] = useState([])
@@ -51,17 +53,19 @@ export const NewTrip = ({ token }) => {
         setNewTrip(newTrip)
     }
 
-    const tagPromise = (body) => {
-        return fetch(`http://localhost:8000/triptags`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(body),
-        })
-    }
+    // const tagPromise = (body) => {
+    //     return fetch(`http://localhost:8000/triptags`, {
+    //         method: "POST",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //         },
+    //         body: JSON.stringify(body),
+    //     })
+    // }
 
     const publishNewTrip = () => {
+
+        const destinationId = parseInt(trip.destination)
 
         addDestination(newDestination)
             .then((destination) => {
@@ -73,41 +77,36 @@ export const NewTrip = ({ token }) => {
                     user_id: parseInt(token),
                     public: false,
                     tag: tagsToAPI,
-                    destination: destination.id
+                    destination: destinationId
+
                 }
                 addNewTrip(newTrip)
-                    .then((trip) => {
-                        const tripTags = tagsToAPI.map((tag) => ({ tag_id: tag, trip_id: trip.id }));
-                        const tripDestinations = [{ destination_id: destination.id, trip_id: trip.id }];
-
-                        Promise.all([addNewTag(tagsToAPI), addTripDestination(tripDestinations), addTripTag(tripTags)])
-                            .then(() => {
-                                navigate("/trips");
-                            })
-                    });
+            })
+            .then(() => {
+                navigate("/trips");
             })
     }
 
     const createNewDestination = (event) => {
         event.preventDefault()
+        setShowDestination(true)
         const newDestination = {
             location: locationRef.current.value,
-            state: stateRef.current.value,
-            latitude: latRef.current.value,
-            longitude: longRef.current.value,
-            trip: destinations.length > 0 ? destinations[destinations.length - 1].trip : 1
+            state: stateRef.current.value
         }
         setDestinations([...destinations, newDestination]);
         locationRef.current.value = ''
         stateRef.current.value = ''
-        latRef.current.value = ''
-        longRef.current.value = ''
+        // latRef.current.value = ''
+        // longRef.current.value = ''
         addDestination(newDestination)
             .then((destination) => {
                 const newTrip = Object.assign({}, trip)
-                newTrip.destinationId = destination.id;
+                newTrip.destination = destination.id;
                 setNewTrip(newTrip)
             })
+
+
     }
 
     const lastDestination = destinations.length > 0 ? destinations[destinations.length - 1] : null
@@ -151,7 +150,7 @@ export const NewTrip = ({ token }) => {
                         onChange={handleStartDestinationInfo}
                     />
                     <br></br>
-                    <input
+                    {/* <input
                         type="text"
                         name="latitude"
                         ref={latRef}
@@ -169,7 +168,7 @@ export const NewTrip = ({ token }) => {
                         className="longitudeInput"
                         placeholder="Longitude..."
                         onChange={handleStartDestinationInfo}
-                    />
+                    /> */}
                 </div>
 
                 <button
@@ -178,7 +177,7 @@ export const NewTrip = ({ token }) => {
                 </button>
 
                 <div>
-                    {lastDestination && (
+                    {showDestination && lastDestination && (
                         <div>
                             <p>{lastDestination.location}, {lastDestination.state}</p>
                         </div>)}
@@ -263,7 +262,7 @@ export const NewTrip = ({ token }) => {
                     />
                 </div>
             </fieldset>
-            <fieldset>
+            {/* <fieldset>
                 <div>
                     <label htmlFor="public">Would you like this trip to be public for your followers?</label>
                     <div className="radioLabel">
@@ -292,7 +291,7 @@ export const NewTrip = ({ token }) => {
                             onClick={
                                 () => {
                                     const copy = { ...trip }
-                                    copy.musicianRequest = false
+                                    copy.public = false
                                     handleNewTripInfo(copy)
                                 }
                             }
@@ -302,7 +301,7 @@ export const NewTrip = ({ token }) => {
 
                     </div>
                 </div>
-            </fieldset>
+            </fieldset> */}
 
 
             <button type="save" className="saveTripForm"

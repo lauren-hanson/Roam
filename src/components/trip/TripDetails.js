@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useParams, Link, useNavigate } from "react-router-dom"
 import { getSingleTrip, deleteTrip } from "../../managers/TripManager"
+import { getDestinations } from '../../managers/DestinationManager'
 import { HumanDate } from "../utils/HumanDate";
 import "./Trip.css"
 
@@ -8,8 +9,8 @@ export const TripDetails = ({ token }) => {
 
     const navigate = useNavigate()
     const tokenInt = parseInt(token)
+    const [tripDestinations, setDestinations] = useState([])
     const [trip, setTrip] = useState({
-        destination: [],
         tag: []
     })
 
@@ -18,6 +19,7 @@ export const TripDetails = ({ token }) => {
     useEffect(() => {
         getSingleTrip(tripId).then(setTrip)
     }, [, tripId])
+
 
     const deleteWindow = () => {
         if (
@@ -39,7 +41,7 @@ export const TripDetails = ({ token }) => {
             className="hover"
         > ⬅️ All Trips
         </Link>
-        <section className="singleTrip">
+        <section className="singleTrip" key={trip.id}>
             <div className="single-trip">
                 <section className="myposts__content">
                     <span style={{ fontWeight: "bold" }}>
@@ -53,15 +55,16 @@ export const TripDetails = ({ token }) => {
                     </Link>
                     < div key={trip.id} className="myTrip" >
                         <div>
-                            <img className="tripImage" src={trip.image_url} alt="Trip Image"/>
+                            <img className="tripImage" src={trip.image_url} alt="Trip Image" />
                         </div>
                         <div>
                             <h4>A little about the weather...</h4>
                             <p>{trip.weather}</p>
                         </div>
                         <div className="destinationList">
-                            <h4>Where are you going?</h4>
-                            {trip.destination.map((d) => (
+                            <h4>Stops along the way...</h4>
+
+                            {trip?.destination?.map((d) => (
                                 <ol>{d.location}</ol>))}
                         </div>
                         <div>

@@ -37,7 +37,7 @@ export const Register = ({ setToken }) => {
         if ("token" in res) {
           //sets registered user into local storage and sets Token state to the embedded token object returned from the api
           setToken(res.token)
-          localStorage.setItem("rare_token", res.token)
+          localStorage.setItem("roam_token", res.token)
           navigate("/")
         }
       })
@@ -51,7 +51,7 @@ export const Register = ({ setToken }) => {
     <section>
       {/* Form that invokes handleRegister() when submitted */}
       <form className="register" onSubmit={handleRegister}>
-        <h1 className="title">Rare Publishing</h1>
+        <h1 className="title">Roam</h1>
         <p className="subtitle">Create an account</p>
         <div className="field">
           <label className="label">First Name</label>
