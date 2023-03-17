@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react"
 import { useNavigate, useParams } from 'react-router-dom'
-import { updateTrip, getSingleTrip, getDestinationByTrip, getStops, addTripDestination } from "../../managers/TripManager"
-import { getDestinations, addDestination } from "../../managers/DestinationManager"
+import { updateTrip, getSingleTrip, getDestinationByTrip, addTripDestination } from "../../managers/TripManager"
+import { getDestinations, addDestination, deleteDestination } from "../../managers/DestinationManager"
 import { getTags } from "../../managers/TagManager"
 import "./Trip.css"
 
@@ -10,12 +10,10 @@ export const EditTrip = ({ token }) => {
     const navigate = useNavigate()
     const locationRef = useRef()
     const stateRef = useRef()
-    const latRef = useRef()
-    const longRef = useRef()
     const { tripId } = useParams()
     const [tags, setTags] = useState([])
     const [tripTags, setTripTags] = useState(new Set())
-    const [tripDestinations, setTripDestinations] = useState({})
+    const [trips, setTrips] = useState([])
     const [destinations, setDestinations] = useState([])
     const [newDestination, setNewDestination] = useState({
         id: 0,
@@ -32,7 +30,10 @@ export const EditTrip = ({ token }) => {
         notes: "",
         user_id: parseInt(token),
         tag: [],
-        destination: [],
+        destination: [{
+            location: "",
+            state: ""
+        }],
         public: 0
     })
 
@@ -76,15 +77,12 @@ export const EditTrip = ({ token }) => {
                 // create the new association object
                 const newTripDestination = {
                     destinationId: destination.id,
-                    tripId: parseInt(tripId),
+                    tripId: parseInt(tripId)
                 }
 
                 addTripDestination(newTripDestination)
                     .then(() => {
-                        setDestinations([...destinations, newDestination])
-                        const newTrip = Object.assign({}, currentTrip)
-                        newTrip.destination = destination.id
-                        setCurrentTrip(newTrip)
+                        getSingleTrip(tripId).then((data) => setCurrentTrip(data))
                     })
             })
     }
@@ -94,9 +92,6 @@ export const EditTrip = ({ token }) => {
         copy[event.target.name] = event.target.value;
         setCurrentTrip(copy);
     }
-
-    const lastDestination = destinations.length > 0 ? destinations[destinations.length - 1] : null
-
 
     return (<>
         <form>
@@ -216,9 +211,11 @@ export const EditTrip = ({ token }) => {
                     Add Destination
                 </button>
                 <div>
-                    {destinations.map((destination, index) => (
+                    {currentTrip?.destination.map((destination, index) => (
                         <div key={index}>
-                            <p>{index + 1}. {destination.location}</p>
+                            <p>{index + 1} {destination.location}, {destination.state}
+                            </p>
+
                         </div>
                     ))}
 
