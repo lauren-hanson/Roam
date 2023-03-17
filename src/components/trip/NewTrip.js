@@ -8,6 +8,10 @@ import "./Trip.css"
 export const NewTrip = ({ token }) => {
 
     const navigate = useNavigate()
+    const locationRef = useRef()
+    const stateRef = useRef()
+    const latRef = useRef()
+    const longRef = useRef()
     const [destinations, setDestinations] = useState([])
     const [newDestination, setNewDestination] = useState({
         id: 0,
@@ -86,6 +90,18 @@ export const NewTrip = ({ token }) => {
 
     const createNewDestination = (event) => {
         event.preventDefault()
+        const newDestination = {
+            location: locationRef.current.value,
+            state: stateRef.current.value,
+            latitude: latRef.current.value,
+            longitude: longRef.current.value,
+            trip: destinations.length > 0 ? destinations[destinations.length - 1].trip : 1
+        }
+        setDestinations([...destinations, newDestination]);
+        locationRef.current.value = ''
+        stateRef.current.value = ''
+        latRef.current.value = ''
+        longRef.current.value = ''
         addDestination(newDestination)
             .then((destination) => {
                 const newTrip = Object.assign({}, trip)
@@ -93,6 +109,8 @@ export const NewTrip = ({ token }) => {
                 setNewTrip(newTrip)
             })
     }
+
+    const lastDestination = destinations.length > 0 ? destinations[destinations.length - 1] : null
 
     return (<>
         <h2>Tell us about your next trip...</h2>
@@ -117,6 +135,7 @@ export const NewTrip = ({ token }) => {
                     <input
                         type="text"
                         name="location"
+                        ref={locationRef}
                         required autoFocus
                         className="locationInput"
                         placeholder="City..."
@@ -125,6 +144,7 @@ export const NewTrip = ({ token }) => {
                     <input
                         type="text"
                         name="state"
+                        ref={stateRef}
                         required autoFocus
                         className="stateInput"
                         placeholder="State..."
@@ -134,6 +154,7 @@ export const NewTrip = ({ token }) => {
                     <input
                         type="text"
                         name="latitude"
+                        ref={latRef}
                         required autoFocus
                         className="latitudeInput"
                         placeholder="Latitude..."
@@ -143,6 +164,7 @@ export const NewTrip = ({ token }) => {
                     <input
                         type="text"
                         name="longitude"
+                        ref={longRef}
                         required autoFocus
                         className="longitudeInput"
                         placeholder="Longitude..."
@@ -154,6 +176,13 @@ export const NewTrip = ({ token }) => {
                     onClick={createNewDestination}>
                     Add Destination
                 </button>
+
+                <div>
+                    {lastDestination && (
+                        <div>
+                            <p>{lastDestination.location}, {lastDestination.state}</p>
+                        </div>)}
+                </div>
             </fieldset>
             <fieldset>
                 <div>

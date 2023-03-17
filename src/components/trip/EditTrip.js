@@ -29,8 +29,9 @@ export const EditTrip = ({ token }) => {
     const [currentTrip, setCurrentTrip] = useState({
         title: "",
         weather: "",
-        startDate: "",
-        endDate: "",
+        image_url: "", 
+        start_date: "",
+        end_date: "",
         notes: "",
         user_id: parseInt(token),
         tag: [],
@@ -135,6 +136,21 @@ export const EditTrip = ({ token }) => {
             </fieldset>
             <fieldset>
                 <div>
+                    <label>Photos:</label>
+                    <input
+                        type="text"
+                        name="image_url"
+                        required
+                        autoFocus
+                        defaultValue={currentTrip.image_url}
+                        className="form-control"
+                        placeholder="imageUrl"
+                        onChange={handleNewTripInfo}
+                    />
+                </div>
+            </fieldset>
+            <fieldset>
+                <div>
                     <label>Start Date:</label>
                     <input
                         type="date"
@@ -221,13 +237,13 @@ export const EditTrip = ({ token }) => {
                     onClick={createNewDestination}>
                     Add Destination
                 </button>
+                <div>
                 {destinations.map((destination, index) => (
                     <div key={index}>
                         <h2>Destination {index + 1}</h2>
                         <p>{destination.location}</p>
                     </div>
                 ))}
-                <div>
 
                 </div>
             </fieldset>
@@ -312,6 +328,7 @@ export const EditTrip = ({ token }) => {
                     const tripInfoToUpdate = {
                         title: currentTrip.title,
                         weather: currentTrip.weather,
+                        image_url: currentTrip.image_url,
                         start_date: currentTrip.start_date,
                         end_date: currentTrip.end_date,
                         notes: currentTrip.notes,
