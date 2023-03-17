@@ -35,7 +35,7 @@ export const addNewTrip = (trip) => {
         },
         body: JSON.stringify(trip),
     })
-    .then((res) => res.json())
+        .then((res) => res.json())
 }
 
 export const deleteTrip = (id) => {
@@ -56,7 +56,7 @@ export const updateTrip = (id, tripBody) => {
             "Authorization": `Token ${localStorage.getItem("roam_token")}`
         },
         body: JSON.stringify(tripBody),
-    });
+    })
 }
 
 export const getFinalDestination = () => {
@@ -77,7 +77,7 @@ export const addTripDestination = (tripDestination) => {
         },
         body: JSON.stringify(tripDestination),
     })
-    
+
 }
 
 export const addTripTag = (tripTag) => {
@@ -90,6 +90,15 @@ export const addTripTag = (tripTag) => {
         },
         body: JSON.stringify(tripTag),
     })
-    
+
 }
-   
+
+export const getDestinationByTrip = (id) => {
+    return fetch(`http://localhost:8000/tripdestinations?trip=${id}`,
+        {
+            headers: {
+                "Authorization": `Token ${localStorage.getItem("roam_token")}`
+            }
+        }).then((res) => res.json())
+}
+

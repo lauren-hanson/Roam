@@ -8,6 +8,7 @@ import "./Trip.css"
 export const NewTrip = ({ token }) => {
 
     const navigate = useNavigate()
+    const [destinations, setDestinations] = useState([])
     const [newDestination, setNewDestination] = useState({
         id: 0,
         location: "",
@@ -16,7 +17,6 @@ export const NewTrip = ({ token }) => {
         longitude: 0
     })
 
-    const [destinations, setDestinations] = useState([])
     const [trip, setNewTrip] = useState({
         destinationId: 0,
         startDate: "",
@@ -180,6 +180,7 @@ export const NewTrip = ({ token }) => {
                         onChange={handleNewTripInfo} />
                 </div>
             </fieldset>
+
             <fieldset>
                 <div>
                     {tags.map(tag => (

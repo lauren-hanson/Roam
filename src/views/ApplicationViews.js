@@ -22,7 +22,7 @@ export const ApplicationViews = ({ token, setToken }) => {
 						{/* <Route index element={<MyTrips token={token} />} /> */}
 						{/* <Route index element={<TripContainer token={token} />} /> */}
 						<Route index element={<TripList token={token} />} />
-						<Route path=":tripId" element={<TripDetails token={token} />} />
+						<Route path=":tripId" element={<TripDetails path=":tripId"token={token} />} />
 						<Route path="newtrip" element={<NewTrip token={token} />} />
 						<Route path="edit/:tripId" element={<EditTrip token={token} />} />
 					</Route>
