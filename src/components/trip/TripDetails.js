@@ -53,6 +53,9 @@ export const TripDetails = ({ token }) => {
                     </Link>
                     < div key={trip.id} className="myTrip" >
                         <div>
+                            <img className="tripImage" src={trip.image_url} alt="Trip Image"/>
+                        </div>
+                        <div>
                             <h4>A little about the weather...</h4>
                             <p>{trip.weather}</p>
                         </div>

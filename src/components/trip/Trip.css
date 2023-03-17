@@ -17,6 +17,10 @@
     flex-flow: row wrap;
 }
 
+.tripImage { 
+    width: 100%; 
+}
+
 .myTrip {
     border: 1px solid black;
     width: 33.33%;
