@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useParams, Link, useNavigate } from "react-router-dom"
 import { getSingleTrip, deleteTrip } from "../../managers/TripManager"
+import { HumanDate } from "../utils/HumanDate";
 import "./Trip.css"
 
 export const TripDetails = ({ token }) => {
@@ -32,19 +33,28 @@ export const TripDetails = ({ token }) => {
 
 
     return <>
+        <Link
+            style={{ textDecoration: "none", color: "inherit" }}
+            to={`/trips`}
+            className="hover"
+        > ⬅️ All Trips
+        </Link>
         <section className="singleTrip">
             <div className="single-trip">
                 <section className="myposts__content">
                     <span style={{ fontWeight: "bold" }}>
                         <section className="subscribe__postheader">
                             <h2>{trip.title}</h2>
-                            <div>Trip Dates: {trip?.start_date} - {trip?.end_date}</div>
+                            <div>{trip?.start_date} - {trip?.end_date}</div>
                         </section>
                     </span>
                     <Link to={`/users/${trip?.traveler?.id}`}>
                         <h2>{trip?.traveler?.full_name}</h2>
                     </Link>
                     < div key={trip.id} className="myTrip" >
+                        <div>
+                            <img className="tripImage" src={trip.image_url} alt="Trip Image"/>
+                        </div>
                         <div>
                             <h4>A little about the weather...</h4>
                             <p>{trip.weather}</p>
