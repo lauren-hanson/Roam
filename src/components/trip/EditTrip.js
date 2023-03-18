@@ -70,6 +70,9 @@ export const EditTrip = ({ token }) => {
             location: locationRef.current.value,
             state: stateRef.current.value
         }
+        setDestinations([...destinations, newDestination])
+        locationRef.current.value = ''
+        stateRef.current.value = ''
 
         addDestination(newDestination)
             .then((destination) => {
