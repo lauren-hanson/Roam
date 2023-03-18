@@ -17,8 +17,8 @@
     flex-flow: row wrap;
 }
 
-.tripImage { 
-    width: 100%; 
+.tripImage {
+    width: 100%;
 }
 
 .myTrip {
@@ -30,20 +30,20 @@
     margin: 20px;
 }
 
-.singleTrip { 
-    margin-left: 25%; 
-
-}
+/* .singleTrip {
+    display: flex;
+    flex-direction: row;
+    justify-content: center; 
+    align-items: center;
+    width: 25rem; 
+} */
 
 .addNewTripForm {
-    padding: 50px 100px;
     margin-left: 10%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    border: 1px solid #cccccc;
-    width: fit-content;
 }
 
 .tags {

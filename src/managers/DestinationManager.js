@@ -28,12 +28,21 @@ export const addDestination = (destination) => {
     .then((res) => res.json())
 }
 
-export const getFinalDestination = () => {
-    return fetch("http://localhost:8000/tripdestinations?status__type=FinalDestination", {
+export const deleteDestination = (id) => {
+    return fetch(`http://localhost:8000/destinations/${id}`, {
+        method: "DELETE",
         headers: {
-            Authorization: `Token ${localStorage.getItem("roam_token")}`,
+            "Authorization": `Token ${localStorage.getItem("roam_token")}`
         },
-    }).then((res) => res.json())
+    })
 }
+
+// export const getFinalDestination = () => {
+//     return fetch("http://localhost:8000/tripdestinations?status__type=FinalDestination", {
+//         headers: {
+//             Authorization: `Token ${localStorage.getItem("roam_token")}`,
+//         },
+//     }).then((res) => res.json())
+// }
 
 

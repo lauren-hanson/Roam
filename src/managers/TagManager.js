@@ -21,6 +21,7 @@ export const addNewTag = (triptag) => {
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(triptag),
-    });
+        body: JSON.stringify(triptag)
+    })
+    .then((res) => res.json())
 };

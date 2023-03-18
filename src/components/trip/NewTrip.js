@@ -1,29 +1,40 @@
 import { useState, useEffect, useRef } from "react"
-import { useNavigate } from 'react-router-dom'
-import { addNewTrip, addTripDestination, addTripTag, getSingleTrip } from "../../managers/TripManager"
+import { useNavigate, useParams } from 'react-router-dom'
+import { addNewTrip, addTripTag, getSingleTrip, addTripDestination } from "../../managers/TripManager"
 import { getDestinations, addDestination } from "../../managers/DestinationManager"
 import { getTags, addNewTag } from "../../managers/TagManager"
 import "./Trip.css"
 
+// addTripDestination,
+
 export const NewTrip = ({ token }) => {
 
     const navigate = useNavigate()
+    const [showDestination, setShowDestination] = useState(false)
+    const { tripId } = useParams()
+    const locationRef = useRef()
+    const stateRef = useRef()
+
     const [destinations, setDestinations] = useState([])
-    const [newDestination, setNewDestination] = useState({
-        id: 0,
+    const [newDestination, setNewDestination] = useState([{
         location: "",
-        state: "",
-        latitude: 0,
-        longitude: 0
-    })
+        state: ""
+    }])
 
     const [trip, setNewTrip] = useState({
-        destinationId: 0,
-        startDate: "",
         title: "",
-        endDate: "",
+        weather: "",
+        image_url: "",
+        start_date: "",
+        end_date: "",
         notes: "",
-        public: false
+        user_id: parseInt(token),
+        tag: [],
+        destination: [{
+            location: "",
+            state: ""
+        }],
+        public: 0
     })
 
     const [tags, setTags] = useState([])
@@ -47,17 +58,10 @@ export const NewTrip = ({ token }) => {
         setNewTrip(newTrip)
     }
 
-    const tagPromise = (body) => {
-        return fetch(`http://localhost:8000/triptags`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(body),
-        })
-    }
 
     const publishNewTrip = () => {
+
+        // const destinationId = parseInt(trip.destination)
 
         addDestination(newDestination)
             .then((destination) => {
@@ -69,7 +73,8 @@ export const NewTrip = ({ token }) => {
                     user_id: parseInt(token),
                     public: false,
                     tag: tagsToAPI,
-                    destination: destination.id
+                    destination: trip.destination
+
                 }
                 addNewTrip(newTrip)
                     .then((trip) => {
@@ -78,21 +83,61 @@ export const NewTrip = ({ token }) => {
 
                         Promise.all([addNewTag(tagsToAPI), addTripDestination(tripDestinations), addTripTag(tripTags)])
                             .then(() => {
-                                navigate("/trips");
+                                navigate("/trips")
                             })
-                    });
+                    })
+                    .then(() => {
+                        navigate("/trips");
+                    })
             })
     }
 
+    // const createNewDestination = (event) => {
+    //     setShowDestination(true)
+    //     event.preventDefault()
+    //     addDestination(newDestination)
+    //         .then((destination) => {
+    //             const newTrip = Object.assign({}, trip)
+    //             newTrip.destination = destination.id;
+    //             setNewTrip(newTrip)
+    //         })
+    // }
+
     const createNewDestination = (event) => {
+
+        setShowDestination(true)
+
         event.preventDefault()
+
         addDestination(newDestination)
             .then((destination) => {
                 const newTrip = Object.assign({}, trip)
-                newTrip.destinationId = destination.id;
+                newTrip.destination = destination.id;
                 setNewTrip(newTrip)
             })
+
+        // const newDestination = {
+        //     location: locationRef.current.value,
+        //     state: stateRef.current.value
+        // }
+
+        // addDestination(newDestination)
+        //     .then((destination) => {
+        //         // create the new association object
+        //         const newTripDestination = {
+        //             destinationId: destination.id,
+        //             tripId: parseInt(tripId)
+        //         }
+
+        //         addTripDestination(newTripDestination)
+        //             .then(() => {
+        //                 getSingleTrip(tripId).then((data) => setNewTrip(data))
+        //             })
+
+        //     })
     }
+
+    const lastDestination = destinations.length > 0 ? destinations[destinations.length - 1] : null
 
     return (<>
         <h2>Tell us about your next trip...</h2>
@@ -117,6 +162,7 @@ export const NewTrip = ({ token }) => {
                     <input
                         type="text"
                         name="location"
+                        ref={locationRef}
                         required autoFocus
                         className="locationInput"
                         placeholder="City..."
@@ -125,35 +171,25 @@ export const NewTrip = ({ token }) => {
                     <input
                         type="text"
                         name="state"
+                        ref={stateRef}
                         required autoFocus
                         className="stateInput"
                         placeholder="State..."
                         onChange={handleStartDestinationInfo}
                     />
                     <br></br>
-                    <input
-                        type="text"
-                        name="latitude"
-                        required autoFocus
-                        className="latitudeInput"
-                        placeholder="Latitude..."
-                        onChange={handleStartDestinationInfo}
-                    />
-                    <br></br>
-                    <input
-                        type="text"
-                        name="longitude"
-                        required autoFocus
-                        className="longitudeInput"
-                        placeholder="Longitude..."
-                        onChange={handleStartDestinationInfo}
-                    />
                 </div>
 
                 <button
                     onClick={createNewDestination}>
                     Add Destination
                 </button>
+                <div>
+                    {showDestination && lastDestination && (
+                        <div key={lastDestination.id}>
+                            <p>{lastDestination.location}, {lastDestination.state}</p>
+                        </div>)}
+                </div>
             </fieldset>
             <fieldset>
                 <div>
@@ -184,8 +220,7 @@ export const NewTrip = ({ token }) => {
             <fieldset>
                 <div>
                     {tags.map(tag => (
-                        <div className="tags">
-
+                        <div className="tags" key={tag.id}>
                             <input
                                 name="tagId"
                                 type="checkbox"
@@ -234,7 +269,7 @@ export const NewTrip = ({ token }) => {
                     />
                 </div>
             </fieldset>
-            <fieldset>
+            {/* <fieldset>
                 <div>
                     <label htmlFor="public">Would you like this trip to be public for your followers?</label>
                     <div className="radioLabel">
@@ -263,7 +298,7 @@ export const NewTrip = ({ token }) => {
                             onClick={
                                 () => {
                                     const copy = { ...trip }
-                                    copy.musicianRequest = false
+                                    copy.public = false
                                     handleNewTripInfo(copy)
                                 }
                             }
@@ -273,7 +308,7 @@ export const NewTrip = ({ token }) => {
 
                     </div>
                 </div>
-            </fieldset>
+            </fieldset> */}
 
 
             <button type="save" className="saveTripForm"

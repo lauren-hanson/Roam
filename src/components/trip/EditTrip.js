@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react"
 import { useNavigate, useParams } from 'react-router-dom'
-import { updateTrip, getSingleTrip, getDestinationByTrip } from "../../managers/TripManager"
-import { getDestinations, addDestination } from "../../managers/DestinationManager"
+import { updateTrip, getSingleTrip, getDestinationByTrip, addTripDestination } from "../../managers/TripManager"
+import { getDestinations, addDestination, deleteDestination } from "../../managers/DestinationManager"
 import { getTags } from "../../managers/TagManager"
 import "./Trip.css"
 
@@ -10,33 +10,31 @@ export const EditTrip = ({ token }) => {
     const navigate = useNavigate()
     const locationRef = useRef()
     const stateRef = useRef()
-    const latRef = useRef()
-    const longRef = useRef()
     const { tripId } = useParams()
     const [tags, setTags] = useState([])
     const [tripTags, setTripTags] = useState(new Set())
-    const [destinationByTrip, setDestinationByTrip] = useState([])
+    const [trips, setTrips] = useState([])
     const [destinations, setDestinations] = useState([])
     const [newDestination, setNewDestination] = useState({
         id: 0,
         location: "",
-        state: "",
-        latitude: 0,
-        longitude: 0,
-        trip: destinations.length > 0 ? destinations[destinations.length - 1].trip : 1
+        state: ""
     })
 
     const [currentTrip, setCurrentTrip] = useState({
         title: "",
         weather: "",
-        startDate: "",
-        endDate: "",
+        image_url: "",
+        start_date: "",
+        end_date: "",
         notes: "",
         user_id: parseInt(token),
         tag: [],
-        destination: [],
-        public: 0,
-        destinationId: 0
+        destination: [{
+            location: "",
+            state: ""
+        }],
+        public: 0
     })
 
     const tagArr = (tagId) => {
@@ -46,9 +44,8 @@ export const EditTrip = ({ token }) => {
     }
 
     useEffect(() => {
-        getDestinationByTrip(tripId).then(tripByDestArray => setDestinationByTrip(tripByDestArray))
-        // getDestinations().then(destinationArray => setDestinations(destinationArray))
         getTags().then(data => setTags(data))
+        getDestinationByTrip(tripId).then(destination => setDestinations(destination))
         getSingleTrip(tripId).then((tripData) => {
             setCurrentTrip(tripData)
 
@@ -71,24 +68,22 @@ export const EditTrip = ({ token }) => {
 
         const newDestination = {
             location: locationRef.current.value,
-            state: stateRef.current.value,
-            latitude: latRef.current.value,
-            longitude: longRef.current.value,
-            trip: destinations.length > 0 ? destinations[destinations.length - 1].trip : 1
+            state: stateRef.current.value
         }
-        setDestinations([...destinations, newDestination]);
-        locationRef.current.value = ''
-        stateRef.current.value = ''
-        latRef.current.value = ''
-        longRef.current.value = ''
 
         addDestination(newDestination)
             .then((destination) => {
-                const newTrip = Object.assign({}, currentTrip)
-                newTrip.destinationId = destination.id;
-                setCurrentTrip(newTrip)
+                // create the new association object
+                const newTripDestination = {
+                    destinationId: destination.id,
+                    tripId: parseInt(tripId)
+                }
+
+                addTripDestination(newTripDestination)
+                    .then(() => {
+                        getSingleTrip(tripId).then((data) => setCurrentTrip(data))
+                    })
             })
-        setDestinations([...destinations, newDestination])
     }
 
     const handleNewTripInfo = (event) => {
@@ -97,15 +92,12 @@ export const EditTrip = ({ token }) => {
         setCurrentTrip(copy);
     }
 
-    const lastDestination = destinations.length > 0 ? destinations[destinations.length - 1] : null
-
-
     return (<>
         <form>
             <h2>Edit your trip...</h2>
             <fieldset>
                 <div>
-                    <label>Title:</label>
+                    <label>Where are you going?</label>
                     <input
                         type="text"
                         name="title"
@@ -135,19 +127,34 @@ export const EditTrip = ({ token }) => {
             </fieldset>
             <fieldset>
                 <div>
+                    <label>Photos:</label>
+                    <input
+                        type="text"
+                        name="image_url"
+                        required
+                        autoFocus
+                        defaultValue={currentTrip.image_url}
+                        className="form-control"
+                        placeholder="ImageUrl"
+                        onChange={handleNewTripInfo}
+                    />
+                </div>
+            </fieldset>
+            <fieldset>
+                <div>
                     <label>Start Date:</label>
                     <input
                         type="date"
                         required
                         autoFocus
-                        name="startDate"
+                        // name="startDate"
                         defaultValue={currentTrip.start_date}
                         className="form-control"
                         onChange={
                             (event) => {
                                 const copy = { ...currentTrip }
-                                copy.startDate = event.target.value
-                                handleNewTripInfo(copy)
+                                copy.start_date = event.target.value
+                                setCurrentTrip(copy)
                             }
                         }
                     />
@@ -160,14 +167,14 @@ export const EditTrip = ({ token }) => {
                         type="date"
                         required
                         autoFocus
-                        name="end_date"
+                        // name="end_date"
                         defaultValue={currentTrip.end_date}
                         className="form-control"
                         onChange={
                             (event) => {
                                 const copy = { ...currentTrip }
-                                copy.endDate = event.target.value
-                                handleNewTripInfo(copy)
+                                copy.end_date = event.target.value
+                                setCurrentTrip(copy)
                             }
                         }
                     />
@@ -175,7 +182,7 @@ export const EditTrip = ({ token }) => {
             </fieldset>
             <fieldset>
                 <div>
-                    <label htmlFor="destination">Would you like to add some stops?</label>
+                    <label htmlFor="destination">Stops along the way... </label>
                     <br></br>
                     <input
                         type="text"
@@ -195,39 +202,21 @@ export const EditTrip = ({ token }) => {
                         placeholder="State..."
                         onChange={handleNewDestinationInfo}
                     />
-                    <br></br>
-                    <input
-                        type="text"
-                        name="latitude"
-                        ref={latRef}
-                        required autoFocus
-                        className="latitudeInput"
-                        placeholder="Latitude..."
-                        onChange={handleNewDestinationInfo}
-                    />
-                    <br></br>
-                    <input
-                        type="text"
-                        name="longitude"
-                        ref={longRef}
-                        required autoFocus
-                        className="longitudeInput"
-                        placeholder="Longitude..."
-                        onChange={handleNewDestinationInfo}
-                    />
+
                 </div>
 
                 <button
                     onClick={createNewDestination}>
                     Add Destination
                 </button>
-                {destinations.map((destination, index) => (
-                    <div key={index}>
-                        <h2>Destination {index + 1}</h2>
-                        <p>{destination.location}</p>
-                    </div>
-                ))}
                 <div>
+                    {currentTrip?.destination.map((destination, index) => (
+                        <div key={index}>
+                            <p>{index + 1}. {destination.location}, {destination.state}
+                            </p>
+
+                        </div>
+                    ))}
 
                 </div>
             </fieldset>
@@ -272,7 +261,7 @@ export const EditTrip = ({ token }) => {
                         <input
 
                             type="radio"
-                            defaultChecked={currentTrip.public === true}
+                            checked={currentTrip.public === true}
                             name="public"
                             onClick={
                                 () => {
@@ -288,7 +277,7 @@ export const EditTrip = ({ token }) => {
                         <input
 
                             type="radio"
-                            defaultChecked={currentTrip.public === false}
+                            checked={currentTrip.public === false}
                             name="public"
                             onClick={
                                 () => {
@@ -312,6 +301,7 @@ export const EditTrip = ({ token }) => {
                     const tripInfoToUpdate = {
                         title: currentTrip.title,
                         weather: currentTrip.weather,
+                        image_url: currentTrip.image_url,
                         start_date: currentTrip.start_date,
                         end_date: currentTrip.end_date,
                         notes: currentTrip.notes,
