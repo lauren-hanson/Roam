@@ -23,5 +23,5 @@ export const addNewTag = (triptag) => {
         },
         body: JSON.stringify(triptag)
     })
-    .then((res) => res.json())
+        .then((res) => res.json())
 };
