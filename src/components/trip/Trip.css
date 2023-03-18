@@ -30,12 +30,13 @@
     margin: 20px;
 }
 
-.singleTrip {
+/* .singleTrip {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center; 
     align-items: center;
-}
+    width: 25rem; 
+} */
 
 .addNewTripForm {
     margin-left: 10%;
@@ -43,7 +44,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-  
 }
 
 .tags {

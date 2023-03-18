@@ -16,10 +16,10 @@ export const NewTrip = ({ token }) => {
     const stateRef = useRef()
 
     const [destinations, setDestinations] = useState([])
-    const [newDestination, setNewDestination] = useState({
+    const [newDestination, setNewDestination] = useState([{
         location: "",
         state: ""
-    })
+    }])
 
     const [trip, setNewTrip] = useState({
         title: "",
@@ -52,15 +52,16 @@ export const NewTrip = ({ token }) => {
         setNewDestination(startDestination)
     }
 
-    const handleNewDestinationInfo = (event) => {
-        const startDestination = Object.assign({}, newDestination)
-        startDestination[event.target.name] = event.target.value
-        setNewDestination(startDestination)
+    const handleNewTripInfo = (event) => {
+        const newTrip = Object.assign({}, trip)
+        newTrip[event.target.name] = event.target.value
+        setNewTrip(newTrip)
     }
+
 
     const publishNewTrip = () => {
 
-        const destinationId = parseInt(trip.destination)
+        // const destinationId = parseInt(trip.destination)
 
         addDestination(newDestination)
             .then((destination) => {
@@ -72,71 +73,69 @@ export const NewTrip = ({ token }) => {
                     user_id: parseInt(token),
                     public: false,
                     tag: tagsToAPI,
-                    destination: destinationId
+                    destination: trip.destination
 
                 }
                 addNewTrip(newTrip)
-            })
-            .then(() => {
-                navigate("/trips");
+                    .then((trip) => {
+                        const tripTags = tagsToAPI.map((tag) => ({ tag_id: tag, trip_id: trip.id }));
+                        const tripDestinations = [{ destination_id: destination.id, trip_id: trip.id }];
+
+                        Promise.all([addNewTag(tagsToAPI), addTripDestination(tripDestinations), addTripTag(tripTags)])
+                            .then(() => {
+                                navigate("/trips")
+                            })
+                    })
+                    .then(() => {
+                        navigate("/trips");
+                    })
             })
     }
 
     // const createNewDestination = (event) => {
-    //     event.preventDefault()
     //     setShowDestination(true)
-    //     const newDestination = {
-    //         location: locationRef.current.value,
-    //         state: stateRef.current.value
-    //     }
-    //     setDestinations([...destinations, newDestination]);
-    //     locationRef.current.value = ''
-    //     stateRef.current.value = ''
-    //     // latRef.current.value = ''
-    //     // longRef.current.value = ''
+    //     event.preventDefault()
     //     addDestination(newDestination)
     //         .then((destination) => {
     //             const newTrip = Object.assign({}, trip)
     //             newTrip.destination = destination.id;
     //             setNewTrip(newTrip)
     //         })
-
-
     // }
 
     const createNewDestination = (event) => {
-        event.preventDefault()
+
         setShowDestination(true)
 
-        const newDestination = {
-            location: locationRef.current.value,
-            state: stateRef.current.value
-        }
+        event.preventDefault()
 
         addDestination(newDestination)
             .then((destination) => {
-                // create the new association object
-                const newTripDestination = {
-                    destinationId: destination.id,
-                    tripId: parseInt(tripId),
-                }
-
-                addTripDestination(newTripDestination)
-                    .then(() => {
-                        setDestinations([...destinations, newDestination])
-                        const newTrip = Object.assign({}, trip)
-                        newTrip.destination = destination.id
-                        setNewTrip(newTrip)
-                    })
+                const newTrip = Object.assign({}, trip)
+                newTrip.destination = destination.id;
+                setNewTrip(newTrip)
             })
-    }
 
-    const handleNewTripInfo = (event) => {
-        const newTrip = Object.assign({}, trip)
-        newTrip[event.target.name] = event.target.value
-        setNewTrip(newTrip)
-    }
+        // const newDestination = {
+        //     location: locationRef.current.value,
+        //     state: stateRef.current.value
+        // }
 
+        // addDestination(newDestination)
+        //     .then((destination) => {
+        //         // create the new association object
+        //         const newTripDestination = {
+        //             destinationId: destination.id,
+        //             tripId: parseInt(tripId)
+        //         }
+
+        //         addTripDestination(newTripDestination)
+        //             .then(() => {
+        //                 getSingleTrip(tripId).then((data) => setNewTrip(data))
+        //             })
+
+        //     })
+    }
 
     const lastDestination = destinations.length > 0 ? destinations[destinations.length - 1] : null
 
@@ -179,35 +178,15 @@ export const NewTrip = ({ token }) => {
                         onChange={handleStartDestinationInfo}
                     />
                     <br></br>
-                    {/* <input
-                        type="text"
-                        name="latitude"
-                        ref={latRef}
-                        required autoFocus
-                        className="latitudeInput"
-                        placeholder="Latitude..."
-                        onChange={handleStartDestinationInfo}
-                    />
-                    <br></br>
-                    <input
-                        type="text"
-                        name="longitude"
-                        ref={longRef}
-                        required autoFocus
-                        className="longitudeInput"
-                        placeholder="Longitude..."
-                        onChange={handleStartDestinationInfo}
-                    /> */}
                 </div>
 
                 <button
                     onClick={createNewDestination}>
                     Add Destination
                 </button>
-
                 <div>
                     {showDestination && lastDestination && (
-                        <div>
+                        <div key={lastDestination.id}>
                             <p>{lastDestination.location}, {lastDestination.state}</p>
                         </div>)}
                 </div>
@@ -241,8 +220,7 @@ export const NewTrip = ({ token }) => {
             <fieldset>
                 <div>
                     {tags.map(tag => (
-                        <div className="tags">
-
+                        <div className="tags" key={tag.id}>
                             <input
                                 name="tagId"
                                 type="checkbox"

@@ -47,7 +47,7 @@ export const TripDetails = ({ token }) => {
                     <span style={{ fontWeight: "bold" }}>
                         <section className="subscribe__postheader">
                             <h2>{trip.title}</h2>
-                            <div>{trip?.start_date} - {trip?.end_date}</div>
+                            <div><HumanDate date={trip?.start_date}/> - <HumanDate date={trip?.end_date}/></div>
                         </section>
                     </span>
                     <Link to={`/users/${trip?.traveler?.id}`}>
@@ -64,8 +64,9 @@ export const TripDetails = ({ token }) => {
                         <div className="destinationList">
                             <h4>Stops along the way...</h4>
 
-                            {trip?.destination?.map((d) => (
-                                <ol>{d.location}</ol>))}
+                            {trip?.destination?.map((d, index) => (
+                                <ol key={index}>{index + 1}. {d.location}</ol>
+                            ))}
                         </div>
                         <div>
                             <h4>Notes</h4>
@@ -73,8 +74,17 @@ export const TripDetails = ({ token }) => {
                         </div>
                         <div className="tagList">
                             {trip.tag.map((t) => (
-                                <ol>{t.type}</ol>))}
+                                <ol key={t.id}>{t.type}</ol>))}
                         </div>
+                        <div className="radioAnswers">
+                            <div className="radioReview">
+                                {trip.public === true ?
+                                    <div>✔️Public</div> :
+                                    <div>✖️Public</div>
+                                }
+                            </div>
+                        </div>
+
 
                         <div className="buttonContainer">
                             <button className="editButton"

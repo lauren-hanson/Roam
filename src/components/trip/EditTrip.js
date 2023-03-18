@@ -53,7 +53,6 @@ export const EditTrip = ({ token }) => {
             for (const t of tripData.tag) {
                 tagSet.add(t.id)
             }
-
             setTripTags(tagSet)
         })
     }, [tripId])
@@ -98,7 +97,7 @@ export const EditTrip = ({ token }) => {
             <h2>Edit your trip...</h2>
             <fieldset>
                 <div>
-                    <label>Title:</label>
+                    <label>Where are you going?</label>
                     <input
                         type="text"
                         name="title"
@@ -148,14 +147,14 @@ export const EditTrip = ({ token }) => {
                         type="date"
                         required
                         autoFocus
-                        name="startDate"
+                        // name="startDate"
                         defaultValue={currentTrip.start_date}
                         className="form-control"
                         onChange={
                             (event) => {
                                 const copy = { ...currentTrip }
                                 copy.start_date = event.target.value
-                                handleNewTripInfo(copy)
+                                setCurrentTrip(copy)
                             }
                         }
                     />
@@ -168,14 +167,14 @@ export const EditTrip = ({ token }) => {
                         type="date"
                         required
                         autoFocus
-                        name="endDate"
+                        // name="end_date"
                         defaultValue={currentTrip.end_date}
                         className="form-control"
                         onChange={
                             (event) => {
                                 const copy = { ...currentTrip }
                                 copy.end_date = event.target.value
-                                handleNewTripInfo(copy)
+                                setCurrentTrip(copy)
                             }
                         }
                     />
@@ -213,7 +212,7 @@ export const EditTrip = ({ token }) => {
                 <div>
                     {currentTrip?.destination.map((destination, index) => (
                         <div key={index}>
-                            <p>{index + 1} {destination.location}, {destination.state}
+                            <p>{index + 1}. {destination.location}, {destination.state}
                             </p>
 
                         </div>
@@ -262,7 +261,7 @@ export const EditTrip = ({ token }) => {
                         <input
 
                             type="radio"
-                            defaultChecked={currentTrip.public === true}
+                            checked={currentTrip.public === true}
                             name="public"
                             onClick={
                                 () => {
@@ -278,7 +277,7 @@ export const EditTrip = ({ token }) => {
                         <input
 
                             type="radio"
-                            defaultChecked={currentTrip.public === false}
+                            checked={currentTrip.public === false}
                             name="public"
                             onClick={
                                 () => {
