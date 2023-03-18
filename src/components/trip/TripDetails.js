@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useParams, Link, useNavigate } from "react-router-dom"
 import { getSingleTrip, deleteTrip } from "../../managers/TripManager"
 import { getDestinations } from '../../managers/DestinationManager'
-import { HumanDate } from "../utils/HumanDate";
+// import { HumanDate } from "../utils/HumanDate";
 import "./Trip.css"
 
 export const TripDetails = ({ token }) => {
@@ -47,7 +47,8 @@ export const TripDetails = ({ token }) => {
                     <span style={{ fontWeight: "bold" }}>
                         <section className="subscribe__postheader">
                             <h2>{trip.title}</h2>
-                            <div><HumanDate date={trip?.start_date}/> - <HumanDate date={trip?.end_date}/></div>
+                            {/* <div><HumanDate date={trip?.start_date}/> - <HumanDate date={trip?.end_date}/></div> */}
+                            <div>{trip?.start_date} - {trip?.end_date}</div>
                         </section>
                     </span>
                     <Link to={`/users/${trip?.traveler?.id}`}>
