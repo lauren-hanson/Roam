@@ -66,14 +66,6 @@ export const updateTrip = (id, tripBody) => {
     })
 }
 
-// export const getStops = () => {
-//     return fetch('http://localhost:8000/tripdestinations?status__type=Home', {
-//         headers: {
-//             Authorization: `Token ${localStorage.getItem("roam_token")}`,
-//         },
-//     }).then((res) => res.json())
-// }
-
 export const addTripDestination = (tripDestination) => {
     return fetch("http://localhost:8000/tripdestinations", {
         method: "POST",
@@ -108,5 +100,40 @@ export const getDestinationByTrip = (id) => {
                 "Authorization": `Token ${localStorage.getItem("roam_token")}`
             }
         }).then((res) => res.json())
+}
+
+export const getSearchedTrips = (searchTerm) => {
+    return fetch(`http://localhost:8000/trips?search=${searchTerm}`,
+      {
+        headers: {
+          "Authorization": `Token ${localStorage.getItem("roam_token")}`
+        }
+      })
+      .then(res => res.json())
+    
+  }
+
+export const getUpcomingTrips = () => { 
+    return fetch(`http://localhost:8000/trips?upcoming`,
+      {
+        headers: {
+          "Authorization": `Token ${localStorage.getItem("roam_token")}`
+        }
+      })
+      .then(res => res.json())
+    
+
+}
+
+export const getPastTrips = () => { 
+    return fetch(`http://localhost:8000/trips?complete`,
+      {
+        headers: {
+          "Authorization": `Token ${localStorage.getItem("roam_token")}`
+        }
+      })
+      .then(res => res.json())
+    
+
 }
 
