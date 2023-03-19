@@ -30,6 +30,9 @@ export const NavBar = ({ token, setToken }) => {
                                 <Link to="/calendar" className="navbar-item">
                                     Calendar
                                 </Link>
+                                <Link to="/packlist" className="navbar-item">
+                                    Pack List
+                                </Link>
                                 <Link to="/connect" className="navbar-item">
                                     Connect
                                 </Link>
