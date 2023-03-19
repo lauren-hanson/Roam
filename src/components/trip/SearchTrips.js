@@ -1,6 +1,6 @@
 
 export const SearchTrips = ({ searchTerms, setSearchTerms, handleSubmit, setFilteredTrips, handleKeypress, trips, myTrips }) => {
-console.log(setFilteredTrips)
+
     return (<>
         <section className="trips_filter">
             <form>

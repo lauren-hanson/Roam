@@ -1,8 +1,9 @@
 
-export const TripByDate = ({setFilteredTrips, upcomingTrips, trips}) => {
+export const TripByDate = ({ setFilteredTrips, upcomingTrips, trips, pastTrips }) => {
 
     return (<>
-        <button className="button is-small is-rounded" onClick={() => setFilteredTrips(upcomingTrips)}>View Upcoming</button>
-        <button className="button is-small is-rounded" onClick={() => setFilteredTrips(trips)}>View All</button>
+        <button className="button" onClick={() => setFilteredTrips(trips)}>All</button>
+        <button className="button" onClick={() => setFilteredTrips(pastTrips)}>Past</button>
+        <button className="button" onClick={() => setFilteredTrips(upcomingTrips)}>Upcoming</button>
     </>)
 }
