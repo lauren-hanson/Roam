@@ -4,7 +4,7 @@ import { getMyTrips, getUpcomingTrips, getPastTrips } from "../../managers/TripM
 import { TripByDate } from "./TripByDate"
 import "./Trip.css"
 
-export const TripList = ({ token }) => {
+export const MyTripList = ({ token }) => {
     const { tripId } = useParams()
     const tokenInt = parseInt(token)
     const navigate = useNavigate()
