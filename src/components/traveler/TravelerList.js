@@ -22,7 +22,7 @@ export const TravelerList = ({ token }) => {
         <section className="travelers__container">
         <h1 className="travelers__title">Roam Travelers</h1>
           {travelers.map((traveler) => (
-            <Traveler key={traveler.id} traveler={traveler} setTravelers={setTravelers}/>
+            <Traveler key={`traveler=${traveler.id}`} traveler={traveler} setTravelers={setTravelers}/>
           ))}
         </section>
       </div>

@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom"
-//  import { SubscriptionForm } from "./subscribe"
 import "./Traveler.css"
 
 export const Traveler = ({ traveler , setTravelers }) => (

@@ -2,9 +2,8 @@ import { Route, Routes } from "react-router-dom"
 import { Login } from "../components/auth/Login"
 import { Register } from "../components/auth/Register"
 import { Authorized } from "./Authorized"
-import { MyTrips } from "../../src/components/trip/MyTrips"
 import { NewTrip } from "../../src/components/trip/NewTrip"
-import { TripList } from "../../src/components/trip/TripList"
+import { MyTripList } from "../components/trip/MyTripList"
 import { TripDetails } from "../../src/components/trip/TripDetails"
 import { EditTrip } from "../../src/components/trip/EditTrip"
 import { ItemList } from "../../src/components/packlist/ItemList"
@@ -25,7 +24,7 @@ export const ApplicationViews = ({ token, setToken }) => {
 					<Route path="/trips" >
 						{/* <Route index element={<MyTrips token={token} />} /> */}
 						{/* <Route index element={<TripContainer token={token} />} /> */}
-						<Route index element={<TripList token={token} />} />
+						<Route index element={<MyTripList token={token} />} />
 						<Route path=":tripId" element={<TripDetails path=":tripId" token={token} />} />
 						<Route path="newtrip" element={<NewTrip token={token} />} />
 						<Route path="edit/:tripId" element={<EditTrip token={token} />} />
