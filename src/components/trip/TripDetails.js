@@ -2,7 +2,8 @@ import { useEffect, useState } from "react"
 import { useParams, Link, useNavigate } from "react-router-dom"
 import { getSingleTrip, deleteTrip } from "../../managers/TripManager"
 import { getDestinations } from '../../managers/DestinationManager'
-// import { HumanDate } from "../utils/HumanDate";
+import { Weather } from "../weather/Weather"
+//import { HumanDate } from "../utils/HumanDate";
 import "./Trip.css"
 
 export const TripDetails = ({ token }) => {
@@ -61,6 +62,7 @@ export const TripDetails = ({ token }) => {
                         <div>
                             <h4>A little about the weather...</h4>
                             <p>{trip.weather}</p>
+                            <Weather/>
                         </div>
                         <div className="destinationList">
                             <h4>Stops along the way...</h4>
