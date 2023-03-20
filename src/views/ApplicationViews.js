@@ -9,6 +9,9 @@ import { TripDetails } from "../../src/components/trip/TripDetails"
 import { EditTrip } from "../../src/components/trip/EditTrip"
 import { ItemList } from "../../src/components/packlist/ItemList"
 import { PackList } from "../../src/components/packlist/PackList"
+import { TravelerList } from "../components/traveler/TravelerList"
+import { TravelerDetails } from "../components/traveler/TravelerDetails"
+import { Connect } from "../components/connect/Connect"
 
 export const ApplicationViews = ({ token, setToken }) => {
 	return (
@@ -30,6 +33,14 @@ export const ApplicationViews = ({ token, setToken }) => {
 					<Route path="/packlist" >
 						<Route index element={<PackList token={token} />} />
 						{/* <Route path="items" element={<ItemList token={token} />} /> */}
+					</Route>
+					<Route path="/connect" >
+						<Route index element={<Connect token={token} />} />
+					</Route>
+					<Route path="/travelers" >
+						<Route index element={<TravelerList token={token} />} />
+						<Route path=":travelerId" element={<TravelerDetails
+							token={token} />} />
 					</Route>
 				</Route>
 			</Routes>
