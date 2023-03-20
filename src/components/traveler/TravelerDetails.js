@@ -33,6 +33,13 @@ export const TravelerDetails = ({ token }) => {
         className="hover"
       > ⬅️ All Roamers
       </Link>
+      <br></br>
+      <Link
+        style={{ textDecoration: "none", color: "inherit" }}
+        to={`/trips`}
+        className="hover"
+      > ⬅️ Back to Trips
+      </Link>
       <section className="travelers__container">
         <section className="travelerdetail__image">
           <img className="profileImage" src={traveler.profile_image_url} />

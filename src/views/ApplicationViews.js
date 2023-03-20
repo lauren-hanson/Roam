@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom"
 import { Login } from "../components/auth/Login"
 import { Register } from "../components/auth/Register"
 import { Authorized } from "./Authorized"
+import { Home } from "../components/home/Home"
 import { NewTrip } from "../../src/components/trip/NewTrip"
 import { MyTripList } from "../components/trip/MyTripList"
 import { TripDetails } from "../../src/components/trip/TripDetails"
@@ -20,6 +21,7 @@ export const ApplicationViews = ({ token, setToken }) => {
 				<Route path="/login" element={<Login setToken={setToken} />} />
 				<Route path="/register" element={<Register setToken={setToken} />} />
 				<Route path="/">
+				<Route index element={<Home token={token} />} />
 				</Route>
 				<Route element={<Authorized token={token} />} >
 					<Route path="/trips" >

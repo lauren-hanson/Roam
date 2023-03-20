@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { updateTrip, getSingleTrip, getDestinationByTrip, addTripDestination } from "../../managers/TripManager"
 import { getDestinations, addDestination, deleteDestination } from "../../managers/DestinationManager"
 import { getTags } from "../../managers/TagManager"
-// import { FaTrashAlt } from "react-icons/fa";
+import { FaTrashAlt } from "react-icons/fa";
 import "./Trip.css"
 
 export const EditTrip = ({ token }) => {
@@ -36,7 +36,8 @@ export const EditTrip = ({ token }) => {
             location: "",
             state: ""
         }],
-        public: 0
+        public: 0, 
+        complete: 0
     })
 
     const tagArr = (tagId) => {
@@ -98,7 +99,7 @@ export const EditTrip = ({ token }) => {
     }
 
     const deleteButton = (id) => {
-        return <button className="deleteButton" onClick={() => {
+        return <FaTrashAlt className="deleteButton" onClick={() => {
             deleteDestination(id)
                 .then(() => {
                     window.confirm(
@@ -108,7 +109,7 @@ export const EditTrip = ({ token }) => {
                     setRefresh(!refresh)
                 })
         }
-        }>❌</button >
+        }></FaTrashAlt>
     }
 
 
@@ -229,13 +230,16 @@ export const EditTrip = ({ token }) => {
                     onClick={createNewDestination}>
                     Add Destination
                 </button>
+                <br></br>
                 <div>
                     {currentTrip?.destination.map((destination, index) => (
                         <div key={index}>
-                            <p>{index + 1}. {destination.location}, {destination.state}
-                            </p>
-                            {/* <button onClick={deleteWindow(destination.id)}>❌</button> */}
+                            {/* <p>{index + 1}. {destination.location}, {destination.state}
                             {deleteButton(destination.id)}
+                            </p> */}
+                            <li>{destination.location}, {destination.state}
+                            {deleteButton(destination.id)}</li>
+                            {/* <button onClick={deleteWindow(destination.id)}>❌</button> */}
                         </div>
                     ))}
 
@@ -332,7 +336,8 @@ export const EditTrip = ({ token }) => {
                         tag: Array.from(tripTags),
                         destination: [],
                         destinationId: 0,
-                        public: currentTrip.public
+                        public: currentTrip.public,
+                        complete: currentTrip.complete
                     }
 
                     updateTrip(tripId, tripInfoToUpdate)

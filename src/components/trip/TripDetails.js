@@ -1,18 +1,24 @@
 import { useEffect, useState } from "react"
 import { useParams, Link, useNavigate } from "react-router-dom"
-import { getSingleTrip, deleteTrip } from "../../managers/TripManager"
-import { getDestinations } from '../../managers/DestinationManager'
-import { Weather } from "../weather/Weather"
-//import { HumanDate } from "../utils/HumanDate";
+import { getSingleTrip, deleteTrip, updateTrip } from "../../managers/TripManager"
+// import { Weather } from "../weather/Weather"
+// import { HumanDate } from "../utils/HumanDate";
 import "./Trip.css"
 
 export const TripDetails = ({ token }) => {
 
     const navigate = useNavigate()
-    const tokenInt = parseInt(token)
-    const [tripDestinations, setDestinations] = useState([])
+    // const [completeButton, setComplete] = useState(false)
     const [trip, setTrip] = useState({
-        tag: []
+        title: "",
+        weather: "",
+        imageUrl: "",
+        notes: "",
+        start_date: "",
+        end_date: "",
+        tag: [],
+        complete: false,
+        public: false
     })
 
     const { tripId } = useParams()
@@ -20,7 +26,6 @@ export const TripDetails = ({ token }) => {
     useEffect(() => {
         getSingleTrip(tripId).then(setTrip)
     }, [, tripId])
-
 
     const deleteWindow = () => {
         if (
@@ -32,6 +37,15 @@ export const TripDetails = ({ token }) => {
         } else {
             navigate(`/trips/${trip.id}`)
         }
+    }
+
+    const handleCompleteClick = (id) => {
+        const completeProp = {
+            ...trip,
+            complete: true,
+        }
+        setTrip(completeProp)
+        updateTrip(trip.id, completeProp)
     }
 
 
@@ -59,12 +73,24 @@ export const TripDetails = ({ token }) => {
                         <div>
                             <img className="tripImage" src={trip.image_url} alt="Trip Image" />
                         </div>
+                        {/* {trip.image_url ?
+                            (<><div>
+                                <img className="tripImage" src={trip.image_url} alt="Trip Image" />
+                            </div></>) : (<></>)} */}
+
                         <div>
                             <h4>A little about the weather...</h4>
                             <p>{trip.weather}</p>
+                            {/* {trip.weather ?
+                                (<><h4>A little about the weather...</h4>
+                                    <p>{trip.weather}</p></>) : (<></>)} */}
+
                             {/* <Weather/> */}
                         </div>
                         <div className="destinationList">
+                            {/* {trip.destination ?
+                                (<><h4>Stops along the way...</h4>
+                                </>) : (<></>)} */}
                             <h4>Stops along the way...</h4>
 
                             {trip?.destination?.map((d, index) => (
@@ -88,8 +114,46 @@ export const TripDetails = ({ token }) => {
                             </div>
                         </div>
 
-
-                        <div className="buttonContainer">
+                        {trip.complete ? (
+                            <>
+                                <button className="deleteTrip"
+                                    onClick={(e) => {
+                                        e.preventDefault()
+                                        deleteWindow()
+                                    }}
+                                >
+                                    Delete
+                                </button></>) :
+                            (<>
+                                <button className="completeButton"
+                                    onClick={handleCompleteClick}
+                                >
+                                    Complete?
+                                </button>
+                                < button className="editButton"
+                                    onClick={() => {
+                                        navigate(`/trips/edit/${trip.id}`)
+                                    }}
+                                >
+                                    Edit
+                                </button>
+                                <button className="deleteTrip"
+                                    onClick={(e) => {
+                                        e.preventDefault()
+                                        deleteWindow()
+                                    }}
+                                >
+                                    Delete
+                                </button></>)
+                        }
+                        {/* <div className="buttonContainer">
+                            <button className="editButton"
+                                onClick={() => {
+                                    navigate(`/trips/edit/${trip.id}`)
+                                }}
+                            >
+                                Complete
+                            </button>
                             <button className="editButton"
                                 onClick={() => {
                                     navigate(`/trips/edit/${trip.id}`)
@@ -106,11 +170,11 @@ export const TripDetails = ({ token }) => {
                             >
                                 Delete
                             </button>
-                        </div>
+                        </div> */}
                     </div>
                 </section>
             </div>
-        </section>
+        </section >
     </>
 
 }
