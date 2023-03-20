@@ -62,7 +62,7 @@ export const TripDetails = ({ token }) => {
                         <div>
                             <h4>A little about the weather...</h4>
                             <p>{trip.weather}</p>
-                            <Weather/>
+                            {/* <Weather/> */}
                         </div>
                         <div className="destinationList">
                             <h4>Stops along the way...</h4>

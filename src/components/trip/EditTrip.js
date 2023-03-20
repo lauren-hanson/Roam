@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { updateTrip, getSingleTrip, getDestinationByTrip, addTripDestination } from "../../managers/TripManager"
 import { getDestinations, addDestination, deleteDestination } from "../../managers/DestinationManager"
 import { getTags } from "../../managers/TagManager"
+// import { FaTrashAlt } from "react-icons/fa";
 import "./Trip.css"
 
 export const EditTrip = ({ token }) => {
@@ -11,6 +12,7 @@ export const EditTrip = ({ token }) => {
     const locationRef = useRef()
     const stateRef = useRef()
     const { tripId } = useParams()
+    const [refresh, setRefresh] = useState(false)
     const [tags, setTags] = useState([])
     const [tripTags, setTripTags] = useState(new Set())
     const [trips, setTrips] = useState([])
@@ -94,6 +96,21 @@ export const EditTrip = ({ token }) => {
         copy[event.target.name] = event.target.value;
         setCurrentTrip(copy);
     }
+
+    const deleteButton = (id) => {
+        return <button className="deleteButton" onClick={() => {
+            deleteDestination(id)
+                .then(() => {
+                    window.confirm(
+                        "Do you want to skip this stop?"
+                    )
+                    getSingleTrip(tripId).then((data) => setCurrentTrip(data))
+                    setRefresh(!refresh)
+                })
+        }
+        }>❌</button >
+    }
+
 
     return (<>
         <form>
@@ -217,7 +234,8 @@ export const EditTrip = ({ token }) => {
                         <div key={index}>
                             <p>{index + 1}. {destination.location}, {destination.state}
                             </p>
-
+                            {/* <button onClick={deleteWindow(destination.id)}>❌</button> */}
+                            {deleteButton(destination.id)}
                         </div>
                     ))}
 
@@ -226,8 +244,10 @@ export const EditTrip = ({ token }) => {
             <fieldset>
                 <div>
                     <label>Notes:</label>
-                    <input
-                        type="text"
+                    <textarea
+                        type="textbox"
+                        rows="20"
+                        cols="50"
                         name="notes"
                         required
                         autoFocus
