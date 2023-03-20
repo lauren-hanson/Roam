@@ -11,3 +11,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.registerLink, .loginLink { 
+  color: white; 
+  padding: 20px; 
+}

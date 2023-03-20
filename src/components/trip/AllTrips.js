@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useNavigate, Link } from "react-router-dom"
 import { Trip, Trips, TableRow } from "./Trips"
 import { getTrips, getSearchedTrips } from "../../managers/TripManager"
+import { HumanDate } from "../utils/HumanDate";
 import "./Trip.css"
 
 export const AllTrips = ({ token }) => {
@@ -36,17 +37,19 @@ export const AllTrips = ({ token }) => {
                                         className="title is-4 has-text-weight-bold is-margin"
                                         aria-label="breadcrumbs"
                                     >
-                                        {trip?.title}
+                                        <h2> {trip?.title}</h2>
                                     </p>
-                                    <div className="subtitle is-6 has-text-weight-semibold is-custom-margin">
+
+                                    <Link to={`/travelers/${trip?.traveler?.id}`}>
                                         {trip.traveler.full_name}
-                                    </div>
-                                 
-                                    {/* <div className="subtitle is-custom">
+                                    </Link>
+
+
+                                    <div className="subtitle is-custom">
                                         <span style={{ margin: 0, padding: 0 }}>
                                             <HumanDate date={trip.publication_date} />
                                         </span>
-                                    </div> */}
+                                    </div>
                                 </div>
                                 <div className="column is-one-fifth">
                                     <figure className="image is-16by9">
@@ -54,9 +57,11 @@ export const AllTrips = ({ token }) => {
                                     </figure>
                                 </div>
                                 <div className="subtitle is-6 has-text-weight-semibold is-custom-margin">
-                                        {trip.notes}
-                                    </div>
-                                <div className="column is-one-fifth"></div>
+                                    {trip.notes}
+                                </div>
+                                <div className="subtitle is-6 has-text-weight-semibold is-custom-margin">
+                                    {trip?.tag?.type}
+                                </div>
                             </div>
                             <hr class="hr"></hr>
                         </Link>

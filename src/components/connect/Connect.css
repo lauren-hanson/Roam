@@ -1,0 +1,68 @@
+
+.relative { 
+  position: relative;
+}
+
+.subscribePostsPage { 
+  padding: 20px; 
+}
+
+.subscribePostscontainer {  
+  display: flex; 
+  flex-direction: row; 
+  padding: 50px;
+  margin: 20px;
+  border-radius: 3px;
+}
+
+.secondPostContainer { 
+  padding: 40px 20px; 
+  margin: 3px;
+}
+
+.side_posts_title{ 
+  font-size: 20px; 
+}
+
+.subscribe__content, .bottomPosts { 
+  padding: 30px 15px; 
+  border: 1px solid #ffffff;
+  border-style: none none solid none; 
+} 
+
+.bottomPosts { 
+  margin: 0 75px; 
+}
+
+.subscribe__image {
+  width: 100%;
+  padding: 30px;
+  opacity: 0.75; 
+  filter: alpha(opacity=40);
+}
+
+.subscribe__image:hover {
+  opacity: 1.0;
+  filter: alpha(opacity=100);
+}
+
+.subscribe__postbody {
+  padding: 1rem;
+  margin: 1rem;
+}
+
+.viewCommentsButton, .addCommentsButton { 
+  margin: 3px;
+  border-radius: 20px;
+  font-size: small;
+  padding: 5px 10px; 
+}
+
+.reactionsContainer { 
+  margin-left: auto; 
+  padding-top: 10px; 
+}
+
+.authorName{
+  padding-bottom: 8px;
+}

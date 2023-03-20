@@ -59,17 +59,17 @@ export const Login = ({ setToken }) => {
           </div>
         </div>
 
-        <div className="field is-grouped">
+        <div className="field">
           <div className="control">
             {/*submission button*/}
-            <button className="button is-rounded is-link" type="submit" >Submit</button>
+            <button className="button" type="submit" >Submit</button>
           </div>
           <div className="control">
-            <Link to="/register" className="button is-rounded is-link is-light">Cancel</Link>
+            <Link to="/register" className="button">Cancel</Link>
           </div>
         </div>
         {
-          isUnsuccessful ? <p className="help is-danger">Username or password not valid</p> : ''
+          isUnsuccessful ? <p className="help">Username or password not valid</p> : ''
         }
       </form>
     </section>
