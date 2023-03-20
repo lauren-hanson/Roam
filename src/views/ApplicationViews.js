@@ -11,6 +11,7 @@ import { PackList } from "../../src/components/packlist/PackList"
 import { TravelerList } from "../components/traveler/TravelerList"
 import { TravelerDetails } from "../components/traveler/TravelerDetails"
 import { Connect } from "../components/connect/Connect"
+import { Map } from "../components/map/Map"
 
 export const ApplicationViews = ({ token, setToken }) => {
 	return (
@@ -28,6 +29,9 @@ export const ApplicationViews = ({ token, setToken }) => {
 						<Route path=":tripId" element={<TripDetails path=":tripId" token={token} />} />
 						<Route path="newtrip" element={<NewTrip token={token} />} />
 						<Route path="edit/:tripId" element={<EditTrip token={token} />} />
+					</Route>
+					<Route path="/explore" >
+						<Route index element={<Map token={token} />} />
 					</Route>
 					<Route path="/packlist" >
 						<Route index element={<PackList token={token} />} />

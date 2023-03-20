@@ -51,7 +51,7 @@ export const TripDetails = ({ token }) => {
                             <div>{trip?.start_date} - {trip?.end_date}</div>
                         </section>
                     </span>
-                    <Link to={`/users/${trip?.traveler?.id}`}>
+                    <Link to={`/travelers/${trip?.traveler?.id}`}>
                         <h2>{trip?.traveler?.full_name}</h2>
                     </Link>
                     < div key={trip.id} className="myTrip" >
