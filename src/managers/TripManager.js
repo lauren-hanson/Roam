@@ -126,7 +126,7 @@ export const getUpcomingTrips = () => {
 }
 
 export const getPastTrips = () => { 
-    return fetch(`http://localhost:8000/trips?complete`,
+    return fetch(`http://localhost:8000/trips?past`,
       {
         headers: {
           "Authorization": `Token ${localStorage.getItem("roam_token")}`

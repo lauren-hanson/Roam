@@ -30,26 +30,27 @@ export const MyTripList = ({ token }) => {
     }, [trips])
 
     return <>
-        <section className="trip__array">
+        <section className="">
             <div><button onClick={() => navigate(`/trips/newtrip`)}>+</button>New Trip</div>
             <h2>My Trips</h2>
-            <TripByDate setFilteredTrips={setFilteredTrips} tripId={tripId} upcomingTrips={upcomingTrips} trips={trips} pastTrips={pastTrips}/>
+            <TripByDate setFilteredTrips={setFilteredTrips} tripId={tripId} upcomingTrips={upcomingTrips} trips={trips} pastTrips={pastTrips} />
 
-            {
-                myTrips.map((trip) => (
-                    <>
+
+            <div className="myTripList">
+                {myTrips.map((trip) => (
+                    <div key={`trip--${trip.id}`} >
                         <Link
                             style={{ textDecoration: "none", color: "inherit" }}
                             to={`/trips/${trip.id}`}
                             className="hover"
                         >
-                            <div key={trip.id} className="myTripHome">
+                            <div className="myTripHome">
                                 <p id="search">{trip.title}</p>
                             </div>
                         </Link>
 
-                    </>))
-            }
+                    </div>))}
+            </div>
         </section>
     </>
 

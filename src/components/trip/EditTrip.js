@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { updateTrip, getSingleTrip, getDestinationByTrip, addTripDestination } from "../../managers/TripManager"
 import { getDestinations, addDestination, deleteDestination } from "../../managers/DestinationManager"
 import { getTags } from "../../managers/TagManager"
+import { FaTrashAlt } from "react-icons/fa";
 import "./Trip.css"
 
 export const EditTrip = ({ token }) => {
@@ -11,6 +12,7 @@ export const EditTrip = ({ token }) => {
     const locationRef = useRef()
     const stateRef = useRef()
     const { tripId } = useParams()
+    const [refresh, setRefresh] = useState(false)
     const [tags, setTags] = useState([])
     const [tripTags, setTripTags] = useState(new Set())
     const [trips, setTrips] = useState([])
@@ -34,7 +36,8 @@ export const EditTrip = ({ token }) => {
             location: "",
             state: ""
         }],
-        public: 0
+        public: 0, 
+        complete: 0
     })
 
     const tagArr = (tagId) => {
@@ -94,6 +97,21 @@ export const EditTrip = ({ token }) => {
         copy[event.target.name] = event.target.value;
         setCurrentTrip(copy);
     }
+
+    const deleteButton = (id) => {
+        return <FaTrashAlt className="deleteButton" onClick={() => {
+            deleteDestination(id)
+                .then(() => {
+                    window.confirm(
+                        "Do you want to skip this stop?"
+                    )
+                    getSingleTrip(tripId).then((data) => setCurrentTrip(data))
+                    setRefresh(!refresh)
+                })
+        }
+        }></FaTrashAlt>
+    }
+
 
     return (<>
         <form>
@@ -212,12 +230,16 @@ export const EditTrip = ({ token }) => {
                     onClick={createNewDestination}>
                     Add Destination
                 </button>
+                <br></br>
                 <div>
                     {currentTrip?.destination.map((destination, index) => (
                         <div key={index}>
-                            <p>{index + 1}. {destination.location}, {destination.state}
-                            </p>
-
+                            {/* <p>{index + 1}. {destination.location}, {destination.state}
+                            {deleteButton(destination.id)}
+                            </p> */}
+                            <li>{destination.location}, {destination.state}
+                            {deleteButton(destination.id)}</li>
+                            {/* <button onClick={deleteWindow(destination.id)}>❌</button> */}
                         </div>
                     ))}
 
@@ -226,8 +248,10 @@ export const EditTrip = ({ token }) => {
             <fieldset>
                 <div>
                     <label>Notes:</label>
-                    <input
-                        type="text"
+                    <textarea
+                        type="textbox"
+                        rows="20"
+                        cols="50"
                         name="notes"
                         required
                         autoFocus
@@ -312,7 +336,8 @@ export const EditTrip = ({ token }) => {
                         tag: Array.from(tripTags),
                         destination: [],
                         destinationId: 0,
-                        public: currentTrip.public
+                        public: currentTrip.public,
+                        complete: currentTrip.complete
                     }
 
                     updateTrip(tripId, tripInfoToUpdate)

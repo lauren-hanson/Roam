@@ -17,7 +17,8 @@ export const NewTrip = ({ token }) => {
         notes: "",
         user_id: parseInt(token),
         tag: [],
-        public: 0
+        public: 0, 
+        complete: 0
     })
 
     const [tags, setTags] = useState([])
@@ -41,11 +42,13 @@ export const NewTrip = ({ token }) => {
             startDate: trip.start_date,
             endDate: trip.end_date,
             notes: trip.notes,
+            image_url: trip.image_url,
             title: trip.title,
             user_id: parseInt(token),
             public: trip.public,
             tag: tagsToAPI,
-            traveler: trip.traveler
+            traveler: trip.traveler,
+            complete: trip.complete
 
         }
         addNewTrip(newTrip)
@@ -142,8 +145,8 @@ export const NewTrip = ({ token }) => {
                 <div>
                     <textarea
                         type="textbox"
-                        rows="5"
-                        cols="30"
+                        rows="15"
+                        cols="60"
                         name="notes"
                         required
                         defaultValue={trip.notes}
