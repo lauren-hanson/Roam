@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useParams, Link } from "react-router-dom"
 import { getTravelerById } from "../../managers/TravelerManager"
+import { SubscriptionForm } from "./Subscribe"
 import "./Traveler.css"
 
 export const TravelerDetails = ({ token }) => {
@@ -36,9 +37,9 @@ export const TravelerDetails = ({ token }) => {
       <br></br>
       <Link
         style={{ textDecoration: "none", color: "inherit" }}
-        to={`/trips`}
+        to={`/connect/discover`}
         className="hover"
-      > ⬅️ Back to Trips
+      > ⬅️ Trips
       </Link>
       <section className="travelers__container">
         <section className="travelerdetail__image">
@@ -47,8 +48,11 @@ export const TravelerDetails = ({ token }) => {
         <article className="traveler__info">
           <h3 className="traveler__name">Name: {traveler.full_name}</h3>
           <div className="traveler__bio">Bio: {traveler.bio}</div>
+          <SubscriptionForm traveler={traveler} setTraveler={setTraveler}/>
         </article>
       </section>
     </>
   )
 }
+
+

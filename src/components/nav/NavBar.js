@@ -5,7 +5,7 @@ export const NavBar = ({ token, setToken }) => {
     const navigate = useNavigate()
 
     return (
-        <nav
+        <div
             className="navbar"
             role="navigation"
             aria-label="main navigation"
@@ -71,7 +71,7 @@ export const NavBar = ({ token, setToken }) => {
                     </div>
                 </div>
             </div>
-        </nav>
+        </div>
     )
 }
 
