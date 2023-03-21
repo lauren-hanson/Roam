@@ -1,11 +1,12 @@
 import { Link, useNavigate } from "react-router-dom"
 import { HumanDate } from "../utils/HumanDate"
+import { AllTrips } from "./AllTrips"
 
 
 export const Trips = ({ trips, token }) => {
     const navigate = useNavigate()
 
-    //   const limitedContent = trips.notes.slice(0, 140) + "..."
+    // const limitedContent = trips.notes.slice(0, 50) + "..."
 
     return (
         <>
@@ -17,7 +18,7 @@ export const Trips = ({ trips, token }) => {
                         to={`/trips/${trip?.id}`}
                         className="hover"
                     >
-                        <h2>ALL TRIPS</h2>
+                        {/* <AllTrips limitedContent={limitedContent} /> */}
                     </Link>
                 })}
             </div>

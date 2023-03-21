@@ -5,7 +5,7 @@ import { Map } from "../map/Map"
 import { Icon } from 'leaflet'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import { Weather } from "../weather/Weather"
-// import { HumanDate } from "../utils/HumanDate";
+import { HumanDate } from "../utils/HumanDate";
 import "./Trip.css"
 
 export const TripDetails = ({ token }) => {
@@ -83,8 +83,7 @@ export const TripDetails = ({ token }) => {
                     <span style={{ fontWeight: "bold" }}>
                         <section className="subscribe__postheader">
                             <h2>{trip.title}</h2>
-                            {/* <div><HumanDate date={trip?.start_date}/> - <HumanDate date={trip?.end_date}/></div> */}
-                            <div>{trip?.start_date} - {trip?.end_date}</div>
+                            <div><HumanDate date={trip?.start_date} /> - <HumanDate date={trip?.end_date} /></div>
                         </section>
                     </span>
                     <Link to={`/travelers/${trip?.traveler?.id}`}>
@@ -95,6 +94,13 @@ export const TripDetails = ({ token }) => {
                             <img className="tripImage" src={trip.image_url} alt="Trip Image" />
                         </div>
                         <div>
+                            <div className="destinationList">
+                                <h4>Stops along the way...</h4>
+
+                                {trip?.destination?.map((d, index) => (
+                                    <ol key={index}>{index + 1}. {d.location}</ol>
+                                ))}
+                            </div>
                             <div id="map">
                                 <MapContainer center={[39.50, -98.350]} zoom={3} style={{ height: "300px", width: "350px" }} scrollWheelZoom={true} >
                                     <TileLayer
@@ -108,6 +114,7 @@ export const TripDetails = ({ token }) => {
                                     })}
                                 </MapContainer>
                             </div>
+
                         </div>
 
                         <div>
@@ -118,16 +125,6 @@ export const TripDetails = ({ token }) => {
                                     <p>{trip.weather}</p></>) : (<></>)} */}
 
 
-                        </div>
-                        <div className="destinationList">
-                            {/* {trip.destination ?
-                                (<><h4>Stops along the way...</h4>
-                                </>) : (<></>)} */}
-                            <h4>Stops along the way...</h4>
-
-                            {trip?.destination?.map((d, index) => (
-                                <ol key={index}>{index + 1}. {d.location}</ol>
-                            ))}
                         </div>
                         <div>
                             <h4>Notes</h4>

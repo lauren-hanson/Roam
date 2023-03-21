@@ -1,28 +1,49 @@
-import { Link, useNavigate } from "react-router-dom"
-import "./NavBar.css"
+import { useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import "./NavBar.css";
 
 export const NavBar = ({ token, setToken }) => {
-    const navigate = useNavigate()
 
+    const navigate = useNavigate();
+
+    const navbar = useRef();
+
+    const hamburger = useRef();
+    const showMobileNavbar = () => {
+        hamburger.current.classList.toggle("is-active");
+        navbar.current.classList.toggle("is-active");
+    };
     return (
-        <div
+        <nav
             className="navbar"
             role="navigation"
             aria-label="main navigation"
         >
             <div className="navbar-brand">
                 <a className="navbar-item" href="/">
-                    {/* <img src={Logo} height="3rem" alt="Roam Logo" />{" "} */}
-                    <h1 className="roamHeader">Roam</h1>
+                    <h1 class="title is-3" className="roamHeader">Roam</h1>
+                </a>
+                <a
+                    role="button"
+                    className="navbar-burger"
+                    aria-label="menu"
+                    aria-expanded="true"
+                    data-target="navbarBasicExamplef"
+                    onClick={showMobileNavbar}
+                    ref={hamburger}
+                >
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
                 </a>
             </div>
-            <div className="navbar-menu">
+            <div className="navbar-menu" ref={navbar}>
                 <div className="navbar-start">
                     {
                         token ?
                             (<>
                                 <Link to="/trips" className="navbar-item">
-                                My Trips
+                                    My Trips
                                 </Link>
                                 <Link to="/explore" className="navbar-item">
                                     Expore
@@ -42,36 +63,38 @@ export const NavBar = ({ token, setToken }) => {
                             )
                     }
                 </div>
-            </div>
-            <div className="navbar-end">
-                <div className="navbar-item">
-                    <div className="buttons">
-                        {
-                            token ? (
-                                <button
-                                    className="button"
-                                    onClick={() => {
-                                        setToken("");
-                                        navigate("/login");
-                                    }}
-                                >
-                                    Logout
-                                </button>
-                            ) : (
-                                <>
-                                    <Link to="/register" className="registerLink">
-                                        Register
-                                    </Link>
-                                    <Link to="/login" className="loginLink">
-                                        Login
-                                    </Link>
-                                </>
-                            )
-                        }
+
+                <div className="navbar-end">
+                    <div className="navbar-item">
+                        <div className="buttons">
+                            {
+                                // This ternary statement checks if the current user is logged in
+                                // If true, a logout button will appear and will route back to the "/login" path when clicked
+                                token ? (
+                                    <button
+                                        className="button is-rounded"
+                                        onClick={() => {
+                                            setToken("");
+                                            navigate("/login");
+                                        }}
+                                    >
+                                        Logout
+                                    </button>
+                                ) : (
+                                    <>
+                                        <Link to="/register" className="button is-rounded is-link">
+                                            Register
+                                        </Link>
+                                        <Link to="/login" className="button is-rounded is-outlined">
+                                            Login
+                                        </Link>
+                                    </>
+                                )
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    )
+        </nav>
+    );
 }
-

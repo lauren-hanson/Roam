@@ -22,7 +22,7 @@
 
 .navbar-item,
 .navbar-link {
-   color: #cccccc;
+   color: papayawhip;
    background-color: #131313;
    padding: 0px;
 
@@ -42,7 +42,7 @@
    margin-right: 25px;
 }
 .roamHeader {
-
+   color: papayawhip;
    font-weight: bolder;
    font-size: 25px;
    margin-left: 25px;

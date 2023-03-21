@@ -15,7 +15,6 @@ import { Connect } from "../components/connect/Connect"
 import { ConnectList } from "../components/connect/ConnectList"
 import { CalendarView } from "../components/calendar/CalendarView"
 import { Map } from "../components/map/Map"
-//import { MapTest } from "../components/map/MapTest"
 
 export const ApplicationViews = ({ token, setToken }) => {
 	return (
@@ -37,8 +36,6 @@ export const ApplicationViews = ({ token, setToken }) => {
 					</Route>
 					<Route path="/explore" >
 						<Route index element={<Map token={token} />} />
-						{/* <Route index element={<MapTest token={token} />} /> */}
-						
 					</Route>
 					<Route path="/packlist" >
 						<Route index element={<PackList token={token} />} />
