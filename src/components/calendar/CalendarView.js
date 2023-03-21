@@ -1,12 +1,19 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { getMyTrips } from "../../managers/TripManager"
 import Calendar from 'react-calendar'
 import styled from 'styled-components'
 import 'react-calendar/dist/Calendar.css';
 
 export function CalendarView() {
 
-  const [value, onChange] = useState(new Date());
+  const [value, onChange] = useState([{
+    
+  }]);
+
+  useEffect(() => { 
+    getMyTrips().then((myTrips) => onChange(myTrips))
+  })
 
   return (
     <div className="calendar">
@@ -14,7 +21,7 @@ export function CalendarView() {
 
         <Calendar
           onChange={onChange}
-          value={value}
+          value={value.start_date}
           calendarType="US"
           defaultActiveStartDate={new Date()}
           selectRange={true}

@@ -6,7 +6,6 @@ import "./Trip.css"
 
 export const NewTrip = ({ token }) => {
     const navigate = useNavigate()
-    // const {tripId} = useParams()
 
     const [trip, setNewTrip] = useState({
         title: "",

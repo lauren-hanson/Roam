@@ -1,68 +1,74 @@
-
-.relative { 
+.relative {
   position: relative;
 }
 
-.subscribePostsPage { 
-  padding: 20px; 
-}
-
-.subscribePostscontainer {  
-  display: flex; 
-  flex-direction: row; 
+.connectTripPage {
   padding: 50px;
-  margin: 20px;
-  border-radius: 3px;
+  gap: 50px 100px;
 }
 
-.secondPostContainer { 
-  padding: 40px 20px; 
-  margin: 3px;
+.connectTripContainer {
+  display: inline-grid;
+  grid-template-columns: auto auto auto; 
+  gap: 10px;
+  padding: 10px;
+
 }
 
-.side_posts_title{ 
-  font-size: 20px; 
+.mostRecentContainer {  
+  grid-column-start: 1;
+  grid-column-end: 3;
 }
 
-.subscribe__content, .bottomPosts { 
-  padding: 30px 15px; 
-  border: 1px solid #ffffff;
-  border-style: none none solid none; 
-} 
+.secondTripContainer {  
+  grid-column-start: 3;
+  grid-column-end: 4;
 
-.bottomPosts { 
-  margin: 0 75px; 
 }
 
-.subscribe__image {
-  width: 100%;
-  padding: 30px;
-  opacity: 0.75; 
-  filter: alpha(opacity=40);
+.allOtherTripsContainer { 
+  display: grid; 
+  grid-column-start: 1;
+  grid-column-end: 4;
+  grid-row-start: 3;
+  grid-row-end: 4;
 }
 
-.subscribe__image:hover {
+.bottomTrips { 
+  display: flex; 
+  flex-direction: column; 
+}
+
+.trip_image:hover {
   opacity: 1.0;
   filter: alpha(opacity=100);
 }
 
-.subscribe__postbody {
+.trip_image {
+  width: 75%;
+  padding: 30px;
+  opacity: 0.75;
+  filter: alpha(opacity=40);
+}
+
+.subscribe_tripbody {
   padding: 1rem;
   margin: 1rem;
 }
 
-.viewCommentsButton, .addCommentsButton { 
+.viewCommentsButton,
+.addCommentsButton {
   margin: 3px;
   border-radius: 20px;
   font-size: small;
-  padding: 5px 10px; 
+  padding: 5px 10px;
 }
 
-.reactionsContainer { 
-  margin-left: auto; 
-  padding-top: 10px; 
+.reactionsContainer {
+  margin-left: auto;
+  padding-top: 10px;
 }
 
-.authorName{
+.travelerName {
   padding-bottom: 8px;
 }
