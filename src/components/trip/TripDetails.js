@@ -107,7 +107,7 @@ export const TripDetails = ({ token }) => {
                                         />
                                         {destinations.map(d => {
                                             return (<Marker position={[d.destination.latitude ?? 0, d.destination.longitude ?? 0]} icon={customIcon} key={d.id}>
-                                                <Popup>{d.destination.location}</Popup>
+                                                <Popup>{d.destination.location}, {d.destination.state}</Popup>
                                             </Marker>)
                                         })}
                                     </MapContainer>
