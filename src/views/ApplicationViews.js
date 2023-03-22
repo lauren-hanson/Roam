@@ -7,7 +7,8 @@ import { NewTrip } from "../../src/components/trip/NewTrip"
 import { MyTripList } from "../components/trip/MyTripList"
 import { TripDetails } from "../../src/components/trip/TripDetails"
 import { EditTrip } from "../../src/components/trip/EditTrip"
-import { ItemList } from "../../src/components/packlist/ItemList"
+// import { ItemList } from "../../src/components/packlist/ItemList
+import { AddItem } from "../../src/components/packlist/AddItem"
 import { PackList } from "../../src/components/packlist/PackList"
 import { TravelerList } from "../components/traveler/TravelerList"
 import { TravelerDetails } from "../components/traveler/TravelerDetails"
@@ -39,12 +40,12 @@ export const ApplicationViews = ({ token, setToken }) => {
 					</Route>
 					<Route path="/packlist" >
 						<Route index element={<PackList token={token} />} />
-						{/* <Route path="items" element={<ItemList token={token} />} /> */}
+						<Route path="add" element={<AddItem token={token} />} />
 					</Route>
 					<Route path="/connect" >
 						<Route index element={<ConnectFeed token={token} />} />
 						<Route path="discover" element={<Connect token={token} />} />
-
+					
 					</Route>
 					{/* <Route path="/calendar" >
 						<Route index element={<CalendarView token={token} />} />

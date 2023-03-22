@@ -40,8 +40,8 @@ export const NavBar = ({ token, setToken }) => {
                                 <Link to="/connect" className="navbar-item">
                                     Connect
                                 </Link>
-                                <Link to="/explore" className="navbar-item">
-                                    Explore
+                                <Link to="/travelers" className="navbar-item">
+                                    Roamers
                                 </Link>
                             </>
                             ) : (

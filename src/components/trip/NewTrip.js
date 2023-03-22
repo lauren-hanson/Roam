@@ -34,7 +34,6 @@ export const NewTrip = ({ token }) => {
         setNewTrip(newTrip)
     }
 
-
     const publishNewTrip = () => {
 
         const newTrip = {

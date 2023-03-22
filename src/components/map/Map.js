@@ -17,32 +17,13 @@ export function Map({ token }) {
             longitude: 0
         }
     }]);
-    // const [trips, setTrips] = useState([{
-    //     title: "",
-    //     weather: "",
-    //     imageUrl: "",
-    //     notes: "",
-    //     start_date: "",
-    //     end_date: "",
-    //     tag: [],
-    //     complete: false,
-    //     public: false,
-    //     destination: [
-    //         {
-    //             latitude: 0,
-    //             longitude: 0
-    //         }
-    //     ]
 
-    // }]);
     const tokenInt = parseInt(token)
 
     useEffect(() => {
         getDestinations(tokenInt).then((destArray) => {
             setDestinations(destArray)
         })
-        // getMyTrips(tokenInt).then((tripArray) => {
-        //     setTrips(tripArray)
 
     }, [])
 
@@ -51,8 +32,7 @@ export function Map({ token }) {
     const customIcon = new Icon({
         iconUrl: 'https://www.pngall.com/wp-content/uploads/2017/05/Map-Marker-Free-Download-PNG.png',
         iconSize: [20, 20],
-        // iconAnchor: [1, 1],
-        // popupAnchor: [-0, -76]
+    
     })
 
     // const polyline = [
@@ -79,38 +59,10 @@ export function Map({ token }) {
                     />
                     {destinations.map((t) => {
                         return (<Marker position={[t.latitude ?? 0, t.longitude ?? 0]} icon={customIcon}>
-                            <Popup>{t.location}</Popup>
+                            <Popup>{t.location}, {t.state}</Popup>
                             
                         </Marker>)
                     })}
-                    {/* <Marker position={[destinations.latitude, destinations.longitude]} icon={customIcon}>
-                        <Popup>
-                            Home, Sweet Home
-                        </Popup>
-                    </Marker> */}
-
-                    {/* <Marker position={center} icon={customIcon}>
-                        <Popup>
-                            Home, Sweet Home
-                        </Popup>
-                    </Marker>
-                    <Marker position={[31.892008, -104.820476]} icon={customIcon}>
-                        <Popup>This is a popup.</Popup>
-                    </Marker >
-                    <Marker position={[33.833378, -111.417358]} icon={customIcon}>
-                        <Popup>Tonto</Popup>
-                    </Marker >
-                    <Marker position={[34.871002, -111.760826]} icon={customIcon}>
-                        <Popup>Sedona.</Popup>
-                    </Marker >
-                    <Marker position={[38.55056, -107.68667]} icon={customIcon}>
-                        <Popup>Black Canyon.</Popup>
-                    </Marker >
-                    <Marker position={[36.372852, -94.208817]} icon={customIcon}>
-                        <Popup>Bentonville, Arkansas.</Popup>
-                    </Marker > */}
-                    {/* <Polyline pathOptions={greenOption} positions={polyline} /> */}
-
                 </MapContainer>
 
                 <fieldset>
