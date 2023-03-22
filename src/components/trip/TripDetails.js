@@ -5,7 +5,7 @@ import { Map } from "../map/Map"
 import { Icon } from 'leaflet'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import { Weather } from "../weather/Weather"
-// import { HumanDate } from "../utils/HumanDate";
+import { HumanDate } from "../utils/HumanDate";
 import "./Trip.css"
 
 export const TripDetails = ({ token }) => {
@@ -24,16 +24,16 @@ export const TripDetails = ({ token }) => {
         public: false,
         destination: [
             {
-                latitude: 0,
-                longitude: 0
+                latitude: "",
+                longitude: ""
             }
         ]
     })
 
     const [destinations, setDestinations] = useState([{
         destination: {
-            latitude: 0,
-            longitude: 0
+            latitude: "",
+            longitude: ""
         }
     }])
 
@@ -74,44 +74,51 @@ export const TripDetails = ({ token }) => {
         <Link
             style={{ textDecoration: "none", color: "inherit" }}
             to={`/trips`}
-            className="hover"
+            className="hover goBack"
         > ⬅️ All Trips
         </Link>
-        <section className="singleTrip" key={trip.id}>
+        <section className="tripDetail" key={trip.id}>
             <div className="single-trip">
                 <section className="myposts__content">
                     <span style={{ fontWeight: "bold" }}>
                         <section className="subscribe__postheader">
-                            <h2>{trip.title}</h2>
-                            {/* <div><HumanDate date={trip?.start_date}/> - <HumanDate date={trip?.end_date}/></div> */}
-                            <div>{trip?.start_date} - {trip?.end_date}</div>
+                            <div className="tripHeader">{trip.title}</div>
+                            <div><HumanDate date={trip?.start_date} /> - <HumanDate date={trip?.end_date} /></div>
                         </section>
                     </span>
-                    <Link to={`/travelers/${trip?.traveler?.id}`}>
-                        <h2>{trip?.traveler?.full_name}</h2>
-                    </Link>
                     < div key={trip.id} className="myTrip" >
                         <div>
-                            <img className="tripImage" src={trip.image_url} alt="Trip Image" />
+                            <img className="tripDetailImage" src={trip.image_url} alt="Trip Image" />
                         </div>
                         <div>
-                            <div id="map">
-                                <MapContainer center={[39.50, -98.350]} zoom={3} style={{ height: "300px", width: "350px" }} scrollWheelZoom={true} >
-                                    <TileLayer
-                                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                                        url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
-                                    />
-                                    {destinations.map(d => {
-                                        return (<Marker position={[d.destination.latitude ?? 0, d.destination.longitude ?? 0]} icon={customIcon} key={d.id}>
-                                            <Popup>{d.destination.location}</Popup>
-                                        </Marker>)
-                                    })}
-                                </MapContainer>
-                            </div>
-                        </div>
+                            <br></br>
+                            <div className="destinationList">
+                                <h4 className="tripSubtitle">Stops along the way...</h4>
 
+                                {trip?.destination?.map((d, index) => (
+                                    <ol key={index}>{index + 1}. {d.location},  {d.state}</ol>
+                                ))}
+                                <br></br>
+                                <div className="singleTripMap" id="map">
+                                    <MapContainer center={[39.50, -98.350]} zoom={3.25} style={{ height: "500px", width: "500px" }} scrollWheelZoom={true} >
+                                        <TileLayer
+                                            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                            url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                        />
+                                        {destinations.map(d => {
+                                            return (<Marker position={[d.destination.latitude ?? 0, d.destination.longitude ?? 0]} icon={customIcon} key={d.id}>
+                                                <Popup>{d.destination.location}</Popup>
+                                            </Marker>)
+                                        })}
+                                    </MapContainer>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <br></br>
                         <div>
-                            <h4>A little about the weather...</h4>
+                            <h4 className="tripSubtitle">A little about the weather...</h4>
                             <p>{trip.weather}</p>
                             {/* {trip.weather ?
                                 (<><h4>A little about the weather...</h4>
@@ -119,25 +126,18 @@ export const TripDetails = ({ token }) => {
 
 
                         </div>
-                        <div className="destinationList">
-                            {/* {trip.destination ?
-                                (<><h4>Stops along the way...</h4>
-                                </>) : (<></>)} */}
-                            <h4>Stops along the way...</h4>
-
-                            {trip?.destination?.map((d, index) => (
-                                <ol key={index}>{index + 1}. {d.location}</ol>
-                            ))}
-                        </div>
+                        <br></br>
                         <div>
-                            <h4>Notes</h4>
+                            <h4 className="tripSubtitle">Notes</h4>
                             {trip.notes}
                         </div>
-                        <div className="tagList">
+                        <br></br>
+                        <div className="tags">
                             {trip.tag.map((t) => (
-                                <ol key={t.id}>{t.type}</ol>))}
+                                <ol key={t.id} className="tag"> {t.type} </ol>))}
                         </div>
-                        <div className="radioAnswers">
+                        <br></br>
+                        <div className="radioAnswer tripSubtitle">
                             <div className="radioReview">
                                 {trip.public === true ?
                                     <div>✔️Public</div> :
@@ -145,10 +145,10 @@ export const TripDetails = ({ token }) => {
                                 }
                             </div>
                         </div>
-
+                        <br></br>
                         {trip.complete ? (
                             <>
-                                <button className="deleteTrip"
+                                <button className="button"
                                     onClick={(e) => {
                                         e.preventDefault()
                                         deleteWindow()
@@ -157,19 +157,19 @@ export const TripDetails = ({ token }) => {
                                     Delete
                                 </button></>) :
                             (<>
-                                <button className="completeButton"
+                                <button className="button"
                                     onClick={handleCompleteClick}
                                 >
                                     Complete?
                                 </button>
-                                < button className="editButton"
+                                < button className="button"
                                     onClick={() => {
                                         navigate(`/trips/edit/${trip.id}`)
                                     }}
                                 >
                                     Edit
                                 </button>
-                                <button className="deleteTrip"
+                                <button className="button"
                                     onClick={(e) => {
                                         e.preventDefault()
                                         deleteWindow()

@@ -1,0 +1,32 @@
+.packListPage { 
+    padding: 20px; 
+}
+
+.packListHeader {
+    font-weight: bolder;
+    font-size: 45px;
+    margin-bottom: 20px; 
+    
+}
+
+.packListSubtitle { 
+    font-size: 25px; 
+}
+
+.packListLabel { 
+    font-size: 18px; 
+}
+
+.packListContainer { 
+    width: 75%; 
+    display: flex; 
+    flex-flow: row wrap; 
+    padding: 20px; 
+}
+
+.listItem { 
+    margin: 20px; 
+    flex-flow: row wrap; 
+}
+
+

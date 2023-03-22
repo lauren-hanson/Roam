@@ -148,3 +148,14 @@ export const getSubscribedTrips = () => {
     
   }
 
+  export const getPublicTrips = () => {
+    return fetch(`http://localhost:8000/trips?public=true`,
+      {
+        headers: {
+          "Authorization": `Token ${localStorage.getItem("roam_token")}`
+        }
+      })
+      .then(res => res.json())
+    
+  }
+

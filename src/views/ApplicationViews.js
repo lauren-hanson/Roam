@@ -12,10 +12,9 @@ import { PackList } from "../../src/components/packlist/PackList"
 import { TravelerList } from "../components/traveler/TravelerList"
 import { TravelerDetails } from "../components/traveler/TravelerDetails"
 import { Connect } from "../components/connect/Connect"
-import { ConnectList } from "../components/connect/ConnectList"
-import { CalendarView } from "../components/calendar/CalendarView"
+import { ConnectFeed } from "../components/connect/ConnectFeed"
 import { Map } from "../components/map/Map"
-//import { MapTest } from "../components/map/MapTest"
+// import { CalendarView } from "../components/calendar/CalendarView"
 
 export const ApplicationViews = ({ token, setToken }) => {
 	return (
@@ -24,7 +23,7 @@ export const ApplicationViews = ({ token, setToken }) => {
 				<Route path="/login" element={<Login setToken={setToken} />} />
 				<Route path="/register" element={<Register setToken={setToken} />} />
 				<Route path="/">
-				<Route index element={<Home token={token} />} />
+					<Route index element={<Home token={token} />} />
 				</Route>
 				<Route element={<Authorized token={token} />} >
 					<Route path="/trips" >
@@ -35,22 +34,21 @@ export const ApplicationViews = ({ token, setToken }) => {
 						<Route path="newtrip" element={<NewTrip token={token} />} />
 						<Route path="edit/:tripId" element={<EditTrip token={token} />} />
 					</Route>
-					<Route path="/explore" >
+					<Route path="/favorites" >
 						<Route index element={<Map token={token} />} />
-						{/* <Route index element={<MapTest token={token} />} /> */}
-						
 					</Route>
 					<Route path="/packlist" >
 						<Route index element={<PackList token={token} />} />
 						{/* <Route path="items" element={<ItemList token={token} />} /> */}
 					</Route>
 					<Route path="/connect" >
-						<Route index element={<ConnectList token={token} />} />
+						<Route index element={<ConnectFeed token={token} />} />
 						<Route path="discover" element={<Connect token={token} />} />
+
 					</Route>
-					<Route path="/calendar" >
+					{/* <Route path="/calendar" >
 						<Route index element={<CalendarView token={token} />} />
-					</Route>
+					</Route> */}
 					<Route path="/travelers" >
 						<Route index element={<TravelerList token={token} />} />
 						<Route path=":travelerId" element={<TravelerDetails

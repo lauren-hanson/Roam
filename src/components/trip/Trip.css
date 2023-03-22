@@ -1,13 +1,32 @@
-.tripHeader {
+.goBack {
+    padding: 50px 20px;
+}
+
+
+.tripHeader,
+.allTripHeader {
     font-weight: bolder;
-    font-size: 25px;
+    font-size: 45px;
     margin-left: 25px;
+}
+
+.tripSubtitle {
+    font-size: 25px;
+}
+
+.tripLabel {
+    font-size: 18px;
+}
+
+.filterMyTrips {
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
 }
 
 .myTripHome {
     display: inline-flex;
-    flex-direction: column; 
-    border: 1px solid black;
+    flex-direction: column;
     padding: 20px;
     margin: 20px;
 }
@@ -16,15 +35,66 @@
     width: 100%;
 }
 
-.myTripList { 
-    width: 100%; 
-    display: flex; 
-    flex-direction: row; 
-    flex-wrap: wrap; 
+.myTripList {
+    display: flex;
+    flex-flow: row wrap;
 }
 
+.allTripList {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    align-content: center;
+}
+
+
+.allTripContainer {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.tripBox {
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 30px;
+    color: black;
+}
+
+.tripBoxImage {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    opacity: 0.75;
+    filter: alpha(opacity=40);
+    border-radius: 2%;
+}
+
+.allTripBoxImage {
+    width: 500px;
+    height: 500px;
+    object-fit: cover;
+    opacity: 0.75;
+    filter: alpha(opacity=40);
+    border-radius: 2%;
+}
+
+.tripBoxImage:hover {
+    opacity: 1.0;
+    filter: alpha(opacity=100);
+}
+
+
 .myTrip {
-    border: 1px solid black;
     width: 50%;
     display: flex;
     flex-direction: column;
@@ -32,28 +102,62 @@
     margin: 20px;
 }
 
-/* .singleTrip {
+.tripDetail {
     display: flex;
     flex-direction: row;
-    justify-content: center; 
+    justify-content: center;
     align-items: center;
-    width: 75rem; 
-    
-} */
+    align-content: center;
+    width: 75rem;
+    padding: 50px;
 
+}
+
+.tripDetailImage,
+.tripImage {
+    border-radius: 2%;
+
+}
+
+.editForm,
+.addNewTripForm,
+.newTripForm {
+    display: flex;
+    flex-direction: column;
+    width: 75rem;
+    padding: 20px;
+}
+
+.singleTripMap {
+    padding-left: 20px;
+}
+
+/* 
 .addNewTripForm {
     margin-left: 10%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-}
+} */
+
 
 .tags {
+    display: flex;
+    flex-flow: row wrap;
+    align-content: flex-start;
+    justify-content: flex-start;
+    width: 50%;
+}
+
+.tag,
+.tagList {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     float: left;
+    padding: 5px;
+    margin: 5px;
 
 }
 
@@ -69,12 +173,36 @@
 .radioLabel {
     margin-right: 15px;
     line-height: 30px;
+    padding-left: 5px;
     display: flex;
     flex-direction: row;
-    font-size: 20px;
+    font-size: 15px;
     color: #2e2029;
 }
 
 .radioButton {
     background-color: #090a0c;
+}
+
+.publishButton,
+.saveTripForm {
+    width: 100px;
+}
+
+.addDestinationContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+}
+
+.destinationInput { 
+    display: flex; 
+    flex-direction: column; 
+    width: 10rem; 
+}
+
+.addDestinationButton {
+    margin: 20px;
+    width: 15rem; 
 }

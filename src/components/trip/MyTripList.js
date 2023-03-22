@@ -30,22 +30,26 @@ export const MyTripList = ({ token }) => {
     }, [trips])
 
     return <>
-        <section className="">
+        <section className="goBack">
             <div><button onClick={() => navigate(`/trips/newtrip`)}>+</button>New Trip</div>
-            <h2>My Trips</h2>
-            <TripByDate setFilteredTrips={setFilteredTrips} tripId={tripId} upcomingTrips={upcomingTrips} trips={trips} pastTrips={pastTrips} />
+            <br></br>
+            <h2 className="tripHeader">My Trips</h2>
+
+            <TripByDate
+                setFilteredTrips={setFilteredTrips} tripId={tripId} upcomingTrips={upcomingTrips} trips={trips} pastTrips={pastTrips} />
 
 
             <div className="myTripList">
                 {myTrips.map((trip) => (
-                    <div key={`trip--${trip.id}`} >
+                    <div key={`trip--${trip.id}`} className="tripBox" >
                         <Link
                             style={{ textDecoration: "none", color: "inherit" }}
                             to={`/trips/${trip.id}`}
                             className="hover"
                         >
                             <div className="myTripHome">
-                                <p id="search">{trip.title}</p>
+                                <img src={trip.image_url} alt="Trip Image" className="tripBoxImage"/>
+                                <div class="centered">{trip.title}</div>
                             </div>
                         </Link>
 

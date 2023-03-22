@@ -24,26 +24,25 @@ export const TravelerDetails = ({ token }) => {
   }, [travelerId])
 
   const date = traveler.user.date_joined
-  const formatted_date = new Date(date).toLocaleDateString("en-US")
 
   return (
     <>
       <Link
         style={{ textDecoration: "none", color: "inherit" }}
         to={`/travelers`}
-        className="hover"
+        className="hover goBack"
       > ⬅️ All Roamers
       </Link>
       <br></br>
       <Link
         style={{ textDecoration: "none", color: "inherit" }}
         to={`/connect/discover`}
-        className="hover"
+        className="hover goBack"
       > ⬅️ Trips
       </Link>
-      <section className="travelers__container">
-        <section className="travelerdetail__image">
-          <img className="profileImage" src={traveler.profile_image_url} />
+      <section className="travelerContainer">
+        <section className="travelerDetailImage">
+          <img src={traveler.profile_image_url} />
         </section>
         <article className="traveler__info">
           <h3 className="traveler__name">Name: {traveler.full_name}</h3>
