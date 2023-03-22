@@ -87,7 +87,7 @@ export const ItemList = () => {
                             <h4 className="packListSubtitle">{category}</h4>
                             <ul>
                                 {items.map(item => (
-                                    <li className="packListLabel" key={item.id}>{item.name}{deleteButton(item.id)}</li>
+                                    <li className="packListLabel" key={item.id}>{deleteButton(item.id)}{item.name}</li>
                                 ))}
                             </ul>
                             <br></br>

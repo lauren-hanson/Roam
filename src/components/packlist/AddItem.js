@@ -1,13 +1,20 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { useNavigate } from 'react-router-dom'
 import { getItems, addNewItem } from "../../managers/ItemManager"
-import { getCategories } from "../../managers/CategoryManager"
+import { getCategories, addCategory } from "../../managers/CategoryManager"
+import "./PackList.css"
 
 
 export const AddItem = () => {
 
     const navigate = useNavigate()
+    const catRef = useRef()
+    const [refresh, setRefresh] = useState(false)
     const [categories, setCategories] = useState([])
+    const [newCategory, setNewCategory] = useState({
+        id: 0, 
+        type: ""
+    })
     const [newItem, setNewItem] = useState({
         name: "",
         categoryId: 0
@@ -21,11 +28,11 @@ export const AddItem = () => {
             .then((itemArr) => setCategories(itemArr))
     }, [])
 
-    // const handleNewCategoryLabel = (event) => {
-    //     const newItem = Object.assign({}, newItemByCategory)
-    //     newItem.label = event.target.value
-    //     setNewItemByCategory(newItem)
-    // }
+    const handleNewCategoryLabel = (event) => {
+        const newCategoryLabel = Object.assign({}, newCategory)
+        newCategoryLabel.type = event.target.value
+        setNewCategory(newCategoryLabel)
+    }
 
     const handleNewItemByCategory = (event) => {
         const item = Object.assign({}, newItem)
@@ -46,71 +53,99 @@ export const AddItem = () => {
         )
     }
 
+    const createNewCategory = (event) => {
+        event.preventDefault()
+
+        const data = {
+            type: newCategory.type
+        }
+
+        setCategories([...categories, newCategory])
+        catRef.current.value = ''
+
+        addCategory(data).then(() => {
+            window.confirm(
+                "New Category Added"
+            )
+            getCategories().then((data) => { 
+                setCategories(data)
+            })
+            setRefresh(!refresh)
+        })
+    }
+
 
     return (
         <>
-            <h2>Add Item
-            </h2>
-            <form>
-                <fieldset>
-                    <div className="form-group">
-                        <select
-                            name="categoryId"
-                            className="form-control"
-                            value={newItem.categoryId}
-                            onChange={(event) => {
-                                const copy = { ...newItem }
-                                copy.categoryId = parseInt(event.target.value)
-                                setNewItem(copy)
-                            }}>
-                            <option value="0">Category Select</option>
-                            {categories.map(category => (
-                                <option
-                                    key={`category--${category.id}`}
-                                    value={category.id}>
-                                    {category.type}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-                </fieldset>
-                {/* <fieldset>
-                    <div className="form-group">
-                        <input
-                            type="text"
-                            name="label"
-                            required
-                            autoFocus
-                            className="form-control"
-                            placeholder="Category Label"
-                            onChange={handleNewCategoryLabel}
-                        />
-                    </div>
-                </fieldset> */}
-                <fieldset>
-                    <div>
-                        <label htmlFor="item">What item would you like to add?</label>
-                        <br></br>
-                        <input
-                            type="text"
-                            name="name"
-                            required autoFocus
-                            onChange={handleNewItemByCategory}
-                            className="itemInput"
-                        />
-                        <br></br>
-                    </div>
-                </fieldset>
-                <button
-                    type="publish"
-                    onClick={(evt) => {
-                        evt.preventDefault()
-                        createNewItem()
-                    }}
-                    className="button"
-                >
-                    Create
-                </button>
-            </form></>
-    )
+            <div className="addItemForm">
+                <h2 className="packListHeader">Add Item</h2>
+                <form>
+                    <fieldset>
+                        <div className="form-group">
+                            <select
+                                name="categoryId"
+                                className="input"
+                                value={newItem.categoryId}
+                                onChange={(event) => {
+                                    const copy = { ...newItem }
+                                    copy.categoryId = parseInt(event.target.value)
+                                    setNewItem(copy)
+                                }}>
+                                <option value="0">Category Select</option>
+                                {categories.map(category => (
+                                    <option
+                                        key={`category--${category.id}`}
+                                        value={category.id}>
+                                        {category.type}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <label className="packListSubtitle">Need a new category?</label>
+                        <div className="newCategoryInput">
+                            <input
+                                type="text"
+                                name="type"
+                                ref={catRef}
+                                required
+                                autoFocus
+                                className="input"
+                                placeholder="New Category Label"
+                                onChange={handleNewCategoryLabel}
+                            />
+                            <button className="button is-small addCategoryButton"
+                                onClick={createNewCategory}>
+                                +
+                            </button>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <div>
+                            <label htmlFor="item" className="packListSubtitle">What item would you like to add?</label>
+                            <br></br>
+                            <input
+                                type="text"
+                                name="name"
+                                required autoFocus
+                                onChange={handleNewItemByCategory}
+                                className="input"
+                            />
+                            <br></br>
+                        </div>
+                    </fieldset>
+                    <br></br>
+                    <button
+                        type="publish"
+                        onClick={(evt) => {
+                            evt.preventDefault()
+                            createNewItem()
+                        }}
+                        className="button"
+                    >
+                        Create
+                    </button>
+                </form></div >
+        </>)
 }
