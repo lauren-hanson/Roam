@@ -1,18 +1,19 @@
 import { useEffect, useState, useRef } from "react"
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 import { getItems, addNewItem } from "../../managers/ItemManager"
-import { getCategories, addCategory } from "../../managers/CategoryManager"
+import { addCategory } from "../../managers/CategoryManager"
+// import Modal from 'react-modal'
 import "./PackList.css"
 
 
-export const AddItem = () => {
+export const AddItem = ({ getCategories, setIsModalOpen, closeModal, categories, setCategories }) => {
 
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     const catRef = useRef()
     const [refresh, setRefresh] = useState(false)
-    const [categories, setCategories] = useState([])
+
     const [newCategory, setNewCategory] = useState({
-        id: 0, 
+        id: 0,
         type: ""
     })
     const [newItem, setNewItem] = useState({
@@ -24,8 +25,7 @@ export const AddItem = () => {
     useEffect(() => {
         getItems()
             .then((itemArr) => setNewItem(itemArr))
-        getCategories()
-            .then((itemArr) => setCategories(itemArr))
+      
     }, [])
 
     const handleNewCategoryLabel = (event) => {
@@ -48,10 +48,14 @@ export const AddItem = () => {
             category: categoryId
         }
 
-        addNewItem(data).then(() =>
-            navigate("/packlist")
-        )
+        addNewItem(data)
+
+        setRefresh(!refresh)
+        {closeModal()}
+
     }
+
+
 
     const createNewCategory = (event) => {
         event.preventDefault()
@@ -67,10 +71,11 @@ export const AddItem = () => {
             window.confirm(
                 "New Category Added"
             )
-            getCategories().then((data) => { 
+            getCategories().then((data) => {
                 setCategories(data)
             })
             setRefresh(!refresh)
+
         })
     }
 

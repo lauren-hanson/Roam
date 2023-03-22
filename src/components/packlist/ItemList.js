@@ -1,46 +1,23 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { getItems, deleteItem } from "../../managers/ItemManager"
+import { getCategories, addCategory } from "../../managers/CategoryManager"
 import { AddItem } from "./AddItem"
+import { DeleteCategory } from "./DeleteCategory"
 import Modal from 'react-modal'
 import "./PackList.css"
 
 export const ItemList = () => {
-    let subtitle;
     const navigate = useNavigate()
     const [refresh, setRefresh] = useState(false)
-
-    // const [isModalOpen, setIsModalOpen] = useState(false)
-
-
-    // const customStyles = {
-    //     content: {
-    //         top: '50%',
-    //         left: '50%',
-    //         right: 'auto',
-    //         bottom: 'auto',
-    //         marginRight: '-50%',
-    //         transform: 'translate(-50%, -50%)',
-    //     },
-    // }
-
-    // const openModal = () => {
-    //     setIsModalOpen(true)
-    // }
-
-    // const afterOpenModal = () => {
-    //     subtitle.style.color = '#f00'
-    // }
-
-    // const closeModal = () => {
-    //     setIsModalOpen(false)
-    // }
-
+    const [categories, setCategories] = useState([])
     const [itemsByCategory, setItemsByCategory] = useState({})
 
     useEffect(() => {
         getItems()
             .then((itemArr) => setItemsByCategory(itemArr))
+        getCategories()
+            .then((itemArr) => setCategories(itemArr))
     }, [])
 
     const deleteButton = (id) => {
@@ -57,67 +34,92 @@ export const ItemList = () => {
         }>x</button>
     }
 
-    // const handleNewItemInfo = () => {
 
-    //     const newItem = {
-    //         name: itemsByCategory.name
-    //     }
+    const [isModalOpen, setIsModalOpen] = useState(false)
 
-    //     addNewItem(newItem).then(() => {
-    //         getItems()
-    //     })
-    // }
 
-    // const saveNewItem = () => {
+    const customStyles = {
+        content: {
+            top: '50%',
+            left: '50%',
+            right: 'auto',
+            bottom: 'auto',
+            marginRight: '-50%',
+            transform: 'translate(-50%, -50%)',
+        },
+    }
 
-    // }
+    const openModal = () => {
+        setIsModalOpen(true)
+    }
+
+    const closeModal = () => {
+        setIsModalOpen(false)
+    }
 
     return (
         <>
-            <button
+            {/* <button
                 className="button is-small"
                 onClick={() => {
                     navigate(`/packlist/add`)
-                }}>+</button>Add To Your List
+                }}>+</button>Add To Your List */}
+
+            <button class="button is-small" onClick={openModal}>+</button>Add To Your List
+            <Modal
+                isOpen={isModalOpen}
+                // onAfterOpen={afterOpenModal}
+                onRequestClose={closeModal}
+                style={customStyles}
+                contentLabel="Example Modal"
+            >
+                <button onClick={closeModal}>X</button>
+                <div><AddItem setIsModalOpen={setIsModalOpen} closeModal={closeModal} getCategories={getCategories} categories={categories} setCategories={setCategories}/></div>
+                <form>
+                    {/* <button> <button
+                            className="button is-small"
+                            onClick={() => {
+                                navigate(`/packlist/add`)
+                            }}>+</button>Add To Your List</button>*/}
+                </form>
+            </Modal>
+            {/* <button class="button is-small" onClick={openModal}>+</button>Delete Category
+            <Modal
+                isOpen={isModalOpen}
+                // onAfterOpen={afterOpenModal}
+                onRequestClose={closeModal}
+                style={customStyles}
+                contentLabel="Example Modal"
+            >
+                <button onClick={closeModal}>X</button>
+                <div><DeleteCategory setIsModalOpen={setIsModalOpen} closeModal={closeModal} getCategories={getCategories} categories={categories} setCategories={setCategories} setRefresh={setRefresh} refresh={refresh}/></div>
+                <form> */}
+                    {/* <button> <button
+                            className="button is-small"
+                            onClick={() => {
+                                navigate(`/packlist/add`)
+                            }}>+</button>Add To Your List</button>*/}
+                {/* </form>
+            </Modal> */}
 
             <div className="packListContainer">
                 {Object.entries(itemsByCategory).map(([category, items]) => (
                     <>
-                        <div key={category} className="listItem">
+                        <div key={category.id} className="listItem">
                             <h4 className="packListSubtitle">{category}</h4>
                             <ul>
                                 {items.map(item => (
-                                    <li className="packListLabel" key={item.id}>{deleteButton(item.id)}{item.name}</li>
+                                    <li className="packListLabel" key={`item--${item.id}`}>{deleteButton(item.id)}{item.name}</li>
                                 ))}
                             </ul>
                             <br></br>
 
-                            {/* <button class="button" onClick={openModal}>Open Modal</button>
-                            <Modal
-                                isOpen={isModalOpen}
-                                onAfterOpen={afterOpenModal}
-                                onRequestClose={closeModal}
-                                style={customStyles}
-                                contentLabel="Example Modal"
-                            >
-                                <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Hello</h2>
-                                <button onClick={closeModal}>close</button>
-                                <div>Add Item</div>
-                                <form>
-                                    <input
-                                        type="text"
-                                        name="name"
-                                        onChange={handleNewItemInfo}
-
-                                    />
-                                    <button onClick={saveNewItem}>Save</button>
-                                </form>
-                            </Modal> */}
                         </div>
 
 
                     </>
                 ))}
+
             </div>
         </>
     );
