@@ -77,7 +77,7 @@ export const TripDetails = ({ token }) => {
             className="hover goBack"
         > ⬅️ All Trips
         </Link>
-        <section className="singleTrip" key={trip.id}>
+        <section className="tripDetail" key={trip.id}>
             <div className="single-trip">
                 <section className="myposts__content">
                     <span style={{ fontWeight: "bold" }}>
@@ -88,7 +88,7 @@ export const TripDetails = ({ token }) => {
                     </span>
                     < div key={trip.id} className="myTrip" >
                         <div>
-                            <img className="tripImage" src={trip.image_url} alt="Trip Image" />
+                            <img className="tripDetailImage" src={trip.image_url} alt="Trip Image" />
                         </div>
                         <div>
                             <br></br>
@@ -96,10 +96,11 @@ export const TripDetails = ({ token }) => {
                                 <h4 className="tripSubtitle">Stops along the way...</h4>
 
                                 {trip?.destination?.map((d, index) => (
-                                    <ol key={index}>{index + 1}. {d.location}</ol>
+                                    <ol key={index}>{index + 1}. {d.location},  {d.state}</ol>
                                 ))}
+                                <br></br>
                                 <div className="singleTripMap" id="map">
-                                    <MapContainer center={[39.50, -98.350]} zoom={3} style={{ height: "300px", width: "350px" }} scrollWheelZoom={true} >
+                                    <MapContainer center={[39.50, -98.350]} zoom={3.25} style={{ height: "500px", width: "500px" }} scrollWheelZoom={true} >
                                         <TileLayer
                                             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                                             url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -131,9 +132,9 @@ export const TripDetails = ({ token }) => {
                             {trip.notes}
                         </div>
                         <br></br>
-                        <div className="tagList">
+                        <div className="tags">
                             {trip.tag.map((t) => (
-                                <ol key={t.id}>{t.type}</ol>))}
+                                <ol key={t.id} className="tag"> {t.type} </ol>))}
                         </div>
                         <br></br>
                         <div className="radioAnswer tripSubtitle">

@@ -1,3 +1,40 @@
-.profileImage { 
-    width: 25rem;
+.travelersContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.travelerContainer {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin: 20px;
+}
+
+.travelerHeader {
+    font-weight: bolder;
+    font-size: 45px;
+    margin-left: 25px;
+}
+
+.travelerDetailImage {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    opacity: 0.75;
+    filter: alpha(opacity=40);
+    border-radius: 3%;
+}
+
+.travelerDetailImage:hover {
+    opacity: 1.0;
+    filter: alpha(opacity=100);
+}
+
+.travelerSubtitle {
+    font-size: 25px;
+}
+
+.travelerLabel {
+    font-size: 18px;
 }

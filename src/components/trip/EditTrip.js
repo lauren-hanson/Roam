@@ -11,6 +11,8 @@ export const EditTrip = ({ token }) => {
     const navigate = useNavigate()
     const locationRef = useRef()
     const stateRef = useRef()
+    const latRef = useRef()
+    const longRef = useRef()
     const { tripId } = useParams()
     const [refresh, setRefresh] = useState(false)
     const [tags, setTags] = useState([])
@@ -20,7 +22,9 @@ export const EditTrip = ({ token }) => {
     const [newDestination, setNewDestination] = useState({
         id: 0,
         location: "",
-        state: ""
+        state: "",
+        latitude: 0,
+        longitude: 0
     })
 
     const [currentTrip, setCurrentTrip] = useState({
@@ -34,7 +38,9 @@ export const EditTrip = ({ token }) => {
         tag: [],
         destination: [{
             location: "",
-            state: ""
+            state: "",
+            latitude: 0,
+            longitude: 0
         }],
         public: 0,
         complete: 0
@@ -71,7 +77,9 @@ export const EditTrip = ({ token }) => {
 
         const newDestination = {
             location: locationRef.current.value,
-            state: stateRef.current.value
+            state: stateRef.current.value,
+            latitude: latRef.current.value,
+            longitude: longRef.current.value
         }
         setDestinations([...destinations, newDestination])
         locationRef.current.value = ''
@@ -231,6 +239,28 @@ export const EditTrip = ({ token }) => {
                             placeholder="State..."
                             onChange={handleNewDestinationInfo}
                         />
+                        <br></br>
+                        <div>Do you want to add this to your map?</div>
+                        <div className="destinationInput">
+                            <input
+                                type="text"
+                                name="latitude"
+                                ref={latRef}
+                                required autoFocus
+                                className="latInput"
+                                placeholder="Latitude..."
+                                onChange={handleNewDestinationInfo}
+                            />
+                            <input
+                                type="text"
+                                name="longitude"
+                                ref={longRef}
+                                required autoFocus
+                                className="longInput"
+                                placeholder="Longitude..."
+                                onChange={handleNewDestinationInfo}
+                            />
+                        </div>
                     </div>
 
 

@@ -2,6 +2,20 @@
   position: relative;
 }
 
+.connectHeader { 
+  font-weight: bolder;
+  font-size: 45px;
+  margin: 25px;
+}
+
+.connectSubtitle {
+  font-size: 25px;
+}
+
+.connectLabel {
+  font-size: 18px;
+}
+
 .connectTripsPage {
   padding: px;
  

@@ -1,6 +1,7 @@
 .navbar {
    color: papayawhip;
    background-color: #131313;
+   width: 100%; 
 }
 
 .navbar-menu img {

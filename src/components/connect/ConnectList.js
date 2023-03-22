@@ -33,11 +33,11 @@ export const ConnectList = ({ token }) => {
         <Link
           style={{ textDecoration: "none", color: "inherit" }}
           to={`/connect/discover`}
-          className="hover"
+          className="hover goBack"
         > ⬅️ Find More Travelers
         </Link>
         <article className="connectTripPages" >
-          <h2>Welcome to your Connect Page...</h2>
+          <h2 className="connectHeader">Welcome to your Connect Page...</h2>
           {trips.length ? (
             <div className="connectTripsContainer">
               <div className="columns" >
@@ -49,8 +49,9 @@ export const ConnectList = ({ token }) => {
                       style={{ textDecoration: "none", color: "inherit" }}
                       to={`/trips/${mostRecentTrip?.id}`}
                     >
-                      <div>Most Recent Trip...</div>
-                      <h1 className="trips_title">{mostRecentTrip.title}</h1>
+                      <div className="connectLabel">Most Recent Trip...</div>
+                      <br></br>
+                      <h1 className="connectSubtitle">{mostRecentTrip.title}</h1>
                       <span style={{ fontWeight: "bold" }}>
                         <section className="subscribe_tripheader">
                           <h3>

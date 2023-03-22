@@ -16,7 +16,7 @@ export const NewTrip = ({ token }) => {
         notes: "",
         user_id: parseInt(token),
         tag: [],
-        public: 0, 
+        public: 0,
         complete: 0
     })
 
@@ -61,151 +61,157 @@ export const NewTrip = ({ token }) => {
             })
     }
 
-    return (<>
-        <h2>Tell us about your next trip...</h2>
-        <form className="addNewTripForm">
-            <fieldset>
-                <div>
-                    <label htmlFor="title">Where are you going?</label>
-                    <br></br>
-                    <input
-                        type="text"
-                        name="title"
-                        required autoFocus
-                        className="titleInput"
-                        onChange={handleNewTripInfo} />
-                    <br></br>
-                </div>
-            </fieldset>
-
-            <fieldset>
-                <div>
-                    <label htmlFor="startDate">When do you plan on leaving?</label>
-                    <br></br>
-                    <input
-                        type="date"
-                        name="start_date"
-                        required autoFocus
-                        className="startDate"
-                        onChange={handleNewTripInfo} />
-
-                </div>
-            </fieldset>
-            <fieldset>
-                <div>
-                    <label htmlFor="endDate">When are you coming home?</label>
-                    <br></br>
-                    <input
-                        type="date"
-                        name="end_date"
-                        required autoFocus
-                        className="title-form-control"
-                        onChange={handleNewTripInfo} />
-                </div>
-            </fieldset>
-
-            <fieldset>
-                <div>
-                    {tags.map(tag => (
-                        <div className="tags" key={tag.id}>
-                            <input
-                                name="tagId"
-                                type="checkbox"
-                                required autoFocus
-                                className="checkbox"
-                                placeholder="tag"
-                                value={tag.id}
-                                onChange={(event) => {
-                                    if (event.target.checked) {
-                                        let copy = [...tagsToAPI]
-                                        copy.push(parseInt(event.target.value))
-                                        setTagsToAPI(copy)
-                                    } else {
-                                        let copy = [...tagsToAPI]
-                                        let index = copy.indexOf(parseInt(event.target.value))
-                                        copy.splice(index)
-                                        setTagsToAPI(copy)
-                                    }
-                                }}
-                            />
-                            <label className="tagLabel">
-                                <option
-                                    key={`tag--${tag.id}`}
-                                    value={tag.id}
-                                >
-                                    {tag.type}
-                                </option>
-                            </label>
-                        </div>
-                    ))}
-                </div>
-            </fieldset>
-            <fieldset>
-                <div>
-                    <textarea
-                        type="textbox"
-                        rows="15"
-                        cols="60"
-                        name="notes"
-                        required
-                        defaultValue={trip.notes}
-                        autoFocus
-                        className="form-control"
-                        placeholder="Leave some notes about the trip..."
-                        onChange={handleNewTripInfo}
-                    />
-                </div>
-            </fieldset>
-            <fieldset>
-                <div>
-                    <label htmlFor="public">Would you like this trip to be public?</label>
-                    <div className="radioLabel">
+    return (
+        <div className="newTripForm">
+            <h2 className="tripSubtitle">Tell us about your next trip...</h2>
+            <form className="addNewTripForm">
+                <fieldset>
+                    <div>
+                        <label htmlFor="title">Where are you going?</label>
+                        <br></br>
                         <input
-
-                            type="radio"
-                            className="radioButton"
-                            value={true}
-                            name="public"
-                            onClick={
-                                () => {
-                                    const copy = { ...trip }
-                                    copy.public = true
-                                    setNewTrip(copy)
-                                }
-                            }
-                        />
-                        <label className="radioLabel">Yes</label>
-
+                            type="text"
+                            name="title"
+                            required autoFocus
+                            className="titleInput"
+                            onChange={handleNewTripInfo} />
+                        <br></br>
+                    </div>
+                </fieldset>
+                <br></br>
+                <fieldset>
+                    <div>
+                        <label htmlFor="startDate">When do you plan on leaving?</label>
+                        <br></br>
                         <input
-
-                            type="radio"
-                            className="radioButton"
-                            value={false}
-                            name="public"
-                            onClick={
-                                () => {
-                                    const copy = { ...trip }
-                                    copy.public = false
-                                    setNewTrip(copy)
-                                }
-                            }
-
-                        />
-                        <label className="radioLabel" >No</label>
+                            type="date"
+                            name="start_date"
+                            required autoFocus
+                            className="startDate"
+                            onChange={handleNewTripInfo} />
 
                     </div>
-                </div>
-            </fieldset>
-            <button type="save" className="saveTripForm"
-                onClick={evt => {
-                    evt.preventDefault()
-                    publishNewTrip()
-                }}
-            >
-                Save Trip
-            </button>
+                </fieldset>
+                <br></br>
+                <fieldset>
+                    <div>
+                        <label htmlFor="endDate">When are you coming home?</label>
+                        <br></br>
+                        <input
+                            type="date"
+                            name="end_date"
+                            required autoFocus
+                            className="title-form-control"
+                            onChange={handleNewTripInfo} />
+                    </div>
+                </fieldset>
+                <br></br>
+                <fieldset>
+                    <div className="tags">
+                        {tags.map(tag => (
+                            <div className="tag" key={tag.id}>
+                                <input
+                                    name="tagId"
+                                    type="checkbox"
+                                    required autoFocus
+                                    className="checkbox"
+                                    placeholder="tag"
+                                    value={tag.id}
+                                    onChange={(event) => {
+                                        if (event.target.checked) {
+                                            let copy = [...tagsToAPI]
+                                            copy.push(parseInt(event.target.value))
+                                            setTagsToAPI(copy)
+                                        } else {
+                                            let copy = [...tagsToAPI]
+                                            let index = copy.indexOf(parseInt(event.target.value))
+                                            copy.splice(index)
+                                            setTagsToAPI(copy)
+                                        }
+                                    }}
+                                />
+                                <label className="tagLabel">
+                                    <option
+                                        key={`tag--${tag.id}`}
+                                        value={tag.id}
+                                    >
+                                        {tag.type}
+                                    </option>
+                                </label>
+                            </div>
+                        ))}
+                    </div>
+                </fieldset>
+                <br></br>
+                <fieldset>
+                    <div>
+                        <textarea
+                            type="textbox"
+                            rows="15"
+                            cols="60"
+                            name="notes"
+                            required
+                            defaultValue={trip.notes}
+                            autoFocus
+                            className="form-control"
+                            placeholder="Leave some notes about the trip..."
+                            onChange={handleNewTripInfo}
+                        />
+                    </div>
+                </fieldset>
+                <br></br>
+                <fieldset>
+                    <div>
+                        <label htmlFor="public">Would you like this trip to be public?</label>
+                        <div className="radioLabel">
+                            <input
 
-        </form></>
+                                type="radio"
+                                className="radioButton"
+                                value={true}
+                                name="public"
+                                onClick={
+                                    () => {
+                                        const copy = { ...trip }
+                                        copy.public = true
+                                        setNewTrip(copy)
+                                    }
+                                }
+                            />
+                            <label className="radioLabel">Yes</label>
+
+                            <input
+
+                                type="radio"
+                                className="radioButton"
+                                value={false}
+                                name="public"
+                                onClick={
+                                    () => {
+                                        const copy = { ...trip }
+                                        copy.public = false
+                                        setNewTrip(copy)
+                                    }
+                                }
+
+                            />
+                            <label className="radioLabel" >No</label>
+
+                        </div>
+                    </div>
+                </fieldset>
+                <br></br>
+                <button type="save" className="button saveTripForm"
+                    onClick={evt => {
+                        evt.preventDefault()
+                        publishNewTrip()
+                    }}
+                >
+                    Save Trip
+                </button>
+
+            </form>
+        </div>
 
     )
 }
