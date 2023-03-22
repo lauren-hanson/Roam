@@ -26,3 +26,13 @@ export const addNewItem = (item) => {
     })
         .then((res) => res.json())
 };
+
+
+export const deleteItem = (id) => {
+    return fetch(`http://localhost:8000/items/${id}`, {
+        method: "DELETE",
+        headers: {
+            "Authorization": `Token ${localStorage.getItem("roam_token")}`
+        },
+    })
+};

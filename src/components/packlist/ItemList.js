@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { getItems, addNewItem } from "../../managers/ItemManager"
+import { getItems, deleteItem } from "../../managers/ItemManager"
 import { AddItem } from "./AddItem"
 import Modal from 'react-modal'
 import "./PackList.css"
@@ -8,6 +8,7 @@ import "./PackList.css"
 export const ItemList = () => {
     let subtitle;
     const navigate = useNavigate()
+    const [refresh, setRefresh] = useState(false)
 
     // const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -42,6 +43,20 @@ export const ItemList = () => {
             .then((itemArr) => setItemsByCategory(itemArr))
     }, [])
 
+    const deleteButton = (id) => {
+        return <button className="deleteButton" onClick={() => {
+            deleteItem(id)
+                .then(() => {
+                    window.confirm(
+                        "Are you sure this item wasn't used?"
+                    )
+                    getItems().then((data) => setItemsByCategory(data))
+                    setRefresh(!refresh)
+                })
+        }
+        }>x</button>
+    }
+
     // const handleNewItemInfo = () => {
 
     //     const newItem = {
@@ -72,7 +87,7 @@ export const ItemList = () => {
                             <h4 className="packListSubtitle">{category}</h4>
                             <ul>
                                 {items.map(item => (
-                                    <li className="packListLabel" key={item.id}>{item.name}</li>
+                                    <li className="packListLabel" key={item.id}>{item.name}{deleteButton(item.id)}</li>
                                 ))}
                             </ul>
                             <br></br>
