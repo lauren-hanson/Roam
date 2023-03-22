@@ -15,18 +15,23 @@ export const ItemList = () => {
 
     return (<>
 
-        <div>
+        <div className="columns is-centered packListContainer">
             {Object.entries(itemsByCategory).map(([category, items]) => (
-                <div key={category}>
-                    <h4 className="packListSubtitle">{category}</h4>
-                    <br></br>
-                    <ul>
-                        {items.map(item => (
-                            <li className="packListLabel" key={item.id}>{item.name}</li>
-                        ))}
-                    </ul>
-                    <br></br>
-                </div>
+                <>
+
+
+                    <div key={category} classname="column is-three-fifths listItem">
+                        <h4 className="packListSubtitle">{category}</h4>
+                        <ul>
+                            {items.map(item => (
+                                <li className="packListLabel" key={item.id}>{item.name}</li>
+                            ))}
+                        </ul>
+                        <button class="button">Add</button>
+                    </div>
+
+
+                </>
             ))}
         </div>
     </>)

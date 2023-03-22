@@ -37,9 +37,7 @@ export const EditTrip = ({ token }) => {
         user_id: parseInt(token),
         tag: [],
         destination: [{
-            location: "",
-            state: "",
-            latitude: 0,
+            latitude: 0, 
             longitude: 0
         }],
         public: 0,
@@ -72,18 +70,26 @@ export const EditTrip = ({ token }) => {
         setNewDestination(startDestination)
     }
 
+    const parseLatLong = (event) => {
+        const latLong = Object.assign({}, newDestination)
+        latLong[event.target.name] = parseFloat(event.target.value)
+        setNewDestination(latLong) 
+    }
+
     const createNewDestination = (event) => {
         event.preventDefault()
 
         const newDestination = {
             location: locationRef.current.value,
             state: stateRef.current.value,
-            latitude: latRef.current.value,
-            longitude: longRef.current.value
+            latitude: parseFloat(latRef.current.value),
+            longitude: parseFloat(longRef.current.value)
         }
         setDestinations([...destinations, newDestination])
         locationRef.current.value = ''
         stateRef.current.value = ''
+        latRef.current.value = ''
+        longRef.current.value = ''
 
         addDestination(newDestination)
             .then((destination) => {
@@ -239,28 +245,31 @@ export const EditTrip = ({ token }) => {
                             placeholder="State..."
                             onChange={handleNewDestinationInfo}
                         />
+                    </div>
+
+                    <br></br>
+
+                    <div>Do you want to add this to your map?</div>
+                    <div className="destinationInput">
+                        <input
+                            type="text"
+                            name="latitude"
+                            ref={latRef}
+                            required autoFocus
+                            className="latInput"
+                            placeholder="Latitude..."
+                            onChange={parseLatLong}
+                        />
                         <br></br>
-                        <div>Do you want to add this to your map?</div>
-                        <div className="destinationInput">
-                            <input
-                                type="text"
-                                name="latitude"
-                                ref={latRef}
-                                required autoFocus
-                                className="latInput"
-                                placeholder="Latitude..."
-                                onChange={handleNewDestinationInfo}
-                            />
-                            <input
-                                type="text"
-                                name="longitude"
-                                ref={longRef}
-                                required autoFocus
-                                className="longInput"
-                                placeholder="Longitude..."
-                                onChange={handleNewDestinationInfo}
-                            />
-                        </div>
+                        <input
+                            type="text"
+                            name="longitude"
+                            ref={longRef}
+                            required autoFocus
+                            className="longInput"
+                            placeholder="Longitude..."
+                            onChange={parseLatLong}
+                        />
                     </div>
 
 
@@ -329,7 +338,7 @@ export const EditTrip = ({ token }) => {
                         <input
 
                             type="radio"
-                            checked={currentTrip.public === true}
+                            defaultChecked={currentTrip.public === true}
                             name="public"
                             onClick={
                                 () => {
@@ -345,7 +354,7 @@ export const EditTrip = ({ token }) => {
                         <input
 
                             type="radio"
-                            checked={currentTrip.public === false}
+                            defaultChecked={currentTrip.public === false}
                             name="public"
                             onClick={
                                 () => {

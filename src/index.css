@@ -1,31 +1,49 @@
 @import 'bulma/css/bulma.css';
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap');
 
+a:hover {
+  text-decoration: none;
+  color: lightgray;
+}
+
 body {
   margin: 0;
   font-family: 'Roboto Slab', serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  
 }
 
 code {
   font-family: 'Roboto Slab', serif;
 }
 
-.registerLink, .loginLink { 
-  color: white; 
-  padding: 20px; 
+.registerLink,
+.loginLink {
+  color: white;
+  padding: 20px;
 }
 
-a.navbar-item:focus, a.navbar-item:focus-within, a.navbar-item:hover, a.navbar-item.is-active, .navbar-link:focus, .navbar-link:focus-within, .navbar-link:hover, .navbar-link.is-active {
+a.navbar-item:focus,
+a.navbar-item:focus-within,
+a.navbar-item:hover,
+a.navbar-item.is-active,
+.navbar-link:focus,
+.navbar-link:focus-within,
+.navbar-link:hover,
+.navbar-link.is-active {
   background-color: #131313;
   color: #cccccc;
 }
 
-.navbar-item, .navbar-link { 
-  color: #309875;
-  padding-left: 10px; 
+.navbar,
+.navbar-menu {
+  background-color: #131313;
+}
+
+.navbar-item,
+.navbar-link {
+  color: papayawhip;
+  padding-left: 10px;
   background-color: #131313;
 }
 

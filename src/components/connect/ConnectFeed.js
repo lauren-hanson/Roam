@@ -5,7 +5,7 @@ import { HumanDate } from "../utils/HumanDate"
 import "./Connect.css"
 
 
-export const ConnectList = ({ token }) => {
+export const ConnectFeed = ({ token }) => {
 
   const [trips, setTrips] = useState([])
   const tokenInt = parseInt(token)
@@ -34,7 +34,7 @@ export const ConnectList = ({ token }) => {
           style={{ textDecoration: "none", color: "inherit" }}
           to={`/connect/discover`}
           className="hover goBack"
-        > ⬅️ Find More Travelers
+        > ⬅️ See All Trips
         </Link>
         <article className="connectTripPages" >
           <h2 className="connectHeader">Welcome to your Connect Page...</h2>
@@ -43,7 +43,7 @@ export const ConnectList = ({ token }) => {
               <div className="columns" >
 
 
-                <div className="mostRecentContainer column is-10">
+                <div className="mostRecentContainer column is-9">
                   <section className="trip">
                     <Link
                       style={{ textDecoration: "none", color: "inherit" }}
@@ -66,11 +66,10 @@ export const ConnectList = ({ token }) => {
                           </div>
                         </section>
                       </span>
-                      <img className="trip_image" src={mostRecentTrip?.image_url} />
+                      <img className="tripImage" src={mostRecentTrip?.image_url} />
                       <section className="subscribe_tripbody">
                         <p>
-                          {mostRecentTrip.notes}
-
+                          {mostRecentTrip.notes.slice(0, 250) + "..."}
                         </p>
                       </section>
                     </Link>
@@ -98,9 +97,9 @@ export const ConnectList = ({ token }) => {
                         </div>
 
                       </span>
-                      <img className="trip_image" src={secondTrip?.image_url} />
+                      <img className="tripImage" src={secondTrip?.image_url} />
                       <section className="subscribe__tripbody">
-                        <div className="column">{secondTrip.notes}
+                        <div className="column">{secondTrip.notes.slice(0, 250) + "..."}
                         </div>
                       </section>
                     </Link>
@@ -122,42 +121,44 @@ export const ConnectList = ({ token }) => {
                         to={`/trips/${trip?.id}`}
                       >
                         <br />
-                        <div className="column is-two-thirds">
+                        <div className="column is-one-fifth"></div>
+                        <div className="column is-one-fifth">
                           <p
-                            className="title is-4 has-text-weight-bold is-margin"
+                            className="tripSubtitle "
                             aria-label="breadcrumbs"
                           >
                             {trip?.title}
                           </p>
-                          <h3>
-                            Traveler:{" "}
-                            <Link to={`/travelers/${trip.traveler.id}`}>
-                              <div className="travelerName">{trip?.traveler?.full_name}</div>
-                            </Link>
-                          </h3>
-                          <div className="subtitle is-custom">
+
+                          <div className="tripLabel">
                             <span style={{ margin: 0, padding: 0 }}>
                               <HumanDate date={trip.publication_date} />
                             </span>
                           </div>
                         </div>
+                        <h3>
+                          <Link to={`/travelers/${trip.traveler.id}`}>
+                            <div className="travelerName">{trip?.traveler?.full_name}</div>
+                          </Link>
+                        </h3>
                       </Link>
                     </div>
 
 
-                    <div className="column">
+                    <div className="column is-two-fifth">
                       <Link
                         style={{ textDecoration: "none", color: "inherit" }}
                         to={`/trips/${trip?.id}`}
                         className="hover"
-                      >{trip.notes}
+                      >{trip.notes.slice(0, 250) + "..."}
                       </Link></div>
 
-                    <div className="column">
+
+                    <div className="column is-one-fifth">
                       <Link
                         to={`/trips/${trip?.id}`}
-                        className="trip_image"
-                      ><img id="image" src={trip.image_url} alt="Image 1"></img></Link>
+                        className="tripImage"
+                      ><img src={trip.image_url} alt="Image 1"></img></Link>
 
                     </div>
                     <hr className="hr"></hr>

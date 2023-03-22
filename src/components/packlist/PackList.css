@@ -16,3 +16,17 @@
 .packListLabel { 
     font-size: 18px; 
 }
+
+.packListContainer { 
+    width: 75%; 
+    display: flex; 
+    flex-flow: row wrap; 
+    padding: 20px; 
+}
+
+.listItem { 
+    margin: 20px; 
+    flex-flow: row wrap; 
+}
+
+

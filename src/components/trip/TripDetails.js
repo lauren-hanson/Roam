@@ -24,16 +24,16 @@ export const TripDetails = ({ token }) => {
         public: false,
         destination: [
             {
-                latitude: 0,
-                longitude: 0
+                latitude: "",
+                longitude: ""
             }
         ]
     })
 
     const [destinations, setDestinations] = useState([{
         destination: {
-            latitude: 0,
-            longitude: 0
+            latitude: "",
+            longitude: ""
         }
     }])
 

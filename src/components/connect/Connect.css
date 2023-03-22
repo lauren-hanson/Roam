@@ -2,7 +2,7 @@
   position: relative;
 }
 
-.connectHeader { 
+.connectHeader, .allTripHeader { 
   font-weight: bolder;
   font-size: 45px;
   margin: 25px;
@@ -38,21 +38,23 @@
 .bottomTrips { 
   display: flex; 
   flex-direction: row; 
+  align-items: center; 
   padding: 30px 15px; 
   border: 1px solid #ffffff;
   border-style: none none solid none; 
 } 
 
-.trip_image:hover {
-  opacity: 1.0;
-  filter: alpha(opacity=100);
-}
 
-.trip_image {
+.tripImage {
   width: 100%;
   padding: 30px;
   opacity: 0.75;
   filter: alpha(opacity=40);
+}
+
+.tripImage:hover {
+  opacity: 1.0;
+  filter: alpha(opacity=100);
 }
 
 .subscribe_tripbody {
