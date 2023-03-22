@@ -1,8 +1,26 @@
+.goBack { 
+    padding: 50px 20px; 
+}
 
 .tripHeader {
     font-weight: bolder;
-    font-size: 25px;
+    font-size: 45px;
     margin-left: 25px;
+}
+
+.tripSubtitle { 
+    font-size: 25px; 
+}
+
+.tripLabel { 
+    font-size: 18px; 
+}
+
+.filterMyTrips { 
+    display: flex; 
+    justify-content: flex-end; 
+    align-content: flex-end; 
+    align-items: flex-end;  
 }
 
 .myTripHome {
@@ -25,7 +43,6 @@
 }
 
 .myTrip {
-    border: 1px solid black;
     width: 50%;
     display: flex;
     flex-direction: column;
@@ -33,14 +50,27 @@
     margin: 20px;
 }
 
-/* .singleTrip {
+.singleTrip{
     display: flex;
     flex-direction: row;
     justify-content: center; 
     align-items: center;
+    align-content: center; 
     width: 75rem; 
+    padding: 20px; 
     
-} */
+}
+
+.editForm { 
+    display: flex;
+    flex-direction: column; 
+    width: 75rem; 
+    padding: 20px;
+}
+
+.singleTripMap { 
+    padding-left: 20px; 
+}
 
 .addNewTripForm {
     margin-left: 10%;
@@ -50,7 +80,7 @@
     align-items: flex-start;
 }
 
-.tags {
+.tags, .tagList {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -70,6 +100,7 @@
 .radioLabel {
     margin-right: 15px;
     line-height: 30px;
+    padding-left: 5px; 
     display: flex;
     flex-direction: row;
     font-size: 20px;
@@ -79,3 +110,19 @@
 .radioButton {
     background-color: #090a0c;
 }
+
+.publishButton { 
+    margin: 0px 50px 50px ; 
+    width: 75px; 
+} 
+
+.addDestinationContainer { 
+    display: flex; 
+    justify-content: flex-start; 
+    align-items: center; 
+}
+
+.addDestinationButton { 
+    margin: 20px; 
+}
+

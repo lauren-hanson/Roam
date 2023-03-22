@@ -36,7 +36,7 @@ export const EditTrip = ({ token }) => {
             location: "",
             state: ""
         }],
-        public: 0, 
+        public: 0,
         complete: 0
     })
 
@@ -114,11 +114,11 @@ export const EditTrip = ({ token }) => {
 
 
     return (<>
-        <form>
-            <h2>Edit your trip...</h2>
+        <form className="editForm">
+            <h2 className="tripSubtitle">Edit your trip...</h2>
             <fieldset>
+                <label className="tripLabel">Where are you going?</label>
                 <div>
-                    <label>Where are you going?</label>
                     <input
                         type="text"
                         name="title"
@@ -131,11 +131,14 @@ export const EditTrip = ({ token }) => {
                     />
                 </div>
             </fieldset>
+            <br></br>
             <fieldset>
+                <label className="tripLabel">Weather:</label>
                 <div>
-                    <label>Weather:</label>
-                    <input
-                        type="text"
+                    <textarea
+                        type="textbox"
+                        rows="10"
+                        cols="60"
                         name="weather"
                         required
                         autoFocus
@@ -146,9 +149,10 @@ export const EditTrip = ({ token }) => {
                     />
                 </div>
             </fieldset>
+            <br></br>
             <fieldset>
+                <label className="tripLabel">Photos:</label>
                 <div>
-                    <label>Photos:</label>
                     <input
                         type="text"
                         name="image_url"
@@ -161,9 +165,10 @@ export const EditTrip = ({ token }) => {
                     />
                 </div>
             </fieldset>
+            <br></br>
             <fieldset>
+                <label className="tripLabel">Start Date:</label>
                 <div>
-                    <label>Start Date:</label>
                     <input
                         type="date"
                         required
@@ -181,9 +186,10 @@ export const EditTrip = ({ token }) => {
                     />
                 </div>
             </fieldset>
+            <br></br>
             <fieldset>
+                <label className="tripLabel">End Date:</label>
                 <div>
-                    <label>End Date:</label>
                     <input
                         type="date"
                         required
@@ -201,35 +207,38 @@ export const EditTrip = ({ token }) => {
                     />
                 </div>
             </fieldset>
+            <br></br>
             <fieldset>
-                <div>
-                    <label htmlFor="destination">Stops along the way... </label>
+                <label className="tripLabel" htmlFor="destination">Stops along the way... </label>
+                <div className="addDestinationContainer">
                     <br></br>
-                    <input
-                        type="text"
-                        name="location"
-                        ref={locationRef}
-                        required autoFocus
-                        className="locationInput"
-                        placeholder="City..."
-                        onChange={handleNewDestinationInfo} />
-                    <br></br>
-                    <input
-                        type="text"
-                        name="state"
-                        ref={stateRef}
-                        required autoFocus
-                        className="stateInput"
-                        placeholder="State..."
-                        onChange={handleNewDestinationInfo}
-                    />
+                    <div className="destinationInput">
+                        <input
+                            type="text"
+                            name="location"
+                            ref={locationRef}
+                            required autoFocus
+                            className="locationInput"
+                            placeholder="City..."
+                            onChange={handleNewDestinationInfo} />
+                        <br></br>
+                        <input
+                            type="text"
+                            name="state"
+                            ref={stateRef}
+                            required autoFocus
+                            className="stateInput"
+                            placeholder="State..."
+                            onChange={handleNewDestinationInfo}
+                        />
+                    </div>
 
+
+                    <button className="button is-small addDestinationButton"
+                        onClick={createNewDestination}>
+                        Add Destination
+                    </button>
                 </div>
-
-                <button
-                    onClick={createNewDestination}>
-                    Add Destination
-                </button>
                 <br></br>
                 <div>
                     {currentTrip?.destination.map((destination, index) => (
@@ -238,20 +247,21 @@ export const EditTrip = ({ token }) => {
                             {deleteButton(destination.id)}
                             </p> */}
                             <li>{destination.location}, {destination.state}
-                            {deleteButton(destination.id)}</li>
+                                {deleteButton(destination.id)}</li>
                             {/* <button onClick={deleteWindow(destination.id)}>❌</button> */}
                         </div>
                     ))}
 
                 </div>
             </fieldset>
+            <br></br>
             <fieldset>
+                <label>Notes:</label>
                 <div>
-                    <label>Notes:</label>
                     <textarea
                         type="textbox"
                         rows="20"
-                        cols="50"
+                        cols="80"
                         name="notes"
                         required
                         autoFocus
@@ -262,9 +272,10 @@ export const EditTrip = ({ token }) => {
                     />
                 </div>
             </fieldset>
+            <br></br>
             <fieldset>
                 <div className="field">
-                    <label htmlFor="tag" className="label">Tags: </label>
+                    <label htmlFor="tag" className="triplabel label">Tags: </label>
                     {
                         tags.map(tag => {
                             const foundTag = currentTrip.tag.find(tripTag => tag.id === tripTag.id)
@@ -280,7 +291,7 @@ export const EditTrip = ({ token }) => {
                     }
                 </div>
             </fieldset>
-
+            <br></br>
             <fieldset>
                 <div>
                     <label htmlFor="public">Are you ready for this trip to be public?</label>
@@ -319,7 +330,7 @@ export const EditTrip = ({ token }) => {
                     </div>
                 </div>
             </fieldset>
-
+            <br></br>
             <button
                 type="saveTrip"
                 onClick={evt => {
@@ -343,7 +354,7 @@ export const EditTrip = ({ token }) => {
                     updateTrip(tripId, tripInfoToUpdate)
                         .then(() => navigate(`/trips/${currentTrip.id}`))
                 }}
-                className="button is-link is-rounded is-small">Publish</button>
+                className="button publishButton">Publish</button>
         </form>
 
     </>

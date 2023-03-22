@@ -1,9 +1,10 @@
 import { ItemList } from "./ItemList"
+import "./PackList.css"
 
 export const PackList = ({token}) => { 
 
     return(<>
-        <h2>Our Pack List</h2>
+        <h2 className="packListHeader">Our Pack List</h2>
         <ItemList /> 
     </>)
 }

@@ -30,10 +30,13 @@ export const MyTripList = ({ token }) => {
     }, [trips])
 
     return <>
-        <section className="">
+        <section className="goBack">
             <div><button onClick={() => navigate(`/trips/newtrip`)}>+</button>New Trip</div>
-            <h2>My Trips</h2>
-            <TripByDate setFilteredTrips={setFilteredTrips} tripId={tripId} upcomingTrips={upcomingTrips} trips={trips} pastTrips={pastTrips} />
+            <br></br>
+            <h2 className="tripHeader">My Trips</h2>
+
+            <TripByDate 
+            setFilteredTrips={setFilteredTrips} tripId={tripId} upcomingTrips={upcomingTrips} trips={trips} pastTrips={pastTrips} />
 
 
             <div className="myTripList">

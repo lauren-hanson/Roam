@@ -1,0 +1,13 @@
+.packListHeader {
+    font-weight: bolder;
+    font-size: 45px;
+    margin-left: 25px;
+}
+
+.packListSubtitle { 
+    font-size: 25px; 
+}
+
+.packListLabel { 
+    font-size: 18px; 
+}
