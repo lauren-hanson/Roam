@@ -9,7 +9,7 @@ export const SubscriptionForm = ({ traveler , setTraveler, setTravelers }) => {
       {
         traveler.subscribed 
         ?
-            <button className="button is-warning users__follow_button" width="fit-content"
+            <button className="button is-small" width="fit-content"
             onClick={() => {
                 deleteSubscription(traveler.id)
                 .then(() => {

@@ -2,6 +2,7 @@ import { useState } from "react"
 import { ApplicationViews } from "./views/ApplicationViews"
 import { NavBar } from "./components/nav/NavBar"
 
+
 export const Roam = () => {
 
   const [token, setTokenState] = useState(localStorage.getItem('auth_token'))
@@ -12,7 +13,7 @@ export const Roam = () => {
   }
 
   return <>
-    <NavBar token={token} setToken={setToken} /> 
+    <NavBar token={token} setToken={setToken} />
     <ApplicationViews token={token} setToken={setToken} />
   </>
 }

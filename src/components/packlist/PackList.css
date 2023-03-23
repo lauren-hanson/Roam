@@ -1,11 +1,17 @@
 .packListContainer {
     display: flex;
     flex-flow: row wrap;
-    padding: 20px;
+    margin: auto;
+    width: 80%;
+    padding: 10px;
 }
 
 .packListPage {
-    padding: 20px;
+    margin: auto;
+    width: 90%;
+    padding: 10px;
+    color: papayawhip;
+
 }
 
 .packListHeader {
@@ -26,16 +32,19 @@
 .listItem {
     display: flex;
     flex-direction: column;
+    border: 3px solid darkgrey;
+    width: 30%;
+    padding: 10px;
     margin: 20px;
-    padding: 10px; 
 }
 
-.item{ 
-    padding: 5px; 
+.item {
+    padding: 5px;
+    margin-left: 10px;
 }
 
-.form-control{ 
-    font-size: 20px; 
+.form-control {
+    font-size: 20px;
 }
 
 .overlay {
@@ -52,18 +61,18 @@
     display: none;
 }
 
-.addItemForm { 
-    padding: 30px; 
-    margin: 20px; 
+.addItemForm {
+    padding: 30px;
+    margin: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: center; 
-    align-items: center; 
+    justify-content: center;
+    align-items: center;
 
 }
 
-.newCategoryInput { 
-    display: flex; 
+.newCategoryInput {
+    display: flex;
     flex-direction: row;
     align-items: center
 }
@@ -76,7 +85,7 @@
     transform: translate(-50%, -50%);
     width: 80%;
     max-width: 600px;
-    background-color: #fff;
+    background-color: #1c1c1c;
     padding: 1rem;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
     z-index: 1000;

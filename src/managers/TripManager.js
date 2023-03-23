@@ -94,7 +94,7 @@ export const addTripTag = (tripTag) => {
 }
 
 export const getDestinationByTrip = (id) => {
-    return fetch(`http://localhost:8000/tripdestinations?trip=${id}`,
+    return fetch(`http://localhost:8000/tripdestinations?trips=${id}`,
         {
             headers: {
                 "Authorization": `Token ${localStorage.getItem("roam_token")}`

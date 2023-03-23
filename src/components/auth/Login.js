@@ -3,9 +3,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { loginUser } from "../../managers/AuthManager"
 import "./Login.css"
 
-//Login function handles initializing user object, posting user to login table, and conditionally rendering JSX
 export const Login = ({ setToken }) => {
-  //useRef hook is a state variable that 1. persists between renders and 2. can change but doesn't instigate re-renders.
   const username = useRef()
   const password = useRef()
   const navigate = useNavigate()
@@ -13,34 +11,26 @@ export const Login = ({ setToken }) => {
 
   const handleLogin = (e) => {
     e.preventDefault()
-//initialize user object
     const user = {
       username: username.current.value,
       password: password.current.value
     }
-//loginUser() POSTS to login table to the API. Should this happen? Should logout delete this row?
     loginUser(user)
       .then(res => {
-      /*
-      tests to see if the response object contains the valid property or the "valid" string
-      setToken
-      */
+
       if ("valid" in res && res.valid && "token" in res) {
-        //Sets the user into local storage and navigates to home
         setToken(res.token)
         localStorage.setItem("roam_token", res.token)
         navigate("/")
       }
       else {
-        //Used to generate a string on the form "Username or password not valid"
         setisUnsuccessful(true)
       }
     })
   }
 
   return (
-    <section>
-      {/*login form*/}
+    <section className="loginForm">
       <form className="login" onSubmit={handleLogin}>
         <h1 className="title">Roam</h1>
         <p className="subtitle">Create Your Own Road Trip Story</p>
@@ -62,10 +52,10 @@ export const Login = ({ setToken }) => {
         <div className="field">
           <div className="control">
             {/*submission button*/}
-            <button className="button" type="submit" >Submit</button>
+            <button className="button is-small" type="submit" >Submit</button>
           </div>
           <div className="control">
-            <Link to="/register" className="button">Cancel</Link>
+            <Link to="/register" className="button is-small">Cancel</Link>
           </div>
         </div>
         {

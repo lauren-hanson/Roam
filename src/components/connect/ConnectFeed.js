@@ -16,26 +16,21 @@ export const ConnectFeed = ({ token }) => {
 
   }, [])
 
-
-
   const mostRecentTrip = trips[0]
   const secondTrip = trips[1]
   const allOtherTrips = trips.slice(2)
 
 
-
-
-
-
   return (
     <article className="connectTripsPage">
+      <Link
+        style={{ textDecoration: "none", color: "inherit" }}
+        to={`/connect/discover`}
+        className="hover goBack"
+      > See all trips.
+      </Link>
       <div key={`trip--${trips.id}`}>
-        <Link
-          style={{ textDecoration: "none", color: "inherit" }}
-          to={`/connect/discover`}
-          className="hover goBack"
-        > ⬅️ See All Trips
-        </Link>
+
         <article className="connectTripPages" >
           <h2 className="connectHeader">Welcome to your Connect Page...</h2>
           {trips.length ? (
@@ -169,9 +164,15 @@ export const ConnectFeed = ({ token }) => {
                 )}</div>
             </div>
           )
-            : (<>
-              <div className="subscribe__text">Follow travelers to curate your connect page!</div>
-            </>
+            : (<div className="connectTripsPage">
+              <div className="connectLabel">Follow travelers to curate your connect page!</div>
+              <Link
+                style={{ textDecoration: "none", color: "inherit" }}
+                to={`/connect/discover`}
+                className="hover goBack"
+              > Click here to see all trips!
+              </Link>
+            </div>
 
             )}
         </article >

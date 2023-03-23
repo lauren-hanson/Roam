@@ -39,8 +39,12 @@ export const TripDetails = ({ token }) => {
 
     useEffect(() => {
         getSingleTrip(tripId).then(setTrip)
-        getDestinationByTrip(tripId).then(setDestinations)
+        
     }, [, tripId])
+
+    useEffect(() => { 
+        getDestinationByTrip(tripId).then(setDestinations)
+    })
 
     const deleteWindow = () => {
         if (
@@ -70,10 +74,10 @@ export const TripDetails = ({ token }) => {
 
     return <>
         <Link
-            style={{ textDecoration: "none", color: "inherit" }}
+            style={{ textDecoration: "none", color: "papayawhip" }}
             to={`/trips`}
             className="hover goBack"
-        > ⬅️ All Trips
+        > ⬅️ Your Trips
         </Link>
         <section className="tripDetail" key={trip.id}>
             <div className="single-trip">
@@ -85,8 +89,8 @@ export const TripDetails = ({ token }) => {
                         </section>
                     </span>
                     < div key={trip.id} className="myTrip" >
-                        <div>
-                            <img className="tripDetailImage" src={trip.image_url} alt="Trip Image" />
+                        <div className="tripDetailImage" >
+                            <img src={trip.image_url} alt="Trip Image" />
                         </div>
                         <div>
                             <br></br>
@@ -132,7 +136,7 @@ export const TripDetails = ({ token }) => {
                         <br></br>
                         <div className="tags">
                             {trip.tag.map((t) => (
-                                <ol key={t.id} className="tag"> {t.type} </ol>))}
+                                <ol key={t.id} className="tagLabel"> {t.type} </ol>))}
                         </div>
                         <br></br>
                         <div className="radioAnswer tripSubtitle">
@@ -155,19 +159,19 @@ export const TripDetails = ({ token }) => {
                                     Delete
                                 </button></>) :
                             (<>
-                                <button className="button"
+                                <button className="button is-small"
                                     onClick={handleCompleteClick}
                                 >
                                     Complete?
                                 </button>
-                                < button className="button"
+                                < button className="button is-small"
                                     onClick={() => {
                                         navigate(`/trips/edit/${trip.id}`)
                                     }}
                                 >
                                     Edit
                                 </button>
-                                <button className="button"
+                                <button className="button is-small"
                                     onClick={(e) => {
                                         e.preventDefault()
                                         deleteWindow()

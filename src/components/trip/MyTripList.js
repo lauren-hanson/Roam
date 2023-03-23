@@ -31,9 +31,12 @@ export const MyTripList = ({ token }) => {
 
     return <>
         <section className="goBack">
-            <div><button onClick={() => navigate(`/trips/newtrip`)}>+</button>New Trip</div>
+            <div className="topButton"><button className="button is-small" onClick={() => navigate(`/trips/newtrip`)}>+</button>
+            <div className="buttonLabel">New Trip</div></div>
+        </section>
             <br></br>
             <h2 className="tripHeader">My Trips</h2>
+
 
             <TripByDate
                 setFilteredTrips={setFilteredTrips} tripId={tripId} upcomingTrips={upcomingTrips} trips={trips} pastTrips={pastTrips} />
@@ -48,14 +51,13 @@ export const MyTripList = ({ token }) => {
                             className="hover"
                         >
                             <div className="myTripHome">
-                                <img src={trip.image_url} alt="Trip Image" className="tripBoxImage"/>
+                                <img src={trip.image_url} alt="Trip Image" className="tripBoxImage" />
                                 <div class="centered">{trip.title}</div>
                             </div>
                         </Link>
 
                     </div>))}
             </div>
-        </section>
     </>
 
 }

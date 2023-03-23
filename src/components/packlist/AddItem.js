@@ -59,15 +59,6 @@ export const AddItem = ({ getCategories, closeModal, categories, setCategories }
             .catch((error) => {
                 console.error(error)
             })
-        // 
-        // getItems().then((newData) => {
-        //     setNewItem(newData);
-        //     if (closeModal) {
-        //         closeModal();
-        //     }
-        // })
-
-
 
     }
 
@@ -101,6 +92,25 @@ export const AddItem = ({ getCategories, closeModal, categories, setCategories }
             <div className="addItemForm">
                 <h2 className="packListHeader">Add Item</h2>
                 <form>
+                <fieldset>
+                        <label className="packListSubtitle">Need a new category?</label>
+                        <div className="newCategoryInput">
+                            <input
+                                type="text"
+                                name="type"
+                                ref={catRef}
+                                required
+                                autoFocus
+                                className="input"
+                                placeholder="New Category Label"
+                                onChange={handleNewCategoryLabel}
+                            />
+                            <button className="button is-small addCategoryButton"
+                                onClick={createNewCategory}>
+                                +
+                            </button>
+                        </div>
+                    </fieldset>
                     <fieldset>
                         <div className="form-group">
                             <select
@@ -123,25 +133,7 @@ export const AddItem = ({ getCategories, closeModal, categories, setCategories }
                             </select>
                         </div>
                     </fieldset>
-                    <fieldset>
-                        <label className="packListSubtitle">Need a new category?</label>
-                        <div className="newCategoryInput">
-                            <input
-                                type="text"
-                                name="type"
-                                ref={catRef}
-                                required
-                                autoFocus
-                                className="input"
-                                placeholder="New Category Label"
-                                onChange={handleNewCategoryLabel}
-                            />
-                            <button className="button is-small addCategoryButton"
-                                onClick={createNewCategory}>
-                                +
-                            </button>
-                        </div>
-                    </fieldset>
+                    
                     <fieldset>
                         <div>
                             <label htmlFor="item" className="packListSubtitle">What item would you like to add?</label>

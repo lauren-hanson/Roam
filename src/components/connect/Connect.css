@@ -2,6 +2,13 @@
   position: relative;
 }
 
+.connectTripsPage { 
+  margin: auto;
+  width: 90%;
+  padding: 10px;
+  color: papayawhip; 
+}
+
 .connectHeader, .allTripHeader { 
   font-weight: bolder;
   font-size: 45px;

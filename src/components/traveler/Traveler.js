@@ -3,10 +3,10 @@ import "./Traveler.css"
 import { SubscriptionForm } from "./Subscribe"
 
 export const Traveler = ({ traveler, setTravelers }) => (
-    <section className="travelerContainer" key={traveler.id}>
+    <section className="travelersList" key={traveler.id}>
         <img src={traveler.profile_image_url} className="travelerDetailImage" />
         <h3 className="traveler__name">
-            <Link to={`/travelers/${traveler.id}`}>
+            <Link style={{ textDecoration: "none", color: "inherit" }} to={`/travelers/${traveler.id}`}>
                 <h3 className="traveler__name">{traveler.full_name}</h3>
             </Link>
             <div className="traveler card__subtitle">{traveler.followers_count} followers</div>

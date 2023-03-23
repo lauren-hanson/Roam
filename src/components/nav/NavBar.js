@@ -1,15 +1,20 @@
 import { useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-// import { slide as Menu } from 'react-burger-menu'
 import "./NavBar.css";
 
 export const NavBar = ({ token, setToken }) => {
 
     const navigate = useNavigate();
     const navbar = useRef();
-    
+    const hamburger = useRef();
+
+    const showMobileNavbar = () => {
+        hamburger.current.classList.toggle("is-active");
+        navbar.current.classList.toggle("is-active");
+      };
+
     return (
-        <div
+        <nav
             className="navbar"
             role="navigation"
             aria-label="main navigation"
@@ -18,7 +23,19 @@ export const NavBar = ({ token, setToken }) => {
                 <a className="navbar-item" href="/">
                     <h1 class="title" className="roamHeader">Roam</h1>
                 </a>
-
+                <a
+                    role="button"
+                    className="navbar-burger"
+                    aria-label="menu"
+                    aria-expanded="true"
+                    data-target="navbarBasicExamplef"
+                    onClick={showMobileNavbar}
+                    ref={hamburger}
+                >
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
             </div>
             <div className="navbar-menu" ref={navbar}>
                 <div className="navbar-start">
@@ -28,18 +45,19 @@ export const NavBar = ({ token, setToken }) => {
                                 <Link to="/trips" className="navbar-item">
                                     My Trips
                                 </Link>
+                                {/* <span className="padding">/</span> */}
                                 <Link to="/favorites" className="navbar-item">
                                     Favorites
                                 </Link>
-                                {/* <Link to="/calendar" className="navbar-item">
-                                    Calendar
-                                </Link> */}
+                                {/* <span className="padding">/</span> */}
                                 <Link to="/packlist" className="navbar-item">
                                     Pack List
                                 </Link>
+                                {/* <span className="padding">/</span> */}
                                 <Link to="/connect" className="navbar-item">
                                     Connect
                                 </Link>
+                                {/* <span className="padding">/</span> */}
                                 <Link to="/travelers" className="navbar-item">
                                     Roamers
                                 </Link>
@@ -49,38 +67,33 @@ export const NavBar = ({ token, setToken }) => {
                             )
                     }
                 </div>
-
                 <div className="navbar-end">
-                    <div className="navbar-item">
-                        <div className="buttons">
-                            {
-                                // This ternary statement checks if the current user is logged in
-                                // If true, a logout button will appear and will route back to the "/login" path when clicked
-                                token ? (
-                                    <button
-                                        className="button"
-                                        onClick={() => {
-                                            setToken("");
-                                            navigate("/login");
-                                        }}
-                                    >
-                                        Logout
-                                    </button>
-                                ) : (
-                                    <>
-                                        <Link to="/register" className="button">
-                                            Register
-                                        </Link>
-                                        <Link to="/login" className="button">
-                                            Login
-                                        </Link>
-                                    </>
-                                )
-                            }
-                        </div>
+                    <div className="navbar-item navbar-button">
+                        {
+                            token ? (
+                                <button
+                                    className="button"
+                                    onClick={() => {
+                                        setToken("");
+                                        navigate("/login");
+                                    }}
+                                >
+                                    Logout
+                                </button>
+                            ) : (
+                                <>
+                                    <Link to="/register" className="button">
+                                        Register
+                                    </Link>
+                                    <Link to="/login" className="button">
+                                        Login
+                                    </Link>
+                                </>
+                            )
+                        }
                     </div>
                 </div>
             </div>
-        </div>
+        </nav>
     );
 }

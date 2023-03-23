@@ -1,74 +1,46 @@
-
-.navbar {
-   color: papayawhip;
+.navbar { 
+   color: #ffffff; 
    background-color: #131313;
-   width: 100%;
+   padding-top: 10px; 
 }
 
 .navbar-menu img {
-   max-height: 5rem;
-}
-
-
-.navbar-start {
-   display: flex;
-   padding-left: 20px;
-   color: papayawhip;
-}
-
-.navbar-brand,
-.navbar-item,
-.navbar-menu {
-   font-size: 18px;
-   color: papayawhip;
+   max-height: 3rem;
+   color: #ffffff; 
    background-color: #131313;
 }
 
-.navbar-item,
-.navbar-link {
-   color: papayawhip;
-   background-color: #131313;
-   padding: 0px;
-}
-
-.navbar-item,
-.navbar-menu.is-active {
-   background-color: #131313;
-   padding: 20px;
-   color: papayawhip;
-}
-
-.navbar-end {
-   margin-top: 20px;
-   padding-right: 75px;
-}
-
-.navbar-burger {
-   margin-right: 25px;
-}
-
-.roamHeader {
-   color: papayawhip;
-   font-weight: bolder;
-   font-size: 25px;
-   margin-left: 25px;
-}
-
-.navbar-item,
-.navbar-link {
-   color: papayawhip;
-   padding-left: 10px;
+.navbar-brand, .navbar-item, .navbar-menu { 
+   font-size: 15px;
    background-color: #131313;
 }
 
-a.navbar-item:focus,
-a.navbar-item:focus-within,
-a.navbar-item:hover,
-a.navbar-item.is-active,
-.navbar-link:focus,
-.navbar-link:focus-within,
-.navbar-link:hover,
-.navbar-link.is-active {
-   background-color: #131313;
+.navbar-item, .navbar-link { 
    color: #cccccc;
+   background-color: #131313;
+   padding: 0px; 
+}
+
+.navbar-item, .navbar-menu.is-active  { 
+   background-color: #131313; 
+}
+
+.navbar-end { 
+   padding-right: 75px; 
+}
+
+.navbar-burger { 
+   margin-right: 25px; 
+}
+
+.padding { 
+   padding: 45px 10px; 
+   color: #3cffd0;
+}
+
+.roamHeader { 
+   color: papayawhip;
+   font-weight: bolder; 
+   font-size: 25px; 
+   margin-left: 25px; 
 }
