@@ -21,7 +21,7 @@ export const ItemList = () => {
     }, [])
 
     const deleteButton = (id) => {
-        return <button className="deleteButton" onClick={() => {
+        return <button className="button is-small deleteButton" onClick={() => {
             deleteItem(id)
                 .then(() => {
                     window.confirm(
@@ -54,6 +54,7 @@ export const ItemList = () => {
     }
 
     const closeModal = () => {
+        setRefresh(!refresh)
         setIsModalOpen(false)
     }
 
@@ -75,13 +76,6 @@ export const ItemList = () => {
             >
                 <button onClick={closeModal}>X</button>
                 <div><AddItem setIsModalOpen={setIsModalOpen} closeModal={closeModal} getCategories={getCategories} categories={categories} setCategories={setCategories}/></div>
-                <form>
-                    {/* <button> <button
-                            className="button is-small"
-                            onClick={() => {
-                                navigate(`/packlist/add`)
-                            }}>+</button>Add To Your List</button>*/}
-                </form>
             </Modal>
             {/* <button class="button is-small" onClick={openModal}>+</button>Delete Category
             <Modal
@@ -109,7 +103,7 @@ export const ItemList = () => {
                             <h4 className="packListSubtitle">{category}</h4>
                             <ul>
                                 {items.map(item => (
-                                    <li className="packListLabel" key={`item--${item.id}`}>{deleteButton(item.id)}{item.name}</li>
+                                    <li className="packListLabel item" key={`item--${item.id}`}>{deleteButton(item.id)}{item.name}</li>
                                 ))}
                             </ul>
                             <br></br>

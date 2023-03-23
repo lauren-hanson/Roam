@@ -20,13 +20,18 @@
 }
 
 .packListLabel {
-    font-size: 18px;
+    font-size: 15px;
 }
 
 .listItem {
     display: flex;
     flex-direction: column;
     margin: 20px;
+    padding: 10px; 
+}
+
+.item{ 
+    padding: 5px; 
 }
 
 .form-control{ 
