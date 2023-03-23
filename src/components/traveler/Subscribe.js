@@ -22,7 +22,7 @@ export const SubscriptionForm = ({ traveler , setTraveler, setTravelers }) => {
                 })
             }}>Unfollow</button>
         :
-            <button className="button is-primary travelers__follow_button"
+            <button className="button"
             onClick={() => {
                 addSubscription(traveler.id)
                 .then(() => {

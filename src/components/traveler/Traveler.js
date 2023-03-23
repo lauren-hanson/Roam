@@ -9,7 +9,7 @@ export const Traveler = ({ traveler, setTravelers }) => (
             <Link to={`/travelers/${traveler.id}`}>
                 <h3 className="traveler__name">{traveler.full_name}</h3>
             </Link>
-            <div className="traveler card__subtitle">{traveler.followers_count} other travelers follow this Roamer</div>
+            <div className="traveler card__subtitle">{traveler.followers_count} followers</div>
             <div className="traveler card__subtitle">{traveler.user.email}</div>
             <section className="traveler card__footer">
                 <SubscriptionForm traveler={traveler} setTravelers={setTravelers} />

@@ -76,16 +76,16 @@
     object-fit: cover;
     opacity: 0.75;
     filter: alpha(opacity=40);
-    border-radius: 2%;
+    border-radius: 1%;
 }
 
 .allTripBoxImage {
-    width: 500px;
-    height: 500px;
+    width: 400px;
+    height: 400px;
     object-fit: cover;
     opacity: 0.75;
     filter: alpha(opacity=40);
-    border-radius: 2%;
+    border-radius: 1%;
 }
 
 .tripBoxImage:hover {

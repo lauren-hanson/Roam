@@ -1,3 +1,5 @@
+
+
 .travelersContainer {
     display: flex;
     flex-direction: row;
@@ -9,6 +11,11 @@
     flex-direction: column;
     flex-wrap: wrap;
     margin: 20px;
+}
+
+.travelerPhotoBio { 
+    display: flex; 
+    flex-direction: column;
 }
 
 .travelerHeader {
@@ -23,7 +30,12 @@
     object-fit: cover;
     opacity: 0.75;
     filter: alpha(opacity=40);
-    border-radius: 3%;
+    border-radius: 1%;
+}
+
+.detailImage{
+    width: 500px; 
+    height: 500px; 
 }
 
 .travelerDetailImage:hover {
