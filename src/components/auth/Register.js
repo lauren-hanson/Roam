@@ -131,12 +131,12 @@ export const Register = ({ setToken }) => {
         </div>
         <div className="field is-grouped">
           <div className="control">
-            <button className="button is-link is-rounded" type="submit">
+            <button className="button is-small" type="submit">
               Submit
             </button>
           </div>
           <div className="control">
-            <Link to="/login" className="button is-link is-danger is-rounded">
+            <Link to="/login" className="button is-small">
               Cancel
             </Link>
           </div>

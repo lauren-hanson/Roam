@@ -48,7 +48,8 @@ export const AllTrips = ({ token }) => {
                                     <img src={trip.image_url} alt="Image 1" className="allTripBoxImage"></img>
 
 
-                                    <Link to={`/travelers/${trip?.traveler?.id}`}>
+                                    <Link style={{ textDecoration: "none", color: "inherit" }}
+                                        to={`/travelers/${trip?.traveler?.id}`}>
                                         <div className=" tripLabel">{trip.traveler.full_name}</div>
                                     </Link>
 
@@ -60,7 +61,7 @@ export const AllTrips = ({ token }) => {
 
                                     <div className="tags">
                                         {trip.tag.map((t) => (
-                                            <ol key={t.id} className="tag"> {t.type} </ol>))}
+                                            <ol key={t.id} className="tagList"> {t.type} </ol>))}
                                     </div>
 
 
@@ -71,6 +72,6 @@ export const AllTrips = ({ token }) => {
                         </>
                     })}</div>
             </div >
-         
+
         </>)
 }

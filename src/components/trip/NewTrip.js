@@ -108,7 +108,7 @@ export const NewTrip = ({ token }) => {
                 <fieldset>
                     <div className="tags">
                         {tags.map(tag => (
-                            <div className="tag" key={tag.id}>
+                            <div className="tagBackground" key={tag.id}>
                                 <input
                                     name="tagId"
                                     type="checkbox"

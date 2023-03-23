@@ -1,20 +1,29 @@
-
-
 .travelersContainer {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    margin: auto;
+    width: 95%;
+    padding: 10px;
+    color: papayawhip;
 }
 
-.travelerContainer {
+.detailPage{ 
+    margin: auto;
+    width: 50%;
+    color: papayawhip;
+    padding: 10px;
+}
+
+.travelersList { 
+    margin: auto;
+    width: 30%;
+    padding: 10px;
+}
+
+
+.travelerPhotoBio {
     display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    margin: 20px;
-}
-
-.travelerPhotoBio { 
-    display: flex; 
     flex-direction: column;
 }
 
@@ -22,6 +31,16 @@
     font-weight: bolder;
     font-size: 45px;
     margin-left: 25px;
+    color: papayawhip;
+}
+
+.travelerDetailContainer {
+    margin: auto;
+    width: 70%;
+    padding: 20px;
+    text-align: center;
+    color: papayawhip;
+
 }
 
 .travelerDetailImage {
@@ -33,9 +52,9 @@
     border-radius: 1%;
 }
 
-.detailImage{
-    width: 500px; 
-    height: 500px; 
+.detailImage {
+    width: 500px;
+    height: 500px;
 }
 
 .travelerDetailImage:hover {

@@ -26,8 +26,9 @@ export const TravelerDetails = ({ token }) => {
   const date = traveler.user.date_joined
 
   return (
-    <>
 
+    <>
+    <div className="goBack">
       <Link
         style={{ textDecoration: "none", color: "inherit" }}
         to={`/travelers`}
@@ -35,23 +36,28 @@ export const TravelerDetails = ({ token }) => {
       > ⬅️ All Roamers
       </Link>
       <br></br>
+
+
       <Link
         style={{ textDecoration: "none", color: "inherit" }}
         to={`/connect/discover`}
         className="hover goBack"
       > ⬅️ Trips
       </Link>
-      <section className="travelerContainer">
-        <div className="travelerPhotoBio">
-          <section className="detailImage">
-            <img src={traveler.profile_image_url} />
-            <div className="travelerLabel">{traveler.bio}</div>
-          </section>
-        </div>
-        <article className="traveler__info">
-          <SubscriptionForm traveler={traveler} setTraveler={setTraveler} />
-        </article>
-      </section>
+      </div>
+        <div className="travelerDetailContainer">
+          <div className="travelerPhotoBio">
+            <section className="detailImage">
+              <img src={traveler.profile_image_url} />
+              <div className="travelerLabel">{traveler.bio}</div>
+              <div>
+                <div className="traveler_info">
+                  <SubscriptionForm traveler={traveler} setTraveler={setTraveler} />
+                </div>
+              </div>
+            </section>
+          </div>
+      </div>
     </>
   )
 }

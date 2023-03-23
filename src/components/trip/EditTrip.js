@@ -152,7 +152,7 @@ export const EditTrip = ({ token }) => {
                     <textarea
                         type="textbox"
                         rows="10"
-                        cols="60"
+                        cols="50"
                         name="weather"
                         required
                         autoFocus
