@@ -6,7 +6,7 @@ import { addCategory } from "../../managers/CategoryManager"
 import "./PackList.css"
 
 
-export const AddItem = ({ getCategories, setIsModalOpen, closeModal, categories, setCategories }) => {
+export const AddItem = ({ getCategories, closeModal, categories, setCategories }) => {
 
     // const navigate = useNavigate()
     const catRef = useRef()
@@ -22,10 +22,13 @@ export const AddItem = ({ getCategories, setIsModalOpen, closeModal, categories,
     })
 
 
-    useEffect(() => {
+    const fetchItems = () => {
         getItems()
             .then((itemArr) => setNewItem(itemArr))
-      
+    }
+
+    useEffect(() => {
+        fetchItems()
     }, [])
 
     const handleNewCategoryLabel = (event) => {
@@ -50,8 +53,21 @@ export const AddItem = ({ getCategories, setIsModalOpen, closeModal, categories,
 
         addNewItem(data)
 
-        setRefresh(!refresh)
-        {closeModal()}
+            .then(() => {
+                window.location.reload()
+            })
+            .catch((error) => {
+                console.error(error)
+            })
+        // 
+        // getItems().then((newData) => {
+        //     setNewItem(newData);
+        //     if (closeModal) {
+        //         closeModal();
+        //     }
+        // })
+
+
 
     }
 
