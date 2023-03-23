@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react"
 import { useParams, Link, useNavigate } from "react-router-dom"
 import { getSingleTrip, deleteTrip, updateTrip, getDestinationByTrip } from "../../managers/TripManager"
-import { Map } from "../map/Map"
 import { Icon } from 'leaflet'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
-import { Weather } from "../weather/Weather"
 import { HumanDate } from "../utils/HumanDate";
 import "./Trip.css"
 

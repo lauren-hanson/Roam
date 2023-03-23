@@ -51,3 +51,11 @@ a.navbar-item.is-active,
 .hover:hover {
   opacity: 0.7;
 }
+
+.map-component { 
+  position: relative; 
+  width: 75%; 
+  padding: 50px 0px 0px 50px; 
+  border-radius: 1%;
+
+}

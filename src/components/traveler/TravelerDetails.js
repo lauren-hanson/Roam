@@ -27,6 +27,7 @@ export const TravelerDetails = ({ token }) => {
 
   return (
     <>
+
       <Link
         style={{ textDecoration: "none", color: "inherit" }}
         to={`/travelers`}
@@ -41,13 +42,14 @@ export const TravelerDetails = ({ token }) => {
       > ⬅️ Trips
       </Link>
       <section className="travelerContainer">
-        <section className="travelerDetailImage">
-          <img src={traveler.profile_image_url} />
-        </section>
+        <div className="travelerPhotoBio">
+          <section className="detailImage">
+            <img src={traveler.profile_image_url} />
+            <div className="travelerLabel">{traveler.bio}</div>
+          </section>
+        </div>
         <article className="traveler__info">
-          <h3 className="traveler__name">Name: {traveler.full_name}</h3>
-          <div className="traveler__bio">Bio: {traveler.bio}</div>
-          <SubscriptionForm traveler={traveler} setTraveler={setTraveler}/>
+          <SubscriptionForm traveler={traveler} setTraveler={setTraveler} />
         </article>
       </section>
     </>

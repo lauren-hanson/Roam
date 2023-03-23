@@ -29,6 +29,10 @@
     margin: 20px;
 }
 
+.form-control{ 
+    font-size: 20px; 
+}
+
 .overlay {
     position: fixed;
     top: 0;
@@ -41,6 +45,22 @@
 
 .overlayHidden {
     display: none;
+}
+
+.addItemForm { 
+    padding: 30px; 
+    margin: 20px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+
+}
+
+.newCategoryInput { 
+    display: flex; 
+    flex-direction: row;
+    align-items: center
 }
 
 /* Styling for the modal */
