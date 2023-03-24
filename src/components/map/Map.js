@@ -1,27 +1,32 @@
 // --- (1), (2) & (3): install and import ---
 import { useState, useEffect, useRef } from 'react'
+import { useNavigate } from "react-router-dom";
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import { Icon } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
-import { getMyTrips } from "../../managers/TripManager"
-import { getDestinationByStatus } from "../../managers/DestinationManager"
+import { getMyTrips, getTripDestinations } from "../../managers/TripManager"
+import { getDestinationByStatus, updateTripStatus } from "../../managers/DestinationManager"
+import Modal from 'react-modal'
 import "./Map.css"
-
-import { MapSearch } from './MapSearch.js'
 
 export function Map({ token }) {
 
-    // const [position, setPosition] = useState(null);
+    const navigate = useNavigate()
+    const [trips, setTrips] = useState([])
     const [favDestinations, setFavDestinations] = useState([{
         destination: {
             latitude: 0,
             longitude: 0
         }
     }]);
-    const [toGoDestinations, setToGoDestinations] = useState([{
+
+    const [newFavDestination, setNewFavDestinations] = useState([{
         destination: {
+            location: "",
+            stateId: 0,
             latitude: 0,
-            longitude: 0
+            longitude: 0,
+            status: 0
         }
     }]);
 
@@ -32,9 +37,9 @@ export function Map({ token }) {
             setFavDestinations(destArray)
         })
 
-        getDestinationByStatus(5).then((destArray) => {
-            setToGoDestinations(destArray)
-        })
+        // getTripDestinations().then((tripData) => {
+        //     setTrips(tripData)
+        // })
 
     }, [])
 
@@ -46,24 +51,27 @@ export function Map({ token }) {
 
     })
 
-    const toGoIcon = new Icon({
-        iconUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSV8o6gnF3v56oVeSFhF96GDaQPCYI6ulT7dA&usqp=CAU',
-        iconSize: [20, 20],
+    const handleAddStatus = () => {
+        const destinationId = parseInt(newFavDestination.destinationId)
+        const stateId = parseInt(newFavDestination.stateId)
 
-    })
+        const data = {
+            location: newFavDestination.name,
+            state: stateId,
+            longitude: newFavDestination.longitude,
+            latitude: newFavDestination.latitude,
+            status: 4
+        }
 
-    // const polyline = [
-    //     [36.1627, -86.7816],
-    //     [31.892008, -104.820476],
-    //     [33.833378, -111.417358],
-    //     [34.871002, -111.760826],
-    //     [38.55056, -107.68667],
-    //     [36.372852, -94.208817],
-    //     [36.1627, -86.7816]
+        updateTripStatus(destinationId, data)
+            .then(() => {
+                window.location.reload()
+            })
+            .catch((error) => {
+                console.error(error)
+            })
+    }
 
-    // ]
-
-    const greenOption = { color: 'darkgreen' }
 
     return (
         <section className='map-component' >
@@ -77,29 +85,42 @@ export function Map({ token }) {
                     <div>
                         {favDestinations.map((t) => {
                             return (<Marker position={[t.destination.latitude ?? 0, t.destination.longitude ?? 0]} icon={favIcon}>
-                                <Popup>{t.destination.location}, {t.destination.state}</Popup>
-
+                                <Popup><h2 className="popUpHeader">{t.destination.location}, {t.destination.state}</h2><br></br>{t.destination.tips}
+                                {/* <button className="button is-small" onClick={() => navigate(`/favorites/${t?.destination?.id}/tips`)}>Edit</button> */}
+                                </Popup>
                             </Marker>)
                         })}
                     </div>
-                    <div>
-                        {toGoDestinations.map((t) => {
-                            return (<Marker position={[t.destination.latitude ?? 0, t.destination.longitude ?? 0]} icon={toGoIcon}>
-                                <Popup>{t.destination.location}, {t.destination.state}</Popup>
-
-                            </Marker>)
-                        })}
-                    </div>
+                 
                 </MapContainer>
-
-                <fieldset>
-                    <input type="text"
-
-                    />
-
-                    <button>Add Location</button>
-                </fieldset>
             </div>
+            <fieldset>
+                <div className="form-group">
+                    <select
+                        name="destinationId"
+                        className="input"
+                        value={newFavDestination.destination}
+                        onChange={(event) => {
+                            const copy = { ...newFavDestination }
+                            copy.destinationId = parseInt(event.target.value)
+                            setFavDestinations(copy)
+                        }}
+                    >
+                        <option value="0">Any locations you want to save?</option>
+                        {trips.map(t => (
+                            <option
+                                key={`trip--${t.id}`}
+                                value={t.id}>
+                                {t.destination.location}
+                            </option>
+                        ))}
+                    </select>
+                    <button
+                        type="button"
+                        onClick={handleAddStatus}
+                        className="button is-link is-rounded is-small">Publish</button>
+                </div>
+            </fieldset>
         </section >
     )
 }
