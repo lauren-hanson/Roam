@@ -28,7 +28,7 @@ export function Map({ token }) {
             longitude: 0,
             status: 0
         }
-    }]);
+    }])
 
     const tokenInt = parseInt(token)
 
@@ -51,26 +51,26 @@ export function Map({ token }) {
 
     })
 
-    const handleAddStatus = () => {
-        const destinationId = parseInt(newFavDestination.destinationId)
-        const stateId = parseInt(newFavDestination.stateId)
+    // const handleAddStatus = () => {
+    //     const destinationId = parseInt(newFavDestination.destinationId)
+    //     const stateId = parseInt(newFavDestination.stateId)
 
-        const data = {
-            location: newFavDestination.name,
-            state: stateId,
-            longitude: newFavDestination.longitude,
-            latitude: newFavDestination.latitude,
-            status: 4
-        }
+    //     const data = {
+    //         location: newFavDestination.name,
+    //         state: stateId,
+    //         longitude: newFavDestination.longitude,
+    //         latitude: newFavDestination.latitude,
+    //         status: 4
+    //     }
 
-        updateTripStatus(destinationId, data)
-            .then(() => {
-                window.location.reload()
-            })
-            .catch((error) => {
-                console.error(error)
-            })
-    }
+    //     updateTripStatus(destinationId, data)
+    //         .then(() => {
+    //             window.location.reload()
+    //         })
+    //         .catch((error) => {
+    //             console.error(error)
+    //         })
+    // }
 
 
     return (
@@ -86,7 +86,7 @@ export function Map({ token }) {
                         {favDestinations.map((t) => {
                             return (<Marker position={[t.destination.latitude ?? 0, t.destination.longitude ?? 0]} icon={favIcon}>
                                 <Popup><h2 className="popUpHeader">{t.destination.location}, {t.destination.state}</h2><br></br>{t.destination.tips}
-                                {/* <button className="button is-small" onClick={() => navigate(`/favorites/${t?.destination?.id}/tips`)}>Edit</button> */}
+                    
                                 </Popup>
                             </Marker>)
                         })}
@@ -94,7 +94,7 @@ export function Map({ token }) {
                  
                 </MapContainer>
             </div>
-            <fieldset>
+            {/* <fieldset>
                 <div className="form-group">
                     <select
                         name="destinationId"
@@ -120,7 +120,7 @@ export function Map({ token }) {
                         onClick={handleAddStatus}
                         className="button is-link is-rounded is-small">Publish</button>
                 </div>
-            </fieldset>
+            </fieldset> */}
         </section >
     )
 }

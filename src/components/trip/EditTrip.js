@@ -13,6 +13,7 @@ export const EditTrip = ({ token }) => {
     const stateRef = useRef()
     const latRef = useRef()
     const longRef = useRef()
+    const tipsRef = useRef()
     const { tripId } = useParams()
     const [refresh, setRefresh] = useState(false)
     const [tags, setTags] = useState([])
@@ -24,7 +25,8 @@ export const EditTrip = ({ token }) => {
         location: "",
         state: "",
         latitude: 0,
-        longitude: 0
+        longitude: 0,
+        tips: ""
     })
 
     const [currentTrip, setCurrentTrip] = useState({
@@ -37,8 +39,9 @@ export const EditTrip = ({ token }) => {
         user_id: parseInt(token),
         tag: [],
         destination: [{
-            latitude: 0, 
-            longitude: 0
+            latitude: 0,
+            longitude: 0,
+            tips: ""
         }],
         public: 0,
         complete: 0
@@ -73,7 +76,7 @@ export const EditTrip = ({ token }) => {
     const parseLatLong = (event) => {
         const latLong = Object.assign({}, newDestination)
         latLong[event.target.name] = parseFloat(event.target.value)
-        setNewDestination(latLong) 
+        setNewDestination(latLong)
     }
 
     const createNewDestination = (event) => {
@@ -83,13 +86,15 @@ export const EditTrip = ({ token }) => {
             location: locationRef.current.value,
             state: stateRef.current.value,
             latitude: parseFloat(latRef.current.value),
-            longitude: parseFloat(longRef.current.value)
+            longitude: parseFloat(longRef.current.value),
+            tips: tipsRef.current.value
         }
         setDestinations([...destinations, newDestination])
         locationRef.current.value = ''
         stateRef.current.value = ''
         latRef.current.value = ''
         longRef.current.value = ''
+        tipsRef.current.value = ''
 
         addDestination(newDestination)
             .then((destination) => {
@@ -187,7 +192,6 @@ export const EditTrip = ({ token }) => {
                         type="date"
                         required
                         autoFocus
-                        // name="startDate"
                         defaultValue={currentTrip.start_date}
                         className="form-control"
                         onChange={
@@ -208,7 +212,6 @@ export const EditTrip = ({ token }) => {
                         type="date"
                         required
                         autoFocus
-                        // name="end_date"
                         defaultValue={currentTrip.end_date}
                         className="form-control"
                         onChange={
@@ -271,6 +274,21 @@ export const EditTrip = ({ token }) => {
                             onChange={parseLatLong}
                         />
                     </div>
+                    <br></br>
+                    <div>Any tips and tricks?</div>
+                    <div className="destinationInput">
+                        <textarea
+                            type="text"
+                            rows="10"
+                            cols="40"
+                            name="tips"
+                            ref={tipsRef}
+                            required autoFocus
+                            className="tipsInput"
+                            placeholder="..."
+                            onChange={handleNewDestinationInfo}
+                        />
+                    </div>
 
 
                     <button className="button is-small addDestinationButton"
@@ -282,12 +300,8 @@ export const EditTrip = ({ token }) => {
                 <div>
                     {currentTrip?.destination.map((destination, index) => (
                         <div key={index}>
-                            {/* <p>{index + 1}. {destination.location}, {destination.state}
-                            {deleteButton(destination.id)}
-                            </p> */}
                             <li>{destination.location}, {destination.state}
                                 {deleteButton(destination.id)}</li>
-                            {/* <button onClick={deleteWindow(destination.id)}>❌</button> */}
                         </div>
                     ))}
 
