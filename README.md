@@ -13,13 +13,13 @@ In addition to storing trip information, travelers will also be able to connect 
 ### Features
 
 <p>
-• Users<br>
-• Users can record exercise, training, and playtime sessions for each pup.<br>• Users can track each pup's unique progress and make adjustments to the goals if necessary.<br>• Users can follow other pups and view their progress.
+• Users are able to look at trips they have taken and add any details they would like to remember.<br>
+• Users are able to connect with other users and see updates from trips. <br>• Users are able to keep track of their pack list so they can edit according to their current needs. <br>• 
 </p>
 
 ### Technologies Used
 
-![HTML5](https://img.shields.io/badge/html5%20-%23E34F26.svg?&style=for-the-badge&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/css3%20-%231572B6.svg?&style=for-the-badge&logo=css3&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript%20-%23323330.svg?&style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![React](https://img.shields.io/badge/react%20-%2320232a.svg?&style=for-the-badge&logo=react&logoColor=%2361DAFB) ![Git](https://img.shields.io/badge/git%20-%23F05033.svg?&style=for-the-badge&logo=git&logoColor=white) ![GitHub](https://img.shields.io/badge/github%20-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white) ![JSON Server](https://img.shields.io/badge/JSON_Server%20-%232a2e2a.svg?&style=for-the-badge&logo=JSON&logoColor=white) ![Visual Studio Code](https://img.shields.io/badge/VSCode%20-%23007ACC.svg?&style=for-the-badge&logo=visual-studio-code&logoColor=white)
+![HTML5](https://img.shields.io/badge/html5%20-%23E34F26.svg?&style=for-the-badge&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/css3%20-%231572B6.svg?&style=for-the-badge&logo=css3&logoColor=white) ![Bulma](https://img.shields.io/badge/bulma-00D0B1?style=for-the-badge&logo=bulma&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript%20-%23323330.svg?&style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![React](https://img.shields.io/badge/react%20-%2320232a.svg?&style=for-the-badge&logo=react&logoColor=%2361DAFB) ![Git](https://img.shields.io/badge/git%20-%23F05033.svg?&style=for-the-badge&logo=git&logoColor=white) ![GitHub](https://img.shields.io/badge/github%20-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white) ![Visual Studio Code](https://img.shields.io/badge/VSCode%20-%23007ACC.svg?&style=for-the-badge&logo=visual-studio-code&logoColor=white)![DjangoREST](https://img.shields.io/badge/DJANGO-REST-ff1709?style=for-the-badge&logo=django&logoColor=white&color=ff1709&labelColor=gray)![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 
 ### Running This Application
 
@@ -32,32 +32,30 @@ This application uses mock authentication which is purely for demonstration purp
 1. Clone this repository and change to the directory in the terminal.
 
 ```sh
-git clone git@github.com:heymonicakay/wideRetriever.git
-cd wideRetriever
+git clone https://github.com/lauren-hanson/RoamClient
+cd RoamClient
 ```
-2. Access the data.
 
-<a href="https://www.github.com/heymonicakay/wideRetriever-server" target="_blank"><img src="https://img.shields.io/badge/Click_here%20-%236ae689.svg?&style=for-the-badge&&logoColor=white" alt="Wide Retriever Server Repo" style="height: auto !important; width: auto !important;" /></a>
-
-3. Launch the client.
+2. Launch the client.
 
 ```sh
     npm install
     npm start
 ```
 
+3. This will initialize the React app in your browser. Next go [HERE] (https://github.com/lauren-hanson/RoamServer)  and follow the README to gain access to the server.
+
 #### Demo User Credentials
 
+4. Once you are running the server you can log in with these credentials: 
+
 <p>
-Username: <i>demo</i>
+Username: Roamer<i>demo</i>
 <br>
-Password: <i>demo</i>
+Password: roamer<i>demo</i>
 </p>
 
-#### ERD
-
-<img src="./erd.png" alt="">
 
 #### Created by Lauren Hanson
 
-<a href="https://www.github.com/heymonicakay/" target="_blank"><img src="https://img.shields.io/badge/github%20-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white" alt="Monica Kay GitHub" style="height: auto !important;width: auto !important;" /></a> <a href="https://www.linkedin.com/in/heymonicakay/" target="_blank"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" alt="Monica Kay LinkedIn" style="height: auto !important;width: auto !important;" /></a>
+<a href="https://github.com/lauren-hanson" target="_blank"><img src="https://img.shields.io/badge/github%20-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white" alt="Lauren Hanson GitHub" style="height: auto !important;width: auto !important;" /></a> <a href="https://www.linkedin.com/in/lohanson/" target="_blank"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" alt="Lauren Hanson LinkedIn" style="height: auto !important;width: auto !important;" /></a>
