@@ -1,6 +1,7 @@
 import { useRef, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { loginUser } from "../../managers/AuthManager"
+import roam from "../../assets/roam.mp4"
 import "./Login.css"
 
 export const Login = ({ setToken }) => {
@@ -18,21 +19,30 @@ export const Login = ({ setToken }) => {
     loginUser(user)
       .then(res => {
 
-      if ("valid" in res && res.valid && "token" in res) {
-        setToken(res.token)
-        localStorage.setItem("roam_token", res.token)
-        navigate("/")
-      }
-      else {
-        setisUnsuccessful(true)
-      }
-    })
+        if ("valid" in res && res.valid && "token" in res) {
+          setToken(res.token)
+          localStorage.setItem("roam_token", res.token)
+          navigate("/")
+        }
+        else {
+          setisUnsuccessful(true)
+        }
+      })
   }
 
   return (
     <section className="loginForm">
+      <div className="homeVideo">
+        <video autoPlay={true}>
+          <source
+            src={roam}
+            type={roam.type}
+          />
+          Your browser does not support HTML5 video.
+        </video>
+      </div>
       <form className="login" onSubmit={handleLogin}>
-        <h1 className="title">Roam</h1>
+        {/* <h1 className="title">Roam</h1> */}
         <p className="subtitle">Create Your Own Road Trip Story</p>
 
         <div className="field">

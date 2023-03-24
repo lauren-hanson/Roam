@@ -1,5 +1,5 @@
 import "./Home.css"
-// import canyonlands from "../../assets/canyonlands-1.mp4"
+// import roam from "../../assets/roam.mp4"
 
 export const Home = () => {
 

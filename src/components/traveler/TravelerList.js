@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import { getTravelers } from "../../managers/TravelerManager"
 import { Traveler } from "./Traveler"
 import "./Traveler.css"
@@ -19,6 +19,12 @@ export const TravelerList = ({ token }) => {
 
   return (
     <>
+      <Link
+        style={{ textDecoration: "none", color: "inherit" }}
+        to={`/connect/discover`}
+        className="hover goBack"
+      > ⬅️ Trips
+      </Link>
       <div style={{ marginTop: "2rem" }}>
         <h1 className="travelerHeader">Roam Travelers</h1>
         <section className="travelersContainer">

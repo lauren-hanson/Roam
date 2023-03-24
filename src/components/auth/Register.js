@@ -2,6 +2,7 @@ import { useRef } from "react"
 import { Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 import { registerUser } from "../../managers/AuthManager"
+import roam from "../../assets/roam.mp4"
 import "./Login.css"
 
 export const Register = ({ setToken }) => {
@@ -49,9 +50,18 @@ export const Register = ({ setToken }) => {
 
   return (
     <section>
+      <div className="homeVideo">
+        <video autoPlay={true}>
+          <source
+            src={roam}
+            type={roam.type}
+          />
+          Your browser does not support HTML5 video.
+        </video>
+      </div>
       {/* Form that invokes handleRegister() when submitted */}
       <form className="register" onSubmit={handleRegister}>
-        <h1 className="title">Roam</h1>
+
         <p className="subtitle">Create an account</p>
         <div className="field">
           <label className="label">First Name</label>
