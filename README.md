@@ -1,72 +1,61 @@
-# Getting Started with Create React App
+## Roam
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<b style="font-size: 20px;"><i>Create your roadtrip story!</i></b>
 
-## Available Scripts
+### Application Overview
 
-In the project directory, you can run:
+Roam is an app that will allow van, car, RV, and other travelers to easily store their travel information. They can also view past trips to recall tips and add to an upcoming trip to help them prepare.
+In addition to storing trip information, travelers will also be able to connect with others to help create a small community of fellow travelers for support & advice on their journeys.
 
-### `npm start`
+Roam is an app that will allow van, car, RV, and other travelers to easily store their travel information. They can also view past trips to recall tips and add to an upcoming trip to help them prepare.
+In addition to storing trip information, travelers will also be able to connect with others to help create a small community of fellow travelers for support & advice on their journeys.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Features
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<p>
+• Users are able to look at trips they have taken and add any details they would like to remember.<br>
+• Users are able to connect with other users and see updates from trips. <br>• Users are able to keep track of their pack list so they can edit according to their current needs. <br>• 
+</p>
 
-### `npm test`
+### Technologies Used
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![HTML5](https://img.shields.io/badge/html5%20-%23E34F26.svg?&style=for-the-badge&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/css3%20-%231572B6.svg?&style=for-the-badge&logo=css3&logoColor=white) ![Bulma](https://img.shields.io/badge/bulma-00D0B1?style=for-the-badge&logo=bulma&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript%20-%23323330.svg?&style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![React](https://img.shields.io/badge/react%20-%2320232a.svg?&style=for-the-badge&logo=react&logoColor=%2361DAFB) ![Git](https://img.shields.io/badge/git%20-%23F05033.svg?&style=for-the-badge&logo=git&logoColor=white) ![GitHub](https://img.shields.io/badge/github%20-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white) ![Visual Studio Code](https://img.shields.io/badge/VSCode%20-%23007ACC.svg?&style=for-the-badge&logo=visual-studio-code&logoColor=white)![DjangoREST](https://img.shields.io/badge/DJANGO-REST-ff1709?style=for-the-badge&logo=django&logoColor=white&color=ff1709&labelColor=gray)![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 
-### `npm run build`
+### Running This Application
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### First, a note about authentication...
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+This application uses mock authentication which is purely for demonstration purposes. Therefore the login and registration code written here is completely insecure and would never be implemented in a professional application.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### Now that we've cleared that up...
 
-### `npm run eject`
+1. Clone this repository and change to the directory in the terminal.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```sh
+git clone https://github.com/lauren-hanson/RoamClient
+cd RoamClient
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+2. Launch the client.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```sh
+    npm install
+    npm start
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+3. This will initialize the React app in your browser. Next go [HERE] (https://github.com/lauren-hanson/RoamServer)  and follow the README to gain access to the server.
 
-## Learn More
+#### Demo User Credentials
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+4. Once you are running the server you can log in with these credentials: 
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+<p>
+Username: Roamer<i>demo</i>
+<br>
+Password: roamer<i>demo</i>
+</p>
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+#### Created by Lauren Hanson
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# RoamClient
-# RoamClient
+<a href="https://github.com/lauren-hanson" target="_blank"><img src="https://img.shields.io/badge/github%20-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white" alt="Lauren Hanson GitHub" style="height: auto !important;width: auto !important;" /></a> <a href="https://www.linkedin.com/in/lohanson/" target="_blank"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" alt="Lauren Hanson LinkedIn" style="height: auto !important;width: auto !important;" /></a>

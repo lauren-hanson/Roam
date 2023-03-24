@@ -15,6 +15,7 @@ import { TravelerDetails } from "../components/traveler/TravelerDetails"
 import { Connect } from "../components/connect/Connect"
 import { ConnectFeed } from "../components/connect/ConnectFeed"
 import { Map } from "../components/map/Map"
+// import { AddTripTips } from "../components/map/AddTripTips"
 // import { CalendarView } from "../components/calendar/CalendarView"
 
 export const ApplicationViews = ({ token, setToken }) => {
@@ -37,6 +38,7 @@ export const ApplicationViews = ({ token, setToken }) => {
 					</Route>
 					<Route path="/favorites" >
 						<Route index element={<Map token={token} />} />
+						{/* <Route path=":destinationId/tips" element={<AddTripTips token={token} />} /> */}
 					</Route>
 					<Route path="/packlist" >
 						<Route index element={<PackList token={token} />} />

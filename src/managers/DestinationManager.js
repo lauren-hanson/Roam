@@ -48,5 +48,28 @@ export const deleteDestination = (id) => {
     })
 }
 
+export const addDestinationStatus = (status) => {
+    return fetch("http://localhost:8000/tripdestinations", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(status)
+    })
+        .then((res) => res.json())
+};
+
+
+export const updateTripStatus = (id, destination) => {
+    return fetch(`http://localhost:8000/tripdestinations/${id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Token ${localStorage.getItem("roam_token")}`
+        },
+        body: JSON.stringify(destination),
+    })
+}
+
 
 
