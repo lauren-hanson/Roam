@@ -2,7 +2,7 @@ import { useRef } from "react"
 import { Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 import { registerUser } from "../../managers/AuthManager"
-import roam from "../../assets/roam.mp4"
+// import roam from "../../assets/roam.mp4"
 import "./Login.css"
 
 export const Register = ({ setToken }) => {
@@ -51,13 +51,14 @@ export const Register = ({ setToken }) => {
   return (
     <section>
       <div className="homeVideo">
-        <video autoPlay={true}>
+      {/* <img src="https://res.cloudinary.com/dgwi6xvfl/image/upload/v1679018916/Roam/colorado-3_x3q8bq.jpg"/> */}
+        {/* <video autoPlay={true}>
           <source
             src={roam}
             type={roam.type}
           />
           Your browser does not support HTML5 video.
-        </video>
+        </video> */}
       </div>
       {/* Form that invokes handleRegister() when submitted */}
       <form className="register" onSubmit={handleRegister}>
