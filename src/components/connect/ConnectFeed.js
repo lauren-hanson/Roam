@@ -136,7 +136,6 @@ export const ConnectFeed = ({ token }) => {
                       </Link>
                     </div>
 
-
                     <div className="column is-two-fifth">
                       <Link
                         style={{ textDecoration: "none", color: "inherit" }}
@@ -145,11 +144,10 @@ export const ConnectFeed = ({ token }) => {
                       >{trip.notes.slice(0, 250) + "..."}
                       </Link></div>
 
-
                     <div className="column is-one-fifth">
                       <Link
                         to={`/trips/${trip?.id}`}
-                        className="tripImage"
+
                       ><img src={trip.image_url} alt="Image 1"></img></Link>
 
                     </div>
