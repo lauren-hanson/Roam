@@ -40,15 +40,19 @@
 .allOtherTripsContainer { 
   display: flex; 
   flex-direction: column; 
+ 
 }
 
-.bottomTrips { 
+.bottomTrips, .secondTripContainer, .mostRecentContainer { 
   display: flex; 
   flex-direction: row; 
   align-items: center; 
   padding: 30px 15px; 
-  border: 1px solid #ffffff;
-  border-style: none none solid none; 
+  /* border: 1px solid #ffffff; */
+  /* border-style: none none solid none;  */
+  background-color: #131313;
+  border-radius: 1%;
+  margin: 20px; 
 } 
 
 

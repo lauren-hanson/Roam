@@ -41,6 +41,8 @@
     opacity: 95%;
     display: flex;
     flex-flow: row wrap;
+    padding: 20px; 
+   
 
 }
 
@@ -51,7 +53,7 @@
     opacity: 95%;
     font-size: 30px;
     color: papyawhip;
-    padding-left: 0;
+ 
 }
 
 .tripImage {
@@ -68,7 +70,7 @@
     width: 95%;
     padding: 10px;
     color: papayawhip;
-
+    
 }
 
 .filterButton {
@@ -79,8 +81,10 @@
     display: flex;
     flex-direction: column;
     padding: 20px;
-    background-color: #1c1c1c;
     opacity: 95%;
+    background-color: #131313;
+    border-radius: 1%;
+    margin: 20px; 
 
 }
 
@@ -88,6 +92,7 @@
     position: relative;
     text-align: center;
     color: white;
+  
 }
 
 .centered {
@@ -101,12 +106,13 @@
 
 .tripBoxImage {
     position: relative;
-    width: 300px;
-    height: 300px;
+    width: 225px;
+    height: 225px;
     object-fit: cover;
     opacity: 0.55;
     filter: alpha(opacity=40);
     border-radius: 1%;
+    margin: 20px; 
 }
 
 .tripBoxImage:hover {
@@ -124,15 +130,14 @@
 }
 
 
-
-
 .myTrip {
-    width: 50%;
+    width: 85%;
     display: flex;
     flex-direction: column;
     padding: 20px;
-    background-color: #1c1c1c;
     opacity: 95%;
+    background-color: #131313;
+    border-radius: 1%;
 }
 
 .tripDetail {

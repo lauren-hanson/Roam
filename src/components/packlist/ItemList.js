@@ -12,6 +12,7 @@ export const ItemList = () => {
     const [refresh, setRefresh] = useState(false)
     const [categories, setCategories] = useState([])
     const [itemsByCategory, setItemsByCategory] = useState({})
+    const [isModalOpen, setIsModalOpen] = useState(false)
 
     useEffect(() => {
         getItems()
@@ -25,7 +26,7 @@ export const ItemList = () => {
             deleteItem(id)
                 .then(() => {
                     window.confirm(
-                        "Are you sure this item wasn't used?"
+                        "Are you sure you want to remove this item?"
                     )
                     getItems().then((data) => setItemsByCategory(data))
                     setRefresh(!refresh)
@@ -33,10 +34,6 @@ export const ItemList = () => {
         }
         }>x</button>
     }
-
-
-    const [isModalOpen, setIsModalOpen] = useState(false)
-
 
     const customStyles = {
         content: {
@@ -46,6 +43,8 @@ export const ItemList = () => {
             bottom: 'auto',
             marginRight: '-50%',
             transform: 'translate(-50%, -50%)',
+            background: '#131313', 
+            color: 'papayawhip'
         },
     }
 
@@ -60,16 +59,9 @@ export const ItemList = () => {
 
     return (
         <>
-            {/* <button
-                className="button is-small"
-                onClick={() => {
-                    navigate(`/packlist/add`)
-                }}>+</button>Add To Your List */}
-
             <button class="button is-small" onClick={openModal}>+</button>Add To Your List
             <Modal
                 isOpen={isModalOpen}
-                // onAfterOpen={afterOpenModal}
                 onRequestClose={closeModal}
                 style={customStyles}
                 contentLabel="Example Modal"
@@ -77,24 +69,6 @@ export const ItemList = () => {
                 <button onClick={closeModal}>X</button>
                 <div><AddItem setIsModalOpen={setIsModalOpen} closeModal={closeModal} getCategories={getCategories} categories={categories} setCategories={setCategories}/></div>
             </Modal>
-            {/* <button class="button is-small" onClick={openModal}>+</button>Delete Category
-            <Modal
-                isOpen={isModalOpen}
-                // onAfterOpen={afterOpenModal}
-                onRequestClose={closeModal}
-                style={customStyles}
-                contentLabel="Example Modal"
-            >
-                <button onClick={closeModal}>X</button>
-                <div><DeleteCategory setIsModalOpen={setIsModalOpen} closeModal={closeModal} getCategories={getCategories} categories={categories} setCategories={setCategories} setRefresh={setRefresh} refresh={refresh}/></div>
-                <form> */}
-                    {/* <button> <button
-                            className="button is-small"
-                            onClick={() => {
-                                navigate(`/packlist/add`)
-                            }}>+</button>Add To Your List</button>*/}
-                {/* </form>
-            </Modal> */}
 
             <div className="packListContainer">
                 {Object.entries(itemsByCategory).map(([category, items]) => (
