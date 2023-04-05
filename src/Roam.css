@@ -1,6 +1,13 @@
 /* Import the google web fonts you want to use */
 @import url("https://fonts.googleapis.com/css?family=Comfortaa|Patua+One");
 
+@media (max-width: 750px) {
+  #background-video {
+    display: none;
+  }
+
+}
+
 /*Typography
 --------------------------------------------------------------*/
 
@@ -14,14 +21,19 @@ textarea {
   font-family: 'Montserrat', sans-serif;
   font-size: 14px;
   line-height: 1.5;
- 
+
 }
 
 body {
-    padding: 0 3rem;
+  padding: 0 3rem;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: papayawhip;
   font-family: 'Montserrat', sans-serif;
   letter-spacing: 2px;
@@ -36,6 +48,3 @@ p {
   margin-block-end: 0;
   color: papayawhip;
 }
-
-
-

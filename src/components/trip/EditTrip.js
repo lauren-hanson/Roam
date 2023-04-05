@@ -122,7 +122,7 @@ export const EditTrip = ({ token }) => {
             deleteDestination(id)
                 .then(() => {
                     window.confirm(
-                        "Do you want to skip this stop?"
+                        "Do you want to delete this stop?"
                     )
                     getSingleTrip(tripId).then((data) => setCurrentTrip(data))
                     setRefresh(!refresh)

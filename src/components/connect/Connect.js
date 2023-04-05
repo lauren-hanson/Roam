@@ -3,6 +3,8 @@ import { AllTrips } from "../trip/AllTrips"
 import "./Connect.css"
 import "../trip/Trip.css"
 
+
+
 export const Connect = ({ token }) => {
 
     return (<>
