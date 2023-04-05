@@ -40,7 +40,6 @@
 .allOtherTripsContainer { 
   display: flex; 
   flex-direction: column; 
- 
 }
 
 .bottomTrips, .secondTripContainer, .mostRecentContainer { 
