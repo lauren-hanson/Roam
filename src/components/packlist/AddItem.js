@@ -92,7 +92,7 @@ export const AddItem = ({ getCategories, closeModal, categories, setCategories }
             <div className="addItemForm">
                 <h2 className="packListHeader">Add Item</h2>
                 <form>
-                <fieldset>
+                    <fieldset>
                         <label className="packListSubtitle">Need a new category?</label>
                         <div className="newCategoryInput">
                             <input
@@ -112,7 +112,7 @@ export const AddItem = ({ getCategories, closeModal, categories, setCategories }
                         </div>
                     </fieldset>
                     <fieldset>
-                        <div className="form-group">
+                        <div className="newCategorySelect">
                             <select
                                 name="categoryId"
                                 className="input"
@@ -133,7 +133,7 @@ export const AddItem = ({ getCategories, closeModal, categories, setCategories }
                             </select>
                         </div>
                     </fieldset>
-                    
+
                     <fieldset>
                         <div>
                             <label htmlFor="item" className="packListSubtitle">What item would you like to add?</label>

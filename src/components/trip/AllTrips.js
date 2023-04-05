@@ -63,9 +63,6 @@ export const AllTrips = ({ token }) => {
                                         {trip.tag.map((t) => (
                                             <ol key={t.id} className="tagList"> {t.type} </ol>))}
                                     </div>
-
-
-                                    <hr className="hr"></hr>
                                 </div>
                             </Link>
 

@@ -38,7 +38,7 @@ export const ConnectFeed = ({ token }) => {
               <div className="columns" >
 
 
-                <div className="mostRecentContainer column is-9">
+                <div className="mostRecentContainer column is-7">
                   <section className="trip">
                     <Link
                       style={{ textDecoration: "none", color: "inherit" }}
@@ -68,7 +68,6 @@ export const ConnectFeed = ({ token }) => {
                         </p>
                       </section>
                     </Link>
-                    <hr className="hr"></hr>
                   </section>
                 </div>
 
@@ -101,16 +100,13 @@ export const ConnectFeed = ({ token }) => {
                     <section>
                     </section>
                   </section>
-                  <hr className="hr"></hr>
                 </div>
               </div>
 
               <div className="allOtherTripsContainer">
                 {allOtherTrips.map((trip) => (
-                  <div className=" bottomTrips">
+                  <div className="bottomTrips">
                     <div className="columns is-centered">
-
-                      <hr className="hr"></hr>
                       <Link
                         style={{ textDecoration: "none", color: "inherit" }}
                         to={`/trips/${trip?.id}`}
@@ -156,7 +152,6 @@ export const ConnectFeed = ({ token }) => {
                       ><img src={trip.image_url} alt="Image 1"></img></Link>
 
                     </div>
-                    <hr className="hr"></hr>
                   </div>
 
 
