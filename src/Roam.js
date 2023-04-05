@@ -2,7 +2,6 @@ import { useState } from "react"
 import { ApplicationViews } from "./views/ApplicationViews"
 import { NavBar } from "./components/nav/NavBar"
 
-
 export const Roam = () => {
 
   const [token, setTokenState] = useState(localStorage.getItem('auth_token'))

@@ -5,6 +5,7 @@ import { HumanDate } from "../utils/HumanDate"
 import "./Connect.css"
 
 
+
 export const ConnectFeed = ({ token }) => {
 
   const [trips, setTrips] = useState([])
