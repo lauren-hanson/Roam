@@ -28,35 +28,33 @@ export const TravelerDetails = ({ token }) => {
   return (
 
     <>
-    <div className="goBack">
-      <Link
-        style={{ textDecoration: "none", color: "inherit" }}
-        to={`/travelers`}
-        className="hover goBack"
-      > ⬅️ All Roamers
-      </Link>
-      <br></br>
+      <div className="goBack">
+        <Link
+          style={{ textDecoration: "none", color: "inherit" }}
+          to={`/travelers`}
+          className="hover goBack"
+        > ⬅️ All Roamers
+        </Link>
+        <br></br>
 
 
-      <Link
-        style={{ textDecoration: "none", color: "inherit" }}
-        to={`/connect/discover`}
-        className="hover goBack"
-      > ⬅️ Trips
-      </Link>
+        <Link
+          style={{ textDecoration: "none", color: "inherit" }}
+          to={`/connect/discover`}
+          className="hover goBack"
+        > ⬅️ Trips
+        </Link>
       </div>
-        <div className="travelerDetailContainer">
-          <div className="travelerPhotoBio">
-            <section className="detailImage">
-              <img src={traveler.profile_image_url} />
-              <div className="travelerLabel">{traveler.bio}</div>
-              <div>
-                <div className="traveler_info">
-                  <SubscriptionForm traveler={traveler} setTraveler={setTraveler} />
-                </div>
-              </div>
-            </section>
-          </div>
+      <div className="travelerDetailContainer">
+        <div className="travelerPhotoBio">
+          <section className="detailImage">
+            <img src={traveler.profile_image_url} />
+            <div className="travelerLabel">{traveler.bio}</div>
+            <div className="traveler_info">
+              <SubscriptionForm traveler={traveler} setTraveler={setTraveler} />
+            </div>
+          </section>
+        </div>
       </div>
     </>
   )
