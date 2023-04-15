@@ -15,10 +15,9 @@ export function Map({ token }) {
     const navigate = useNavigate()
     const [trips, setTrips] = useState([])
     const [favDestinations, setFavDestinations] = useState([{
-        destination: {
-            latitude: 0,
-            longitude: 0
-        }
+        destination: 0, 
+        trip: 0, 
+        status: 0
     }]);
 
 
@@ -60,33 +59,6 @@ export function Map({ token }) {
                  
                 </MapContainer>
             </div>
-            {/* <fieldset>
-                <div className="form-group">
-                    <select
-                        name="destinationId"
-                        className="input"
-                        value={newFavDestination.destination}
-                        onChange={(event) => {
-                            const copy = { ...newFavDestination }
-                            copy.destinationId = parseInt(event.target.value)
-                            setFavDestinations(copy)
-                        }}
-                    >
-                        <option value="0">Any locations you want to save?</option>
-                        {trips.map(t => (
-                            <option
-                                key={`trip--${t.id}`}
-                                value={t.id}>
-                                {t.destination.location}
-                            </option>
-                        ))}
-                    </select>
-                    <button
-                        type="button"
-                        onClick={handleAddStatus}
-                        className="button is-link is-rounded is-small">Publish</button>
-                </div>
-            </fieldset> */}
         <AddFavDest destByStatus={getDestinationByStatus}updateStatus={updateTripStatus} trips={trips} setFavDestinations={setFavDestinations}/>
         </section >
     )
