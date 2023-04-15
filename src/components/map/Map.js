@@ -8,6 +8,7 @@ import { getMyTrips, getTripDestinations } from "../../managers/TripManager"
 import { getDestinationByStatus, updateTripStatus } from "../../managers/DestinationManager"
 import Modal from 'react-modal'
 import "./Map.css"
+import { AddFavDest } from "./AddFavDest"
 
 export function Map({ token }) {
 
@@ -20,15 +21,6 @@ export function Map({ token }) {
         }
     }]);
 
-    const [newFavDestination, setNewFavDestinations] = useState([{
-        destination: {
-            location: "",
-            stateId: 0,
-            latitude: 0,
-            longitude: 0,
-            status: 0
-        }
-    }])
 
     const tokenInt = parseInt(token)
 
@@ -36,10 +28,6 @@ export function Map({ token }) {
         getDestinationByStatus(4).then((destArray) => {
             setFavDestinations(destArray)
         })
-
-        // getTripDestinations().then((tripData) => {
-        //     setTrips(tripData)
-        // })
 
     }, [])
 
@@ -50,28 +38,6 @@ export function Map({ token }) {
         iconSize: [20, 20],
 
     })
-
-    // const handleAddStatus = () => {
-    //     const destinationId = parseInt(newFavDestination.destinationId)
-    //     const stateId = parseInt(newFavDestination.stateId)
-
-    //     const data = {
-    //         location: newFavDestination.name,
-    //         state: stateId,
-    //         longitude: newFavDestination.longitude,
-    //         latitude: newFavDestination.latitude,
-    //         status: 4
-    //     }
-
-    //     updateTripStatus(destinationId, data)
-    //         .then(() => {
-    //             window.location.reload()
-    //         })
-    //         .catch((error) => {
-    //             console.error(error)
-    //         })
-    // }
-
 
     return (
         <section className='map-component' >
@@ -121,6 +87,7 @@ export function Map({ token }) {
                         className="button is-link is-rounded is-small">Publish</button>
                 </div>
             </fieldset> */}
+        <AddFavDest destByStatus={getDestinationByStatus}updateStatus={updateTripStatus} trips={trips} setFavDestinations={setFavDestinations}/>
         </section >
     )
 }
