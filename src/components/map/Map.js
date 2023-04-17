@@ -5,7 +5,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import { Icon } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { getMyTrips, getTripDestinations } from "../../managers/TripManager"
-import { getDestinationByStatus, updateTripStatus } from "../../managers/DestinationManager"
+import { getDestinationByStatus, updateTripStatus, getNotFavDestinations } from "../../managers/DestinationManager"
 import Modal from 'react-modal'
 import "./Map.css"
 import { AddFavDest } from "./AddFavDest"
@@ -14,6 +14,7 @@ export function Map({ token }) {
 
     const navigate = useNavigate()
     const [trips, setTrips] = useState([])
+    const [notFavDests, setNotFavDests] = useState([])
     const [favDestinations, setFavDestinations] = useState([
         {
             location: '',
@@ -28,9 +29,16 @@ export function Map({ token }) {
 
     const tokenInt = parseInt(token)
 
+
     useEffect(() => {
+        //all trips that are favorites
         getDestinationByStatus(4).then((destArray) => {
             setFavDestinations(destArray)
+        })
+
+        //filtering all trips that are favorite to return all others
+        getNotFavDestinations(4).then((notFavArray) => {
+            setNotFavDests(notFavArray)
         })
 
     }, [])
@@ -64,7 +72,7 @@ export function Map({ token }) {
 
                 </MapContainer>
             </div>
-            <AddFavDest destByStatus={getDestinationByStatus}updateStatus={updateTripStatus} trips={trips} setFavDestinations={setFavDestinations}/>
+            <AddFavDest destByStatus={getDestinationByStatus} updateStatus={updateTripStatus} trips={trips} notFavDests={notFavDests}/>
         </section >
     )
 }
