@@ -1,7 +1,6 @@
-import { useState, useEffect, useRef } from "react"
+import { useState, useRef } from "react"
 import { addDestination, deleteDestination } from "../../managers/DestinationManager"
 import { getSingleTrip, addTripDestination } from "../../managers/TripManager"
-import { getStatus } from "../../managers/StatusManager"
 import { FaTrashAlt } from "react-icons/fa";
 
 export const AddTripDestination = ({ tripId, currentTrip, setCurrentTrip, status }) => {
