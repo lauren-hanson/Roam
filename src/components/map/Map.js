@@ -72,7 +72,7 @@ export function Map({ token }) {
 
                 </MapContainer>
             </div>
-            <AddFavDest destByStatus={getDestinationByStatus} updateStatus={updateTripStatus} trips={trips} notFavDests={notFavDests}/>
+            <AddFavDest updateTripStatus={updateTripStatus} notFavDests={notFavDests} />
         </section >
     )
 }
