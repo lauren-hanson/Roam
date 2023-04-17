@@ -5,6 +5,8 @@ import { getDestinations, addDestination, deleteDestination } from "../../manage
 import { getTags } from "../../managers/TagManager"
 import { FaTrashAlt } from "react-icons/fa";
 import "./Trip.css"
+import { getStatus } from "../../managers/StatusManager"
+// import { AddTripDestination } from "../destination/AddTripDestination"
 
 export const EditTrip = ({ token }) => {
 
@@ -14,9 +16,11 @@ export const EditTrip = ({ token }) => {
     const latRef = useRef()
     const longRef = useRef()
     const tipsRef = useRef()
+    const destStatusRef = useRef()
     const { tripId } = useParams()
     const [refresh, setRefresh] = useState(false)
     const [tags, setTags] = useState([])
+    const [status, setStatus] = useState([])
     const [tripTags, setTripTags] = useState(new Set())
     const [trips, setTrips] = useState([])
     const [destinations, setDestinations] = useState([])
@@ -26,7 +30,8 @@ export const EditTrip = ({ token }) => {
         state: "",
         latitude: 0,
         longitude: 0,
-        tips: ""
+        tips: "",
+        destination_status: 0
     })
 
     const [currentTrip, setCurrentTrip] = useState({
@@ -41,7 +46,8 @@ export const EditTrip = ({ token }) => {
         destination: [{
             latitude: 0,
             longitude: 0,
-            tips: ""
+            tips: "",
+            destination_status: 0
         }],
         public: 0,
         complete: 0
@@ -55,6 +61,7 @@ export const EditTrip = ({ token }) => {
 
     useEffect(() => {
         getTags().then(data => setTags(data))
+        getStatus().then(statusInfo => setStatus(statusInfo))
         getDestinationByTrip(tripId).then(destination => setDestinations(destination))
         getSingleTrip(tripId).then((tripData) => {
             setCurrentTrip(tripData)
@@ -79,6 +86,12 @@ export const EditTrip = ({ token }) => {
         setNewDestination(latLong)
     }
 
+    const parseDestStatus = (event) => {
+        const destination_status = Object.assign({}, newDestination)
+        destination_status[event.target.name] = parseInt(event.target.value)
+        setNewDestination(destination_status)
+    }
+
     const createNewDestination = (event) => {
         event.preventDefault()
 
@@ -87,7 +100,8 @@ export const EditTrip = ({ token }) => {
             state: stateRef.current.value,
             latitude: parseFloat(latRef.current.value),
             longitude: parseFloat(longRef.current.value),
-            tips: tipsRef.current.value
+            tips: tipsRef.current.value,
+            destination_status: parseInt(destStatusRef.current.value)
         }
         setDestinations([...destinations, newDestination])
         locationRef.current.value = ''
@@ -95,6 +109,7 @@ export const EditTrip = ({ token }) => {
         latRef.current.value = ''
         longRef.current.value = ''
         tipsRef.current.value = ''
+        destStatusRef.current.value = ''
 
         addDestination(newDestination)
             .then((destination) => {
@@ -169,6 +184,7 @@ export const EditTrip = ({ token }) => {
                 </div>
             </fieldset>
             <br></br>
+            {/* <AddTripDestination tripId={tripId} currentTrip={currentTrip} setCurrentTrip/> */}
             <fieldset>
                 <label className="tripLabel">Photos:</label>
                 <div>
@@ -290,6 +306,32 @@ export const EditTrip = ({ token }) => {
                         />
                     </div>
 
+                    <div className="newStatusSelect">
+                        <select
+                            name="destination_status"
+                            className="input"
+                            ref={destStatusRef}
+                            value={newDestination.destination_status}
+                            onChange={parseDestStatus}
+                        // onChange={(event) => {
+                        //     const copy = { ...newDestination }
+                        //     copy.statusId = parseInt(event.target.value)
+                        //     setNewItem(copy)
+                        // }}
+                        >
+                            <option value="0">Status Select</option>
+                            {
+                                status.map(s => (
+                                    <option
+                                        key={`status--${s.id}`}
+                                        value={s.id}>
+                                        {s.type}
+                                    </option>
+                                ))
+                            }
+                        </select>
+                    </div>
+
 
                     <button className="button is-small addDestinationButton"
                         onClick={createNewDestination}>
@@ -408,7 +450,7 @@ export const EditTrip = ({ token }) => {
                         .then(() => navigate(`/trips/${currentTrip.id}`))
                 }}
                 className="button publishButton">Publish</button>
-        </form>
+        </form >
 
     </>
     )
