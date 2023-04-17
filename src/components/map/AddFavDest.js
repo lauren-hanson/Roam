@@ -5,9 +5,12 @@ export const AddFavDest = ({ destByStatus, updateStatus, setFavDestinations }) =
     const [tripDest, setTripDest] = useState([])
 
     const [newFavDestination, setNewFavDestinations] = useState([{
-        destination: 0,
-        trip: 0,
-        status: 0
+        location: '',
+        state: '',
+        latitude: '',
+        longitude: '',
+        tips: '',
+        destination_status: 0
     }])
 
     useEffect(() => {
@@ -16,22 +19,22 @@ export const AddFavDest = ({ destByStatus, updateStatus, setFavDestinations }) =
         })
     }, [])
 
-    const handleAddStatus = () => {
-        const destinationId = parseInt(tripDest.destinationId)
-        const tripId = parseInt(tripDest.tripId)
+    // const handleAddStatus = () => {
+        // const destinationId = parseInt(tripDest.destinationId)
+        // const tripId = parseInt(tripDest.tripId)
         // const statusId = parseInt(tripDest.statusId)
 
-        const data = {
-            destination: destinationId,
-            trip: tripId,
-            status: 4
-        }
+        // const data = {
+        //     destination: destinationId,
+        //     trip: tripId,
+        //     status: 4
+        // }
 
-        updateStatus(data)
-            .then(() => {
-                window.location.reload()
-            })
-    }
+    //     updateStatus(data)
+    //         .then(() => {
+    //             window.location.reload()
+    //         })
+    // }
 
     return (<>
         <fieldset>
@@ -51,16 +54,16 @@ export const AddFavDest = ({ destByStatus, updateStatus, setFavDestinations }) =
                     <option value="0">Any locations you want to add to your favorites?</option>
                     {tripDest.map(t => (
                         <option
-                            key={`tripdestination--${t.destination.id}`}
-                            value={t.destination.id}>
-                            {t.destination.location}
+                            key={`tripdestination--${t.id}`}
+                            value={t.id}>
+                            {t.location}
                         </option>
                     ))}
                 </select>
 
                 <button
                     type="button"
-                    onClick={handleAddStatus}
+                    // onClick={handleAddStatus}
                     className="button is-small"
                 // onClick={evt => {
                 //     evt.preventDefault()
