@@ -1,35 +1,30 @@
 import { useState, useEffect } from 'react'
 
-export const AddFavDest = ({ updateStatus, setFavDestinations, notFavDests }) => {
+export const AddFavDest = ({ updateTripStatus, notFavDests }) => {
 
-    const [tripDest, setTripDest] = useState([])
+    const [selectedDestination, setSelectedDestination] = useState(null)
 
-    const [newFavDestination, setNewFavDestinations] = useState([{
-        location: '',
-        state: '',
-        latitude: '',
-        longitude: '',
-        tips: '',
-        destination_status: 0
-    }])
+    const handleAddStatus = () => {
 
+        if (selectedDestination === null) { 
+            console.log('You forgot to select a destination.')
+        }
 
-    // const handleAddStatus = () => {
-        // const destinationId = parseInt(tripDest.destinationId)
-        // const tripId = parseInt(tripDest.tripId)
-        // const statusId = parseInt(tripDest.statusId)
+        const data = {
+            // destination_id: selectedDestination,
+            location: selectedDestination.location,
+            state: selectedDestination.state,
+            latitude: selectedDestination.latitude,
+            longitude: selectedDestination.longitude,
+            tips: selectedDestination.tips,
+            destination_status: 4
+        }
 
-        // const data = {
-        //     destination: destinationId,
-        //     trip: tripId,
-        //     status: 4
-        // }
-
-    //     updateStatus(data)
-    //         .then(() => {
-    //             window.location.reload()
-    //         })
-    // }
+        updateTripStatus(selectedDestination, data)
+            // .then(() => {
+            //     window.location.reload()
+            // })
+    }
 
     return (<>
         <fieldset>
@@ -37,41 +32,25 @@ export const AddFavDest = ({ updateStatus, setFavDestinations, notFavDests }) =>
                 <select
                     name="tripDestinationId"
                     className="input"
-                    value={tripDest.destinationId}
-
+                    value={selectedDestination}
                     onChange={(event) => {
-                        const copy = { ...newFavDestination }
-                        copy.destinationId = parseInt(event.target.value)
-                        setNewFavDestinations(copy)
+                        const destinationId = parseInt(event.target.value)
+                        setSelectedDestination(destinationId)
                     }}
-
                 >
                     <option value="0">Any locations you want to add to your favorites?</option>
                     {notFavDests.map(t => (
                         <option
-                            key={`tripdestination--${t.id}`}
+                            key={`t--${t.id}`}
                             value={t.id}>
                             {t.location}
                         </option>
                     ))}
                 </select>
-
                 <button
                     type="button"
-                    // onClick={handleAddStatus}
+                    onClick={handleAddStatus}
                     className="button is-small"
-                // onClick={evt => {
-                //     evt.preventDefault()
-
-                //     const statusUpdate = {
-                //         trip: tripDest.tripId,
-                //         destination: tripDest.destinationId,
-                //         status: 4
-                //     }
-
-                //     updateStatus(statusUpdate)
-
-                // }}
                 >Publish
                 </button>
             </div>

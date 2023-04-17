@@ -63,7 +63,7 @@ export const deleteDestination = (id) => {
 }
 
 export const addDestinationStatus = (status) => {
-    return fetch("http://localhost:8000/tripdestinations", {
+    return fetch("http://localhost:8000/destinations", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -75,7 +75,7 @@ export const addDestinationStatus = (status) => {
 
 
 export const updateTripStatus = (id, destination) => {
-    return fetch(`http://localhost:8000/tripdestinations/${id}`, {
+    return fetch(`http://localhost:8000/destinations/${id}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
