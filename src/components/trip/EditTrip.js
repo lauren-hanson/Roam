@@ -5,18 +5,16 @@ import { getTags } from "../../managers/TagManager"
 import "./Trip.css"
 import { getStatus } from "../../managers/StatusManager"
 import { AddTripDestination } from "../destination/AddTripDestination"
+import { AddTripTag } from "../tags/AddTripTag"
 
 export const EditTrip = ({ token }) => {
 
     const navigate = useNavigate()
-
     const { tripId } = useParams()
     const [tags, setTags] = useState([])
     const [status, setStatus] = useState([])
     const [tripTags, setTripTags] = useState(new Set())
-    const [trips, setTrips] = useState([])
     const [destinations, setDestinations] = useState([])
-
     const [currentTrip, setCurrentTrip] = useState({
         title: "",
         weather: "",
@@ -35,12 +33,6 @@ export const EditTrip = ({ token }) => {
         public: 0,
         complete: 0
     })
-
-    const tagArr = (tagId) => {
-        let copy = new Set(tripTags)
-        copy.has(tagId) ? copy.delete(tagId) : copy.add(tagId)
-        setTripTags(copy)
-    }
 
     useEffect(() => {
         getTags().then(data => setTags(data))
@@ -182,24 +174,10 @@ export const EditTrip = ({ token }) => {
                 </div>
             </fieldset>
             <br></br>
-            <fieldset>
-                <div className="field">
-                    <label htmlFor="tag" className="triplabel label">Tags: </label>
-                    {
-                        tags.map(tag => {
-                            const foundTag = currentTrip.tag.find(tripTag => tag.id === tripTag.id)
-
-                            return <div key={`tag--${tag.id}`}>
-                                <input type="checkbox" name={tag.type}
-                                    defaultChecked={foundTag}
-                                    onClick={() => tagArr(tag.id)}
-                                />
-                                <label htmlFor={tag.type}>{tag?.type}</label><br />
-                            </div>
-                        })
-                    }
-                </div>
-            </fieldset>
+            <div>
+                <AddTripTag currentTrip={currentTrip} tripTags={tripTags}
+                    setTripTags={setTripTags} tags={tags} />
+            </div>
             <br></br>
             <fieldset>
                 <div>
