@@ -14,11 +14,16 @@ export function Map({ token }) {
 
     const navigate = useNavigate()
     const [trips, setTrips] = useState([])
-    const [favDestinations, setFavDestinations] = useState([{
-        destination: 0, 
-        trip: 0, 
-        status: 0
-    }]);
+    const [favDestinations, setFavDestinations] = useState([
+        {
+            location: '',
+            state: '',
+            latitude: '',
+            longitude: '',
+            tips: '',
+            destination_status: 0
+        }
+    ]);
 
 
     const tokenInt = parseInt(token)
@@ -49,17 +54,17 @@ export function Map({ token }) {
                     />
                     <div>
                         {favDestinations.map((t) => {
-                            return (<Marker position={[t.destination.latitude ?? 0, t.destination.longitude ?? 0]} icon={favIcon}>
-                                <Popup><h2 className="popUpHeader">{t.destination.location}, {t.destination.state}</h2><br></br>{t.destination.tips}
-                    
+                            return (<Marker position={[t.latitude ?? 0, t.longitude ?? 0]} icon={favIcon}>
+                                <Popup><h2 className="popUpHeader">{t.location}, {t.state}</h2><br></br>{t.tips}
+
                                 </Popup>
                             </Marker>)
                         })}
                     </div>
-                 
+
                 </MapContainer>
             </div>
-        <AddFavDest destByStatus={getDestinationByStatus}updateStatus={updateTripStatus} trips={trips} setFavDestinations={setFavDestinations}/>
+            <AddFavDest destByStatus={getDestinationByStatus}updateStatus={updateTripStatus} trips={trips} setFavDestinations={setFavDestinations}/>
         </section >
     )
 }

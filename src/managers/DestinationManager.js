@@ -29,7 +29,7 @@ export const addDestination = (destination) => {
 }
 
 export const getDestinationByStatus = (id) => {
-    return fetch(`http://localhost:8000/tripdestinations?status=${id}`,
+    return fetch(`http://localhost:8000/destinations?destination_status=${id}`,
     {
       headers: {
         "Authorization": `Token ${localStorage.getItem("roam_token")}`
