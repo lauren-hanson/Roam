@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-export const AddFavDest = ({ destByStatus, updateStatus, setFavDestinations }) => {
+export const AddFavDest = ({ updateStatus, setFavDestinations, notFavDests }) => {
 
     const [tripDest, setTripDest] = useState([])
 
@@ -13,11 +13,6 @@ export const AddFavDest = ({ destByStatus, updateStatus, setFavDestinations }) =
         destination_status: 0
     }])
 
-    useEffect(() => {
-        destByStatus(3).then((destArray) => {
-            setTripDest(destArray)
-        })
-    }, [])
 
     // const handleAddStatus = () => {
         // const destinationId = parseInt(tripDest.destinationId)
@@ -52,7 +47,7 @@ export const AddFavDest = ({ destByStatus, updateStatus, setFavDestinations }) =
 
                 >
                     <option value="0">Any locations you want to add to your favorites?</option>
-                    {tripDest.map(t => (
+                    {notFavDests.map(t => (
                         <option
                             key={`tripdestination--${t.id}`}
                             value={t.id}>

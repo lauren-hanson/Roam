@@ -39,6 +39,20 @@ export const getDestinationByStatus = (id) => {
   
 }
 
+
+export const getNotFavDestinations = (id) => {
+    return fetch(`http://localhost:8000/destinations?not_favorite=${id}`,
+    {
+      headers: {
+        "Authorization": `Token ${localStorage.getItem("roam_token")}`
+      }
+    })
+    .then(res => res.json())
+  
+}
+
+
+
 export const deleteDestination = (id) => {
     return fetch(`http://localhost:8000/destinations/${id}`, {
         method: "DELETE",
