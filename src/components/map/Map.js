@@ -5,7 +5,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import { Icon } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { getMyTrips, getTripDestinations } from "../../managers/TripManager"
-import { getDestinationByStatus, updateTripStatus, getNotFavDestinations } from "../../managers/DestinationManager"
+import { getDestinationByStatus, updateDestinationStatus, getNotFavDestinations } from "../../managers/DestinationManager"
 import Modal from 'react-modal'
 import "./Map.css"
 import { AddFavDest } from "./AddFavDest"
@@ -72,7 +72,7 @@ export function Map({ token }) {
 
                 </MapContainer>
             </div>
-            <AddFavDest updateTripStatus={updateTripStatus} notFavDests={notFavDests} />
+            <AddFavDest updateDestinationStatus={updateDestinationStatus} notFavDests={notFavDests} setFavDestinations={setFavDestinations}/>
         </section >
     )
 }
