@@ -15,7 +15,6 @@ export function Map({ token }) {
 
     const navigate = useNavigate()
     const [isModalOpen, setIsModalOpen] = useState(false)
-    const [isPopUpOpen, setIsPopUpOpen] = useState(false)
     const [refresh, setRefresh] = useState(false)
     const [notFavDests, setNotFavDests] = useState([])
     const [favDestinations, setFavDestinations] = useState([
@@ -62,29 +61,19 @@ export function Map({ token }) {
             marginRight: '-50%',
             transform: 'translate(-50%, -50%)',
             background: '#131313',
-            color: 'papayawhip'
+            color: 'papayawhip', 
+            zIndex: 9999
         },
     }
 
     const openModal = () => {
         setIsModalOpen(true)
-        setIsPopUpOpen(false)
-        }
-    
+    }
 
     const closeModal = () => {
         setRefresh(!refresh)
         setIsModalOpen(false)
     }
-
-    // const openPopUp = () => {
-    //     setIsPopUpOpen(true)
-    // }
-
-    // const closePopUp = () => {
-    //     setRefresh(!refresh)
-    //     setIsPopUpOpen(false)
-    // }
 
     return (
         <section className='map-component' >
@@ -105,9 +94,12 @@ export function Map({ token }) {
                                             isOpen={isModalOpen}
                                             onRequestClose={closeModal}
                                             style={customStyles}
-                                            contentLabel="Example Modal">
+                                            contentLabel="modal"
+                                            ariaHideApp={false}
+                                            // appElement={el}
+                                            >
                                             <button onClick={closeModal}>x</button>
-                                            {!isPopUpOpen && <EditDest setIsModalOpen={setIsModalOpen} closeModal={closeModal} />}
+                                            <EditDest setIsModalOpen={setIsModalOpen} closeModal={closeModal} />
                                         </Modal>
                                         <RemoveDest />
                                     </div>

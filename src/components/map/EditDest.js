@@ -1,6 +1,6 @@
 export const EditDest = () => {
 
     return (<>
-        make edits here
+        make edits here.
     </>)
 }
