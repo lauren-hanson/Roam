@@ -16,7 +16,7 @@ import { Connect } from "../components/connect/Connect"
 import { ConnectFeed } from "../components/connect/ConnectFeed"
 import { Map } from "../components/map/Map"
 // import { AddTripTips } from "../components/map/AddTripTips"
-// import { CalendarView } from "../components/calendar/CalendarView"
+import { CalendarView } from "../components/calendar/CalendarView"
 
 export const ApplicationViews = ({ token, setToken }) => {
 	return (
@@ -49,9 +49,9 @@ export const ApplicationViews = ({ token, setToken }) => {
 						<Route path="discover" element={<Connect token={token} />} />
 					
 					</Route>
-					{/* <Route path="/calendar" >
+					<Route path="/calendar" >
 						<Route index element={<CalendarView token={token} />} />
-					</Route> */}
+					</Route>
 					<Route path="/travelers" >
 						<Route index element={<TravelerList token={token} />} />
 						<Route path=":travelerId" element={<TravelerDetails
