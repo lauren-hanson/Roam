@@ -1,27 +1,48 @@
-export const AddTips = ({ updateDestination, favDestinations, id }) => {
+import { useState, useEffect } from "react"
 
-    const handleAddTips = () => {
+export const AddTips = ({ updateDestination, favDestinations }) => {
 
-        const data = {
-            // destination_id: selectedDestination,
-            ...favDestinations,
+    const [addTips, setTips] = useState(
+        {
             tips: ""
         }
+    )
 
-        updateDestination(id, data)
-            // setRefresh(!refresh)
-            .then(() => {
-                window.location.reload()
-            })
+    // useEffect(() => {
+    //     setTips
+    // })
+
+    const handleAddTips = (event) => {
+        const copy = { ...addTips }
+        copy[event.target.name] = event.target.value;
+        setTips(copy);
     }
 
     return (
         <>
-            <textarea
+            <input
+                type="text"
+                name="tips"
+                required
+                autoFocus
+                defaultValue={addTips.tips}
+                className="form-control"
                 placeholder="Any tips?"
+            // onChange={handleAddTips}
             />
             <button
-                onClick={handleAddTips}
+                type="saveTip"
+                onClick={evt => {
+                    evt.preventDefault()
+
+                    const tipToAdd = {
+                        tips: addTips.tips
+                    }
+
+                    updateDestination(favDestinations.id, tipToAdd)
+                    // .then(() => navigate(`/trips/${currentTrip.id}`))
+                }}
+
                 class='button is-small'>+</button>
         </>
     )

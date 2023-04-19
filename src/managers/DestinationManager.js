@@ -74,14 +74,14 @@ export const addDestinationStatus = (status) => {
 };
 
 
-export const updateDestination = (id, status) => {
+export const updateDestination = (id, body) => {
     return fetch(`http://localhost:8000/destinations/${id}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
             "Authorization": `Token ${localStorage.getItem("roam_token")}`
         },
-        body: JSON.stringify(status),
+        body: JSON.stringify(body),
     })
 }
 
