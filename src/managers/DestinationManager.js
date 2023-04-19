@@ -74,7 +74,7 @@ export const addDestinationStatus = (status) => {
 };
 
 
-export const updateDestinationStatus = (id, status) => {
+export const updateDestination = (id, status) => {
     return fetch(`http://localhost:8000/destinations/${id}`, {
         method: "PUT",
         headers: {

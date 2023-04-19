@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-export const AddFavDest = ({ updateDestinationStatus, notFavDests }) => {
+export const AddFavDest = ({ updateDestination, notFavDests }) => {
     const [refresh, setRefresh] = useState(false)
     const [selectedDestination, setSelectedDestination] = useState(null)
 
@@ -16,7 +16,7 @@ export const AddFavDest = ({ updateDestinationStatus, notFavDests }) => {
             destination_status: 4
         }
 
-        updateDestinationStatus(selectedDestination.id, data)
+        updateDestination(selectedDestination.id, data)
             // setRefresh(!refresh)
             .then(() => {
                 window.location.reload()
