@@ -77,20 +77,6 @@ export const AddTripDestination = ({ tripId, currentTrip, setCurrentTrip, status
             })
     }
 
-    // const deleteButton = (id) => {
-    //     return <FaTrashAlt className="deleteButton" onClick={() => {
-    //         deleteDestination(id)
-    //             .then(() => {
-    //                 window.confirm(
-    //                     "Do you want to delete this stop?"
-    //                 )
-    //                 getSingleTrip(tripId).then((data) => setCurrentTrip(data))
-    //                 setRefresh(!refresh)
-    //             })
-    //     }
-    //     }></FaTrashAlt>
-    // }
-
     return (
         <>
             <fieldset>
@@ -193,17 +179,9 @@ export const AddTripDestination = ({ tripId, currentTrip, setCurrentTrip, status
                 </div>
                 <br></br>
                 <div>
-                    <DeleteDestination deleteDestination={deleteDestination} FaTrashAlt={FaTrashAlt} getSingleTrip={getSingleTrip} tripId={tripId} setCurrentTrip={setCurrentTrip} refresh={refresh} setRefresh={setRefresh} currentTrip={currentTrip}/> 
+                    <DeleteDestination deleteDestination={deleteDestination} FaTrashAlt={FaTrashAlt} getSingleTrip={getSingleTrip} tripId={tripId} setCurrentTrip={setCurrentTrip} refresh={refresh} setRefresh={setRefresh} currentTrip={currentTrip} />
                 </div>
-                {/* <div>
-                    {currentTrip?.destination.map((destination, index) => (
-                        <div key={index}>
-                            <li>{destination.location}, {destination.state}
-                                {deleteButton(destination.id)}</li>
-                        </div>
-                    ))}
 
-                </div> */}
             </fieldset>
         </>
     )
