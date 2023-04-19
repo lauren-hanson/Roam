@@ -1,6 +1,7 @@
 import { useState, useRef } from "react"
 import { addDestination, deleteDestination } from "../../managers/DestinationManager"
 import { getSingleTrip, addTripDestination } from "../../managers/TripManager"
+import { DeleteDestination } from "../destination/DeleteDestination"
 import { FaTrashAlt } from "react-icons/fa";
 
 export const AddTripDestination = ({ tripId, currentTrip, setCurrentTrip, status }) => {
@@ -74,20 +75,6 @@ export const AddTripDestination = ({ tripId, currentTrip, setCurrentTrip, status
                         getSingleTrip(tripId).then((data) => setCurrentTrip(data))
                     })
             })
-    }
-
-    const deleteButton = (id) => {
-        return <FaTrashAlt className="deleteButton" onClick={() => {
-            deleteDestination(id)
-                .then(() => {
-                    window.confirm(
-                        "Do you want to delete this stop?"
-                    )
-                    getSingleTrip(tripId).then((data) => setCurrentTrip(data))
-                    setRefresh(!refresh)
-                })
-        }
-        }></FaTrashAlt>
     }
 
     return (
@@ -192,14 +179,9 @@ export const AddTripDestination = ({ tripId, currentTrip, setCurrentTrip, status
                 </div>
                 <br></br>
                 <div>
-                    {currentTrip?.destination.map((destination, index) => (
-                        <div key={index}>
-                            <li>{destination.location}, {destination.state}
-                                {deleteButton(destination.id)}</li>
-                        </div>
-                    ))}
-
+                    <DeleteDestination deleteDestination={deleteDestination} FaTrashAlt={FaTrashAlt} getSingleTrip={getSingleTrip} tripId={tripId} setCurrentTrip={setCurrentTrip} refresh={refresh} setRefresh={setRefresh} currentTrip={currentTrip} />
                 </div>
+
             </fieldset>
         </>
     )
