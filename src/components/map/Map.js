@@ -4,11 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import { Icon } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
-import { getDestinationByStatus, updateDestinationStatus, getNotFavDestinations } from "../../managers/DestinationManager"
+import { getDestinationByStatus, updateDestination, getNotFavDestinations } from "../../managers/DestinationManager"
 import Modal from 'react-modal'
 import "./Map.css"
 import { AddFavDest } from "./AddFavDest"
-import { EditDest } from "./EditDest"
+import { AddTips } from "./AddTips"
+// import { EditDest } from "./EditDest"
 import { RemoveDest } from "./RemoveDest"
 
 export function Map({ token }) {
@@ -83,7 +84,7 @@ export function Map({ token }) {
 
     const closeModal = () => {
         setRefresh(!refresh)
-        // setIsModalOpen(false)
+        setIsModalOpen(false)
     }
 
 
@@ -91,7 +92,9 @@ export function Map({ token }) {
         <section className='map-component' >
 
             <div id='map'>
+
                 <MapContainer center={[36.1627, -86.7816]} zoom={4} style={{ height: "500px" }} scrollWheelZoom={true} >
+
                     <TileLayer
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -99,29 +102,37 @@ export function Map({ token }) {
                     <div>
                         {favDestinations.map((t) => {
                             return (<Marker position={[t.latitude ?? 0, t.longitude ?? 0]} icon={favIcon}>
-                                <Popup><h2 className="popUpHeader">{t.location}, {t.state}</h2><br></br>{t.tips}
+                                <Popup><h2 className="popUpHeader">{t.location}, {t.state}</h2><br></br>
+                                    {t.tips.length ?  (t.tips) : (<AddTips updateDestination={updateDestination} favDestinations={favDestinations} />)}
                                     <div>
-                                        <button class="button is-small" onClick={openModal}>edit.</button>
-                                        <Modal className='modal'
+                                        {/* <Modal className='modal'
                                             isOpen={isModalOpen}
                                             onRequestClose={closeModal}
                                             style={customStyles}
                                             contentLabel="modal"
-                                            ariaHideApp={false}
+                                            ariaHideApp={true}
                                         >
                                             <button onClick={closeModal}>x</button>
+
+
                                             <EditDest openModal={openModal} marker={t} />
-                                        </Modal>
-                                        <RemoveDest />
+                                        </Modal> */}
+                                        {/* <div>
+                                            <AddTips updateDestination={updateDestination} favDestinations={favDestinations} />
+                                        </div> */}
+                                        <div>
+                                            <RemoveDest />
+                                        </div>
                                     </div>
                                 </Popup>
                             </Marker>)
                         })}
                     </div>
 
+
                 </MapContainer>
             </div>
-            <AddFavDest updateDestinationStatus={updateDestinationStatus} notFavDests={notFavDests} />
+            <AddFavDest updateDestination={updateDestination} notFavDests={notFavDests} />
         </section >
     )
 }
