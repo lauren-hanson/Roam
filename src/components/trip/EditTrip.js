@@ -93,7 +93,6 @@ export const EditTrip = ({ token }) => {
                 </div>
             </fieldset>
             <br></br>
-            {/* <AddTripDestination tripId={tripId} currentTrip={currentTrip} setCurrentTrip/> */}
             <fieldset>
                 <label className="tripLabel">Photos:</label>
                 <div>
