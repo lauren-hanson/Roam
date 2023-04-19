@@ -15,6 +15,7 @@ export function Map({ token }) {
 
     const navigate = useNavigate()
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const [isPopupOpen, setIsPopupOpen] = useState(false)
     const [refresh, setRefresh] = useState(false)
     const [notFavDests, setNotFavDests] = useState([])
     const [favDestinations, setFavDestinations] = useState([
@@ -61,19 +62,30 @@ export function Map({ token }) {
             marginRight: '-50%',
             transform: 'translate(-50%, -50%)',
             background: '#131313',
-            color: 'papayawhip', 
-            zIndex: 9999
+            color: 'papayawhip'
         },
     }
 
+    // const openPopup = () => {
+    //     setIsPopupOpen(true)
+    // }
+
+    const closePopup = () => {
+        setRefresh(!refresh)
+        setIsPopupOpen(false)
+    }
+
     const openModal = () => {
+        closePopup()
         setIsModalOpen(true)
+
     }
 
     const closeModal = () => {
         setRefresh(!refresh)
-        setIsModalOpen(false)
+        // setIsModalOpen(false)
     }
+
 
     return (
         <section className='map-component' >
@@ -90,16 +102,15 @@ export function Map({ token }) {
                                 <Popup><h2 className="popUpHeader">{t.location}, {t.state}</h2><br></br>{t.tips}
                                     <div>
                                         <button class="button is-small" onClick={openModal}>edit.</button>
-                                        <Modal
+                                        <Modal className='modal'
                                             isOpen={isModalOpen}
                                             onRequestClose={closeModal}
                                             style={customStyles}
                                             contentLabel="modal"
                                             ariaHideApp={false}
-                                            // appElement={el}
-                                            >
+                                        >
                                             <button onClick={closeModal}>x</button>
-                                            <EditDest setIsModalOpen={setIsModalOpen} closeModal={closeModal} />
+                                            <EditDest openModal={openModal} marker={t} />
                                         </Modal>
                                         <RemoveDest />
                                     </div>
@@ -110,7 +121,7 @@ export function Map({ token }) {
 
                 </MapContainer>
             </div>
-            <AddFavDest updateDestinationStatus={updateDestinationStatus} notFavDests={notFavDests} setFavDestinations={setFavDestinations} favDestinations={favDestinations} />
+            <AddFavDest updateDestinationStatus={updateDestinationStatus} notFavDests={notFavDests} />
         </section >
     )
 }

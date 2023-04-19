@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-export const AddFavDest = ({ updateDestinationStatus, notFavDests, favDestinations, setFavDestinations }) => {
+export const AddFavDest = ({ updateDestinationStatus, notFavDests }) => {
     const [refresh, setRefresh] = useState(false)
     const [selectedDestination, setSelectedDestination] = useState(null)
 

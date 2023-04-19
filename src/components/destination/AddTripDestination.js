@@ -150,11 +150,6 @@ export const AddTripDestination = ({ tripId, currentTrip, setCurrentTrip, status
                             ref={destStatusRef}
                             value={newDestination.destination_status}
                             onChange={parseDestStatus}
-                        // onChange={(event) => {
-                        //     const copy = { ...newDestination }
-                        //     copy.statusId = parseInt(event.target.value)
-                        //     setNewItem(copy)
-                        // }}
                         >
                             <option value="0">Status Select</option>
                             {
