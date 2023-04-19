@@ -45,6 +45,9 @@ export const NavBar = ({ token, setToken }) => {
                                 <Link to="/trips" className="navbar-item">
                                     My Trips
                                 </Link>
+                                <Link to="/calendar" className="navbar-item">
+                                    Calendar
+                                </Link>
                                 {/* <span className="padding">/</span> */}
                                 <Link to="/favorites" className="navbar-item">
                                     Favorites
