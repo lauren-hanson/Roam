@@ -11,7 +11,7 @@ export const NavBar = ({ token, setToken }) => {
     const showMobileNavbar = () => {
         hamburger.current.classList.toggle("is-active");
         navbar.current.classList.toggle("is-active");
-      };
+    };
 
     return (
         <nav
@@ -85,12 +85,16 @@ export const NavBar = ({ token, setToken }) => {
                                 </button>
                             ) : (
                                 <>
-                                    <Link to="/register" className="button">
-                                        Register
-                                    </Link>
-                                    <Link to="/login" className="button">
-                                        Login
-                                    </Link>
+                                    <div className="registerButton">
+                                        <Link to="/register" className="button">
+                                            Register
+                                        </Link>
+                                    </div>
+                                    <div className="loginButton">
+                                        <Link to="/login" className="button">
+                                            Login
+                                        </Link>
+                                    </div>
                                 </>
                             )
                         }

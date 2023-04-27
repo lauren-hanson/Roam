@@ -61,7 +61,7 @@ export const Login = ({ setToken }) => {
           </div>
         </div>
 
-        <div className="field">
+        <div className="buttonContainer">
           <div className="control">
             {/*submission button*/}
             <button className="button is-small" type="submit" >Submit</button>
