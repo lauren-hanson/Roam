@@ -2,11 +2,10 @@ import { useRef } from "react"
 import { Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 import { registerUser } from "../../managers/AuthManager"
-// import roam from "../../assets/roam.mp4"
+import roam from "../../assets/roam_video3.mp4"
 import "./Login.css"
 
 export const Register = ({ setToken }) => {
-  //state variables representing the properties of the User Class
   const firstName = useRef()
   const lastName = useRef()
   const email = useRef()
@@ -20,9 +19,7 @@ export const Register = ({ setToken }) => {
 
   const handleRegister = (e) => {
     e.preventDefault()
-    //confirms password and verifyPassword are the same value and data type
     if (password.current.value === verifyPassword.current.value) {
-      //initializes newUser to meet the requirements of the User class for POST request
       const newUser = {
         username: username.current.value,
         first_name: firstName.current.value,
@@ -32,35 +29,30 @@ export const Register = ({ setToken }) => {
         bio: bio.current.value,
         profile_image_url: profileImage.current.value
       }
-      //POSTs the user to the Register table
       registerUser(newUser).then((res) => {
-        //Tests both a javascript string "valid" and the property "valid" on the response. Does the register table add self.valid: "valid" property? Does it also add self.token to return the required keys/values for setToken?
         if ("token" in res) {
-          //sets registered user into local storage and sets Token state to the embedded token object returned from the api
           setToken(res.token)
           localStorage.setItem("roam_token", res.token)
           navigate("/")
         }
       })
     } else {
-      //renders a modal, I assume?
       passwordDialog.current.showModal()
     }
   }
 
   return (
     <section>
-      <div className="homeVideo">
-      {/* <img src="https://res.cloudinary.com/dgwi6xvfl/image/upload/v1679018916/Roam/colorado-3_x3q8bq.jpg"/> */}
-        {/* <video autoPlay={true}>
+      <div className="myVideo">
+        <video autoPlay={true}>
           <source
             src={roam}
             type={roam.type}
           />
           Your browser does not support HTML5 video.
-        </video> */}
+        </video>
       </div>
-      {/* Form that invokes handleRegister() when submitted */}
+
       <form className="register" onSubmit={handleRegister}>
 
         <p className="subtitle">Create an account</p>
@@ -142,7 +134,7 @@ export const Register = ({ setToken }) => {
         </div>
         <div className="field is-grouped">
           <div className="control">
-            <button className="button is-small" type="submit">
+            <button className="button is-small">
               Submit
             </button>
           </div>

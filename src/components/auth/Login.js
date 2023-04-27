@@ -1,7 +1,7 @@
 import { useRef, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { loginUser } from "../../managers/AuthManager"
-// import roam from "../../assets/roam.mp4"
+import roam from "../../assets/roam_video3.mp4"
 import "./Login.css"
 
 export const Login = ({ setToken }) => {
@@ -35,15 +35,15 @@ export const Login = ({ setToken }) => {
 
       <div className="homeVideo">
         {/* <img src="https://res.cloudinary.com/dgwi6xvfl/image/upload/v1679018916/Roam/colorado-3_x3q8bq.jpg" /> */}
-        {/* <video autoPlay={true}>
+        <video autoPlay={true}>
           <source
             src={roam}
             type={roam.type}
           />
           Your browser does not support HTML5 video.
-        </video> */}
+        </video>
       </div>
-      <form className="login" onSubmit={handleLogin}>
+      <form className="login_content" onSubmit={handleLogin}>
         {/* <h1 className="title">Roam</h1> */}
         <p className="subtitle">Create Your Own Road Trip Story</p>
 

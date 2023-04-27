@@ -1,46 +1,51 @@
-.navbar { 
-   color: #ffffff; 
+.navbar {
+   color: #ffffff;
    background-color: #131313;
-   padding-top: 10px; 
+   padding-top: 10px;
 }
 
 .navbar-menu img {
    max-height: 3rem;
-   color: #ffffff; 
+   color: #ffffff;
    background-color: #131313;
 }
 
-.navbar-brand, .navbar-item, .navbar-menu { 
+.navbar-brand,
+.navbar-item,
+.navbar-menu {
    font-size: 15px;
    background-color: #131313;
 }
 
-.navbar-item, .navbar-link { 
+.navbar-item,
+.navbar-link {
    color: #cccccc;
    background-color: #131313;
-   padding: 0px; 
+   padding: 0px;
 }
 
-.navbar-item, .navbar-menu.is-active  { 
-   background-color: #131313; 
+.navbar-item,
+.navbar-menu.is-active {
+   background-color: #131313;
 }
 
-.navbar-end { 
-   padding-right: 75px; 
+.navbar-end {
+   padding-right: 75px;
 }
 
-.navbar-burger { 
-   margin-right: 25px; 
+.navbar-burger {
+   margin-right: 25px;
 }
 
-.padding { 
-   padding: 45px 10px; 
+.padding {
+   padding: 45px 10px;
    color: #3cffd0;
 }
 
-.roamHeader { 
+.roamHeader {
    color: papayawhip;
-   font-weight: bolder; 
-   font-size: 25px; 
-   margin-left: 25px; 
+   font-weight: bolder;
+   font-size: 25px;
+   margin-left: 25px;
 }
+
