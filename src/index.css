@@ -109,3 +109,9 @@ a.navbar-item.is-active,
   padding: 20px;
 }
 
+.button {
+  width: auto; 
+  margin: 10px; 
+  font-family: 'Montserrat', sans-serif;
+}
+
