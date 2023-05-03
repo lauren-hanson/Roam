@@ -6,6 +6,7 @@ import "./Trip.css"
 import { getStatus } from "../../managers/StatusManager"
 import { AddTripDestination } from "../destination/AddTripDestination"
 import { AddTripTag } from "../tags/AddTripTag"
+import Modal from 'react-modal'
 
 export const EditTrip = ({ token }) => {
 
@@ -15,6 +16,8 @@ export const EditTrip = ({ token }) => {
     const [status, setStatus] = useState([])
     const [tripTags, setTripTags] = useState(new Set())
     const [destinations, setDestinations] = useState([])
+    const [refresh, setRefresh] = useState(false)
+    const [isModalOpen, setIsModalOpen] = useState(false)
     const [currentTrip, setCurrentTrip] = useState({
         title: "",
         weather: "",
@@ -53,6 +56,28 @@ export const EditTrip = ({ token }) => {
         const copy = { ...currentTrip }
         copy[event.target.name] = event.target.value;
         setCurrentTrip(copy);
+    }
+
+    const customStyles = {
+        content: {
+            top: '50%',
+            left: '50%',
+            right: 'auto',
+            bottom: 'auto',
+            marginRight: '-50%',
+            transform: 'translate(-50%, -50%)',
+            background: '#131313',
+            color: 'papayawhip'
+        },
+    }
+
+    const openModal = () => {
+        setIsModalOpen(true)
+    }
+
+    const closeModal = () => {
+        setRefresh(!refresh)
+        setIsModalOpen(false)
     }
 
 
@@ -95,9 +120,12 @@ export const EditTrip = ({ token }) => {
             <br></br>
             <fieldset>
                 <label className="tripLabel">Photos:</label>
+                {/* <div className="">
+                    <input type="file" id="file-input" name="ImageStyle" />
+                </div> */}
                 <div>
                     <input
-                        type="text"
+                        type="file"
                         name="image_url"
                         required
                         autoFocus
@@ -149,10 +177,26 @@ export const EditTrip = ({ token }) => {
                 </div>
             </fieldset>
             <br></br>
-
-            <div>
-                <AddTripDestination tripId={tripId} currentTrip={currentTrip} setCurrentTrip={setCurrentTrip} status={status} />
-            </div>
+            Add A Destination?
+            <button class="button is-small" onClick={openModal}>+</button>
+            <Modal
+                isOpen={isModalOpen}
+                onRequestClose={closeModal}
+                style={customStyles}
+                contentLabel="Example Modal"
+            >
+                <button onClick={closeModal}>X</button>
+                <div>
+                    <AddTripDestination
+                        tripId={tripId}
+                        currentTrip={currentTrip}
+                        setCurrentTrip={setCurrentTrip}
+                        status={status}
+                        setIsModalOpen={setIsModalOpen}
+                        closeModal={closeModal}
+                    />
+                </div>
+            </Modal>
 
             <br></br>
             <fieldset>

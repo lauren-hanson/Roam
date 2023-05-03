@@ -1,14 +1,11 @@
 import { useEffect, useState, useRef } from "react"
-// import { useNavigate } from 'react-router-dom'
 import { getItems, addNewItem } from "../../managers/ItemManager"
 import { addCategory } from "../../managers/CategoryManager"
-// import Modal from 'react-modal'
 import "./PackList.css"
 
 
-export const AddItem = ({ getCategories, closeModal, categories, setCategories }) => {
+export const AddItem = ({ getCategories, categories, setCategories }) => {
 
-    // const navigate = useNavigate()
     const catRef = useRef()
     const [refresh, setRefresh] = useState(false)
 
@@ -61,8 +58,6 @@ export const AddItem = ({ getCategories, closeModal, categories, setCategories }
             })
 
     }
-
-
 
     const createNewCategory = (event) => {
         event.preventDefault()

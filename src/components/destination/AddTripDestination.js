@@ -74,6 +74,7 @@ export const AddTripDestination = ({ tripId, currentTrip, setCurrentTrip, status
                     .then(() => {
                         getSingleTrip(tripId).then((data) => setCurrentTrip(data))
                     })
+
             })
     }
 
