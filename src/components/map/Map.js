@@ -12,6 +12,7 @@ import { AddTips } from "./AddTips"
 // import { EditDest } from "./EditDest"
 import { RemoveDest } from "./RemoveDest"
 
+
 export function Map({ token }) {
 
     const navigate = useNavigate()
@@ -103,7 +104,7 @@ export function Map({ token }) {
                         {favDestinations.map((t) => {
                             return (<Marker position={[t.latitude ?? 0, t.longitude ?? 0]} icon={favIcon}>
                                 <Popup><h2 className="popUpHeader">{t.location}, {t.state}</h2><br></br>
-                                    {t.tips.length ? (t.tips) : (<AddTips updateDestination={updateDestination} id={t.id} favDestinations={favDestinations}/>)}
+                                    {t.tips.length ? (t.tips) : (<AddTips updateDestination={updateDestination} id={t.id} favDestinations={favDestinations} />)}
                                     <div>
                                         {/* <Modal className='modal'
                                             isOpen={isModalOpen}
