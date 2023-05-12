@@ -167,9 +167,6 @@ export const AddTripDestination = ({ tripId, currentTrip, setCurrentTrip, status
                         </select>
                     </div>
 
-
-
-
                     <button className="button is-small addDestinationButton"
                         onClick={createNewDestination}>
                         Add Destination
