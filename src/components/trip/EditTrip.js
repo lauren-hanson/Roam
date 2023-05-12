@@ -5,8 +5,11 @@ import { getTags } from "../../managers/TagManager"
 import "./Trip.css"
 import { getStatus } from "../../managers/StatusManager"
 import { AddTripDestination } from "../destination/AddTripDestination"
+import { deleteDestination } from "../../managers/DestinationManager"
+import { DeleteDestination } from "../destination/DeleteDestination"
 import { AddTripTag } from "../tags/AddTripTag"
 import Modal from 'react-modal'
+import { FaTrashAlt } from "react-icons/fa"
 
 export const EditTrip = ({ token }) => {
 
@@ -78,6 +81,20 @@ export const EditTrip = ({ token }) => {
     const closeModal = () => {
         setRefresh(!refresh)
         setIsModalOpen(false)
+    }
+
+    const deleteButton = (id) => {
+        return <FaTrashAlt className="deleteButton" onClick={() => {
+            deleteDestination(id)
+                .then(() => {
+                    window.confirm(
+                        "Do you want to delete this stop?"
+                    )
+                    getSingleTrip(tripId).then((data) => setCurrentTrip(data))
+                    setRefresh(!refresh)
+                })
+        }
+        }></FaTrashAlt>
     }
 
 
@@ -177,15 +194,44 @@ export const EditTrip = ({ token }) => {
                 </div>
             </fieldset>
             <br></br>
-            Add A Destination?
-            <button class="button is-small" onClick={openModal}>+</button>
+            <div className="destinationList">
+                <h4 className="tripSubtitle">Stops along the way...</h4>
+{/* 
+                {currentTrip?.destination?.map((d, index) => (
+                    <ol key={index}>{index + 1}. {d.location},  {d.state} */}
+                        <div>
+                            <DeleteDestination FaTrashAlt={FaTrashAlt} getSingleTrip={getSingleTrip} tripId={tripId} setCurrentTrip={setCurrentTrip} refresh={refresh} setRefresh={setRefresh} currentTrip={currentTrip} />
+                        </div>
+                        {/* </ol> */}
+                {/* ))} */}
+                <br></br>
+                {/* <div className="singleTripMap" id="map">
+                    <MapContainer center={[39.50, -98.350]} zoom={3.5} style={{ height: "500px", width: "500px" }} scrollWheelZoom={true} >
+                        <TileLayer
+                            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                            url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        />
+                        {trip.destination.map(d => {
+                            return (<Marker position={[d.latitude ?? 0, d.longitude ?? 0]} icon={customIcon} key={d.id}>
+                                <Popup className="popUpHeader">{d.location}, {d.state}
+                                    <p>{d.tips}</p></Popup>
+                            </Marker>)
+                        })}
+                    </MapContainer>
+                </div> */}
+            </div>
+
+            <div>
+                <button class="button is-small" className="addDestButton" onClick={openModal}>+</button>
+                Add new destination?
+            </div>
             <Modal
                 isOpen={isModalOpen}
                 onRequestClose={closeModal}
                 style={customStyles}
                 contentLabel="Example Modal"
             >
-                <button onClick={closeModal}>X</button>
+                <button onClick={closeModal} class="button is-small" className="closeModalButton">X</button>
                 <div>
                     <AddTripDestination
                         tripId={tripId}

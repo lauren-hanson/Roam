@@ -2,9 +2,10 @@ import { useState, useRef } from "react"
 import { addDestination, deleteDestination } from "../../managers/DestinationManager"
 import { getSingleTrip, addTripDestination } from "../../managers/TripManager"
 import { DeleteDestination } from "../destination/DeleteDestination"
-import { FaTrashAlt } from "react-icons/fa";
+import { FaTrashAlt } from "react-icons/fa"
+import "./Destination.css"
 
-export const AddTripDestination = ({ tripId, currentTrip, setCurrentTrip, status }) => {
+export const AddTripDestination = ({ tripId, currentTrip, setCurrentTrip, status, closeModal }) => {
 
     const locationRef = useRef()
     const stateRef = useRef()
@@ -135,7 +136,7 @@ export const AddTripDestination = ({ tripId, currentTrip, setCurrentTrip, status
                         <textarea
                             type="text"
                             rows="10"
-                            cols="40"
+                            cols="60"
                             name="tips"
                             ref={tipsRef}
                             required autoFocus
@@ -144,6 +145,7 @@ export const AddTripDestination = ({ tripId, currentTrip, setCurrentTrip, status
                             onChange={handleNewDestinationInfo}
                         />
                     </div>
+                    <br></br>
                     <div className="newStatusSelect">
                         <select
                             name="destination_status"
@@ -174,9 +176,6 @@ export const AddTripDestination = ({ tripId, currentTrip, setCurrentTrip, status
                     </button>
                 </div>
                 <br></br>
-                <div>
-                    <DeleteDestination deleteDestination={deleteDestination} FaTrashAlt={FaTrashAlt} getSingleTrip={getSingleTrip} tripId={tripId} setCurrentTrip={setCurrentTrip} refresh={refresh} setRefresh={setRefresh} currentTrip={currentTrip} />
-                </div>
 
             </fieldset>
         </>
