@@ -33,7 +33,7 @@ export const Login = ({ setToken }) => {
   return (
     <section className="loginForm">
 
-      <div className="homeVideo">
+      <div className="myVideo">
         {/* <img src="https://res.cloudinary.com/dgwi6xvfl/image/upload/v1679018916/Roam/colorado-3_x3q8bq.jpg" /> */}
         <video autoPlay={true}>
           <source

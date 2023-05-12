@@ -3,6 +3,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Vidaloka&display=swap');
 
+/* @media (max-width: 750px) {
+  #background-video {
+    display: none;
+  }
+
+  body {
+    background: url("https://assets.codepen.io/6093409/river.jpg") no-repeat;
+    background-size: cover;
+  }
+} */
+
 a:hover {
   text-decoration: none;
   color: lightgray;
@@ -93,11 +104,15 @@ a.navbar-item.is-active,
 }
 
 .myVideo {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
   position: fixed;
+  left: 0;
   right: 0;
+  top: 0;
   bottom: 0;
-  min-width: 100%;
-  min-height: 100%;
+  z-index: -1;
 }
 
 .content {
@@ -110,8 +125,7 @@ a.navbar-item.is-active,
 }
 
 .button {
-  width: auto; 
-  margin: 10px; 
+  width: auto;
+  margin: 10px;
   font-family: 'Montserrat', sans-serif;
 }
-
