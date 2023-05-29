@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate, Link } from "react-router-dom"
-// import { TripByTag } from "./TripByTag"
+import { TripByTag } from "./TripByTag"
 import { getPublicTrips, getSearchedTrips } from "../../managers/TripManager"
 import { HumanDate } from "../utils/HumanDate";
 import "./Trip.css"
@@ -8,7 +8,7 @@ import "./Trip.css"
 export const AllTrips = ({ token }) => {
     const [trips, setTrips] = useState([])
     const [filteredTrips, setFilteredTrips] = useState([])
-    // const [selectedTag, setSelectedTag] = useState(0)
+    const [selectedTag, setSelectedTag] = useState(0)
 
     const navigate = useNavigate()
 
@@ -17,21 +17,21 @@ export const AllTrips = ({ token }) => {
         setFilteredTrips(trips)
     }, [])
 
-    // useEffect(() => {
-    //     if (selectedTag === 0) {
-    //         setFilteredTrips(trips)
-    //     } else if (selectedTag !== 0) {
-    //         const filteredCopy = trips.filter(
-    //             (trip) => trip.tag.id === parseInt(selectedTag)
-    //         )
-    //         setFilteredTrips(filteredCopy)
-    //     }
+    useEffect(() => {
+        if (selectedTag === 0) {
+            setFilteredTrips(trips)
+        } else if (selectedTag !== 0) {
+            const filteredCopy = trips.filter(
+                (trip) => trip.tag.id === parseInt(selectedTag)
+            )
+            setFilteredTrips(filteredCopy)
+        }
 
-    // }, [trips, selectedTag])
+    }, [trips, selectedTag])
 
     return (
         <>
-            {/* <TripByTag setSelectedTag={setSelectedTag} /> */}
+            <TripByTag setSelectedTag={setSelectedTag} />
             <div key={`trip--${trips.id}`}>
                 <div className="allTripList">
                     {trips.map((trip) => {

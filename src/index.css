@@ -14,6 +14,13 @@
   }
 } */
 
+@media screen and (min-width: 768px) {
+  .myTripList {
+    grid-template-columns: repeat(4, 1fr);
+    /* align-items: start; */
+  }
+}
+
 a:hover {
   text-decoration: none;
   color: lightgray;

@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
-import { getTags } from "../../managers/TagManager";
+import { getTags } from "../../managers/TagManager"
+import { getTripByTag } from "../../managers/TripManager"
 import "./Trip.css"
 
 export const TripByTag = ({ setSelectedTag }) => {
-    const [tags, setTags] = useState([]);
+    const [tags, setTags] = useState([])
+    const [tripByTags, setTripByTags] = useState([])
 
     useEffect(
         () => {
             getTags().then((tagData) => setTags(tagData))
+            getTripByTag().then((tByT) => setTripByTags(tByT))
         }, [])
 
     return (
