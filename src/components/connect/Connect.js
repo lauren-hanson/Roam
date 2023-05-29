@@ -4,10 +4,9 @@ import "./Connect.css"
 import "../trip/Trip.css"
 
 
-
 export const Connect = ({ token }) => {
 
-    return (<>
+    return (
         <div className="connectPage">
             <Link style={{ textDecoration: "none", color: "papayawhip" }}
                 to={`/travelers`} className="goBack">
@@ -15,5 +14,5 @@ export const Connect = ({ token }) => {
             </Link>
             <AllTrips token={token} />
         </div>
-    </>)
+    )
 }
