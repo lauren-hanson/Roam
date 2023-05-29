@@ -104,60 +104,70 @@ export const getDestinationByTrip = (id) => {
 
 export const getSearchedTrips = (searchTerm) => {
     return fetch(`http://localhost:8000/trips?search=${searchTerm}`,
-      {
-        headers: {
-          "Authorization": `Token ${localStorage.getItem("roam_token")}`
-        }
-      })
-      .then(res => res.json())
-    
-  }
-
-export const getUpcomingTrips = () => { 
-    return fetch(`http://localhost:8000/trips?upcoming`,
-      {
-        headers: {
-          "Authorization": `Token ${localStorage.getItem("roam_token")}`
-        }
-      })
-      .then(res => res.json())
-    
+        {
+            headers: {
+                "Authorization": `Token ${localStorage.getItem("roam_token")}`
+            }
+        })
+        .then(res => res.json())
 
 }
 
-export const getPastTrips = () => { 
+export const getUpcomingTrips = () => {
+    return fetch(`http://localhost:8000/trips?upcoming`,
+        {
+            headers: {
+                "Authorization": `Token ${localStorage.getItem("roam_token")}`
+            }
+        })
+        .then(res => res.json())
+
+
+}
+
+export const getPastTrips = () => {
     return fetch(`http://localhost:8000/trips?past`,
-      {
-        headers: {
-          "Authorization": `Token ${localStorage.getItem("roam_token")}`
-        }
-      })
-      .then(res => res.json())
-    
+        {
+            headers: {
+                "Authorization": `Token ${localStorage.getItem("roam_token")}`
+            }
+        })
+        .then(res => res.json())
+
 
 }
 
 export const getSubscribedTrips = () => {
     return fetch(`http://localhost:8000/trips?subscribed=true`,
-      {
-        headers: {
-          "Authorization": `Token ${localStorage.getItem("roam_token")}`
-        }
-      })
-      .then(res => res.json())
-    
-  }
+        {
+            headers: {
+                "Authorization": `Token ${localStorage.getItem("roam_token")}`
+            }
+        })
+        .then(res => res.json())
 
-  export const getPublicTrips = () => {
+}
+
+export const getPublicTrips = () => {
     return fetch(`http://localhost:8000/trips?public=true`,
-      {
-        headers: {
-          "Authorization": `Token ${localStorage.getItem("roam_token")}`
-        }
-      })
-      .then(res => res.json())
-    
-  }
+        {
+            headers: {
+                "Authorization": `Token ${localStorage.getItem("roam_token")}`
+            }
+        })
+        .then(res => res.json())
+
+}
+
+export const getTripByTag = (id) => {
+    return fetch(`http://localhost:8000/trips?tag=${id}`,
+        {
+            headers: {
+                "Authorization": `Token ${localStorage.getItem("roam_token")}`
+            }
+        })
+        .then(res => res.json())
+}
 
 
 

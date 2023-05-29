@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate, Link } from "react-router-dom"
-// import { TripByTag } from "./TripByTag"
+import { TripByTag } from "./TripByTag"
 import { getPublicTrips, getSearchedTrips } from "../../managers/TripManager"
 import { HumanDate } from "../utils/HumanDate";
 import "./Trip.css"
@@ -8,7 +8,8 @@ import "./Trip.css"
 export const AllTrips = ({ token }) => {
     const [trips, setTrips] = useState([])
     const [filteredTrips, setFilteredTrips] = useState([])
-    // const [selectedTag, setSelectedTag] = useState(0)
+    const [selectedTripByTag, setSelectedTripByTag] = useState(0)
+    const [selectedTag, setSelectedTag] = useState(0)
 
     const navigate = useNavigate()
 
@@ -17,31 +18,31 @@ export const AllTrips = ({ token }) => {
         setFilteredTrips(trips)
     }, [])
 
-    // useEffect(() => {
-    //     if (selectedTag === 0) {
-    //         setFilteredTrips(trips)
-    //     } else if (selectedTag !== 0) {
-    //         const filteredCopy = trips.filter(
-    //             (trip) => trip.tag.id === parseInt(selectedTag)
-    //         )
-    //         setFilteredTrips(filteredCopy)
-    //     }
+    useEffect(() => {
+        if (selectedTag === 0) {
+            setFilteredTrips(trips)
+        } else if (selectedTag !== 0) {
+            const filteredCopy = filteredTrips.filter(
+                (trip) => trip.tag.id === parseInt(selectedTag)
+            )
+            setFilteredTrips(filteredCopy)
+        }
 
-    // }, [trips, selectedTag])
+    }, [filteredTrips, selectedTag])
 
     return (
         <>
-            {/* <TripByTag setSelectedTag={setSelectedTag} /> */}
-            <div key={`trip--${trips.id}`}>
+            <TripByTag setSelectedTag={setSelectedTag} setSelectedTripByTag={setSelectedTripByTag} />
+            <div key={`trips--${trips.id}`}>
                 <div className="allTripList">
                     {trips.map((trip) => {
-                        return <>
+                        return <div key={`trip--${trip.id}`}>
                             <Link
                                 style={{ textDecoration: "none", color: "inherit" }}
                                 to={`/trips/${trip?.id}`}
                                 className="hover"
                             >
-                                <div className="allTripContainer">
+                                <div className="allTripContainer" >
 
                                     <div className="tripSubtitle">{trip.title}</div>
 
@@ -66,7 +67,7 @@ export const AllTrips = ({ token }) => {
                                 </div>
                             </Link>
 
-                        </>
+                        </div>
                     })}</div>
             </div >
 
