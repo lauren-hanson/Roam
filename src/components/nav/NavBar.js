@@ -21,7 +21,7 @@ export const NavBar = ({ token, setToken }) => {
         >
             <div className="navbar-brand">
                 <a className="navbar-item" href="/">
-                    <h1 class="title" className="roamHeader">Roam</h1>
+                    <h1 className="roamHeader title">Roam</h1>
                 </a>
                 <a
                     role="button"

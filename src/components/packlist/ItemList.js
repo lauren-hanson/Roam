@@ -59,7 +59,7 @@ export const ItemList = () => {
 
     return (
         <>
-            <button class="button is-small" onClick={openModal}>+</button>Add To Your List
+            <button className="button is-small" onClick={openModal}>+</button>Add To Your List
             <Modal
                 isOpen={isModalOpen}
                 onRequestClose={closeModal}
