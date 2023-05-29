@@ -43,7 +43,7 @@ export const AllTrips = ({ token }) => {
                             >
                                 <div className="allTripContainer">
 
-                                    <div class="tripSubtitle">{trip.title}</div>
+                                    <div className="tripSubtitle">{trip.title}</div>
 
                                     <img src={trip.image_url} alt="Image 1" className="allTripBoxImage"></img>
 
