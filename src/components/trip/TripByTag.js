@@ -3,7 +3,7 @@ import { getTags } from "../../managers/TagManager"
 import { getTripByTag } from "../../managers/TripManager"
 import "./Trip.css"
 
-export const TripByTag = ({ setSelectedTag, setSelectedTripByTag }) => {
+export const TripByTag = ({ setSelectedTripByTag }) => {
     const [tags, setTags] = useState([])
     const [tripByTags, setTripByTags] = useState(0)
 

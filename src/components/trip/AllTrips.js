@@ -9,7 +9,7 @@ export const AllTrips = ({ token }) => {
     const [trips, setTrips] = useState([])
     const [filteredTrips, setFilteredTrips] = useState([])
     const [selectedTripByTag, setSelectedTripByTag] = useState(0)
-    const [selectedTag, setSelectedTag] = useState(0)
+    // const [selectedTag, setSelectedTag] = useState(0)
 
     const navigate = useNavigate()
 
@@ -19,20 +19,20 @@ export const AllTrips = ({ token }) => {
     }, [])
 
     useEffect(() => {
-        if (selectedTag === 0) {
+        if (selectedTripByTag === 0) {
             setFilteredTrips(trips)
-        } else if (selectedTag !== 0) {
-            const filteredCopy = filteredTrips.filter(
-                (trip) => trip.tag.id === parseInt(selectedTag)
+        } else if (selectedTripByTag !== 0) {
+            const filteredCopy = trips.filter(
+                (trip) => trip.tag.id === parseInt(selectedTripByTag)
             )
             setFilteredTrips(filteredCopy)
         }
 
-    }, [filteredTrips, selectedTag])
+    }, [trips, selectedTripByTag])
 
     return (
         <>
-            <TripByTag setSelectedTag={setSelectedTag} setSelectedTripByTag={setSelectedTripByTag} />
+            <TripByTag setSelectedTripByTag={setSelectedTripByTag} />
             <div key={`trips--${trips.id}`}>
                 <div className="allTripList">
                     {trips.map((trip) => {
