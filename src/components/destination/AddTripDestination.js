@@ -1,4 +1,4 @@
-import { useState, useRef } from "react"
+import { useState, useRef, Component } from "react"
 import { addDestination, deleteDestination } from "../../managers/DestinationManager"
 import { getSingleTrip, addTripDestination } from "../../managers/TripManager"
 import { DeleteDestination } from "../destination/DeleteDestination"
