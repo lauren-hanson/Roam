@@ -7,35 +7,24 @@ import "./Trip.css"
 
 export const AllTrips = ({ token }) => {
     const [trips, setTrips] = useState([])
-    const [filteredTrips, setFilteredTrips] = useState([])
-    const [selectedTripByTag, setSelectedTripByTag] = useState(0)
-    // const [selectedTag, setSelectedTag] = useState(0)
+    const [tagChoice, setSelectedTripByTag] = useState(0)
 
     const navigate = useNavigate()
 
     useEffect(() => {
         getPublicTrips().then((tripData) => setTrips(tripData))
-        setFilteredTrips(trips)
     }, [])
 
-    useEffect(() => {
-        if (selectedTripByTag === 0) {
-            setFilteredTrips(trips)
-        } else if (selectedTripByTag !== 0) {
-            const filteredCopy = trips.filter(
-                (trip) => trip.tag.id === parseInt(selectedTripByTag)
-            )
-            setFilteredTrips(filteredCopy)
-        }
-
-    }, [trips, selectedTripByTag])
+    const filteredTrips = tagChoice
+        ? trips.filter((trip) => trip.tag.some((tag) => tag.id === tagChoice))
+        : trips
 
     return (
         <>
-            <TripByTag setSelectedTripByTag={setSelectedTripByTag} />
+            <TripByTag setSelectedTripByTag={setSelectedTripByTag} tagChoice={tagChoice} trips={trips} />
             <div key={`trips--${trips.id}`}>
                 <div className="allTripList">
-                    {trips.map((trip) => {
+                    {filteredTrips.map((trip) => {
                         return <div key={`trip--${trip.id}`}>
                             <Link
                                 style={{ textDecoration: "none", color: "inherit" }}
