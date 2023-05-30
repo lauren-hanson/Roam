@@ -136,3 +136,7 @@ a.navbar-item.is-active,
   margin: 10px;
   font-family: 'Montserrat', sans-serif;
 }
+
+select {
+  padding: 5px; 
+}

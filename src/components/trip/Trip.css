@@ -19,7 +19,7 @@
 }
 
 .closeModalButton {
-    float: right; 
+    float: right;
     width: 2rem;
     height: 2rem;
 }
@@ -71,11 +71,9 @@
 }
 
 
-
 .allTripList {
     display: flex;
     flex-flow: row wrap;
-    margin: auto;
     width: 95%;
     padding: 10px;
     color: papayawhip;
@@ -130,8 +128,12 @@
 }
 
 .allTripBoxImage {
-    width: 400px;
-    height: 400px;
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    align-content: center; 
+    width: 275px;
+    height: 275px;
     object-fit: cover;
     opacity: 0.75;
     filter: alpha(opacity=40);
@@ -160,7 +162,8 @@
     opacity: 95%;
 }
 
-.tripDetailImage, .singleTripMap {
+.tripDetailImage,
+.singleTripMap {
     width: 100%;
 }
 
@@ -203,9 +206,8 @@
 
 .tags {
     display: flex;
-    flex-flow: row wrap;
-    align-content: flex-start;
-    justify-content: flex-start;
+    flex-direction: row;
+    float: right; 
     width: 75%;
 
 
@@ -221,13 +223,13 @@
     flex-direction: row;
     flex-wrap: wrap;
     line-height: -3px;
+    font-size: 10px;
     float: left;
     padding: 5px;
     margin: 5px;
     background-color: #1c1c1c;
     border: 1px solid papayawhip;
     border-radius: 2%;
-
 }
 
 .tagBackground {
@@ -279,4 +281,11 @@
 .addDestinationButton {
     margin: 20px;
     width: 15rem;
+}
+
+.tagsDropdown {
+    float: right;
+    margin: 20px;
+    color: papayawhip;
+
 }
