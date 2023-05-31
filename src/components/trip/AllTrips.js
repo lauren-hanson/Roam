@@ -9,6 +9,9 @@ import { TripSearch } from "./TripSearch"
 export const AllTrips = ({ token }) => {
     const [trips, setTrips] = useState([])
     const [tagChoice, setSelectedTripByTag] = useState(0)
+    const [searchTerms, setSearchTerms] = useState("Search Posts By Title")
+
+
 
     const navigate = useNavigate()
 
@@ -22,7 +25,7 @@ export const AllTrips = ({ token }) => {
 
     return (
         <>
-            <TripSearch />
+            <TripSearch searchTerms={searchTerms} setSearchTerms={setSearchTerms} getSearchedTrips={getSearchedTrips} trips={trips} />
             <TripByTag setSelectedTripByTag={setSelectedTripByTag} tagChoice={tagChoice} trips={trips} />
             <div key={`trips--${trips.id}`}>
                 <div className="allTripList">
