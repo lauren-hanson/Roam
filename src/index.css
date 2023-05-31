@@ -14,12 +14,17 @@
   }
 } */
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 750px) {
   .myTripList {
     grid-template-columns: repeat(4, 1fr);
     /* align-items: start; */
   }
+
+  body {
+    min-width: 100px;
+  }
 }
+
 
 a:hover {
   text-decoration: none;
@@ -138,5 +143,5 @@ a.navbar-item.is-active,
 }
 
 select {
-  padding: 5px; 
+  padding: 5px;
 }

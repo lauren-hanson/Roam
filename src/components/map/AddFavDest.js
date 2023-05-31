@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 export const AddFavDest = ({ updateDestination, notFavDests }) => {
     const [refresh, setRefresh] = useState(false)
@@ -47,7 +47,7 @@ export const AddFavDest = ({ updateDestination, notFavDests }) => {
                     type="button"
                     onClick={handleAddStatus}
                     className="button is-small"
-                >Publish
+                >Add
                 </button>
             </div>
         </fieldset>

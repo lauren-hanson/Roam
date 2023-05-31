@@ -4,6 +4,7 @@ import { TripByTag } from "./TripByTag"
 import { getPublicTrips, getSearchedTrips } from "../../managers/TripManager"
 import { HumanDate } from "../utils/HumanDate";
 import "./Trip.css"
+import { TripSearch } from "./TripSearch"
 
 export const AllTrips = ({ token }) => {
     const [trips, setTrips] = useState([])
@@ -21,6 +22,7 @@ export const AllTrips = ({ token }) => {
 
     return (
         <>
+            <TripSearch />
             <TripByTag setSelectedTripByTag={setSelectedTripByTag} tagChoice={tagChoice} trips={trips} />
             <div key={`trips--${trips.id}`}>
                 <div className="allTripList">
