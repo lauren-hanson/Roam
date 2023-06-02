@@ -34,10 +34,10 @@ export const TripSearch = ({ searchTerms, setSearchTerms, getSearchedTrips, trip
                             onChange={(e) => setSearchTerms(e.target.value)}
                             onKeyUp={handleKeypress}
                         ></input>
-                        <button className="button is-small is-link is-rounded" type="submit" onClick={handleSubmit}>
+                        <button className="button is-small" type="submit" onClick={handleSubmit}>
                             Go
                         </button>
-                        <button className="button is-small is-rounded" onClick={() => setFilteredTrips(trips)}>View All</button>
+                        <button className="button is-small" onClick={() => setFilteredTrips(trips)}>View All</button>
                     </form>
                 </section>
             </section>
