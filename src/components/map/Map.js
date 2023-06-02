@@ -122,7 +122,8 @@ export function Map({ token }) {
                                             <AddTips updateDestination={updateDestination} favDestinations={favDestinations} />
                                         </div> */}
                                         <div>
-                                            <RemoveDest />
+                                        <button class="button is-small" >edit.</button>
+                                            <RemoveDest updateDestination={updateDestination} notFavDests={notFavDests}/>
                                         </div>
                                     </div>
                                 </Popup>

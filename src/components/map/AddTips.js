@@ -8,10 +8,6 @@ export const AddTips = ({ updateDestination, favDestinations }) => {
         }
     )
 
-    // useEffect(() => {
-    //     setTips
-    // })
-
     const handleAddTips = (event) => {
         const copy = { ...addTips }
         copy[event.target.name] = event.target.value;
