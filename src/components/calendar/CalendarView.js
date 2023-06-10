@@ -31,15 +31,21 @@ export function CalendarView({ token }) {
   }
 
   return (
-    <div className="calendar">
+    <>
+      <section className="">
+        <button className="button is-small" onClick={() => navigate(``)}>+</button>
+        <div className="buttonLabel">New Dates</div></section>
+      <div className="calendar">
 
-      <Calendar
-        calendarType="US"
-        defaultActiveStartDate={new Date()}
-        selectRange={true}
-        tileContent={tripTileContent}>
-      </Calendar>
-    </div >
+
+        <Calendar
+          calendarType="US"
+          defaultActiveStartDate={new Date()}
+          selectRange={true}
+          tileContent={tripTileContent}>
+        </Calendar>
+      </div >
+    </>
   );
 }
 

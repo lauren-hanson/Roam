@@ -25,6 +25,6 @@ export const RemoveDest = ({updateDestination, notFavDests}) => {
     }
 
     return (<>
-        <button class="button is-small" >delete.</button>
+        <button className="button is-small" >delete.</button>
     </>)
 }
