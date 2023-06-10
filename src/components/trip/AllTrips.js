@@ -9,7 +9,7 @@ import { TripSearch } from "./TripSearch"
 export const AllTrips = ({ token }) => {
     const [trips, setTrips] = useState([])
     const [tagChoice, setSelectedTripByTag] = useState(0)
-    const [searchTerms, setSearchTerms] = useState("Search Posts By Title")
+    const [searchTerms, setSearchTerms] = useState("Search Trips by Keyword")
 
 
 
