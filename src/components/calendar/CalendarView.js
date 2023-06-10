@@ -28,7 +28,6 @@ export function CalendarView({ token }) {
 
   const handleTileClick = () => {
 
-
   }
 
   return (

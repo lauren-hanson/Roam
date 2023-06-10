@@ -15,10 +15,12 @@ export const TripSearch = ({ searchTerms, setSearchTerms, getSearchedTrips, trip
         }
     }
 
+   
+    
     const handleSubmit = (e) => {
         e.preventDefault()
         getSearchedTrips(`${searchTerms}`).then((data) => setFilteredTrips(data))
-        setSearchTerms("Search Trips By Title")
+        setSearchTerms("Search Trips by Keyword")
         document.getElementById("search").value = ""
     }
 
