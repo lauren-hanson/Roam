@@ -13,7 +13,7 @@ export const EditDest = ({ openModal }) => {
     // });
 
     return (<>
-        <button class="button is-small" onClick={openModal}>edit.</button>
+        <button className="button is-small" onClick={openModal}>edit.</button>
 
     </>)
 }

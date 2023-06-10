@@ -122,7 +122,7 @@ export function Map({ token }) {
                                             <AddTips updateDestination={updateDestination} favDestinations={favDestinations} />
                                         </div> */}
                                         <div>
-                                        <button class="button is-small" >edit.</button>
+                                        <button className="button is-small" >edit.</button>
                                             <RemoveDest updateDestination={updateDestination} notFavDests={notFavDests}/>
                                         </div>
                                     </div>

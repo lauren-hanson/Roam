@@ -52,7 +52,7 @@ export const MyTripList = ({ token }) => {
                         >
                             <div className="myTripHome">
                                 <img src={trip.image_url} alt="Trip Image" className="tripBoxImage" />
-                                <div class="centered">{trip.title}</div>
+                                <div className="centered">{trip.title}</div>
                             </div>
                         </Link>
 
