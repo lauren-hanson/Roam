@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useNavigate, Link } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { TripByTag } from "./TripByTag"
 import { getPublicTrips, getSearchedTrips } from "../../managers/TripManager"
 import { HumanDate } from "../utils/HumanDate";
@@ -9,38 +9,36 @@ import "./Trip.css"
 export const AllTrips = ({ token }) => {
     const [trips, setTrips] = useState([])
     const [tagChoice, setSelectedTripByTag] = useState(0)
-    const [searchTerms, setSearchTerms] = useState("Search Trips by Keyword")
-    const [filteredTrips, setFilteredTrips] = useState([])
+    // const [searchTerms, setSearchTerms] = useState("Search Trips by Keyword")
+    // const [filteredTrips, setFilteredTrips] = useState([])
 
+    // const handleKeypress = (e) => {
+    //     //it triggers by pressing the enter key
+    //     if (e.keyCode === 13) {
+    //         handleSubmit()
+    //     }
+    // }
 
-    useEffect(() => {
-        setFilteredTrips(trips)
-    }, [])
+    // const handleSubmit = (e) => {
+    //     e.preventDefault()
+    //     getSearchedTrips(`${searchTerms}`).then((data) => setFilteredTrips(data))
+    //     setSearchTerms("Search Trips by Keyword")
+    //     document.getElementById("search").value = ""
+    // }
 
-    const handleKeypress = (e) => {
-        //it triggers by pressing the enter key
-        if (e.keyCode === 13) {
-            handleSubmit()
-        }
-    }
-
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        getSearchedTrips(`${searchTerms}`).then((data) => setFilteredTrips(data))
-        setSearchTerms("Search Trips by Keyword")
-        document.getElementById("search").value = ""
-    }
-
-    const navigate = useNavigate()
+    const filteredTrips = tagChoice
+        ? trips.filter((trip) => trip.tag.some((tag) => tag.id === tagChoice))
+        : trips
 
     useEffect(() => {
-        getPublicTrips().then((tripData) => setTrips(tripData))
+        getPublicTrips().then((tripData) => setTrips(tripData)
+        )
     }, [])
 
 
     return (
         <>
-            <section className="posts__buttons">
+            {/* <section className="posts__buttons">
                 <section className="posts__filters">
                     <form>
                         <input
@@ -56,7 +54,7 @@ export const AllTrips = ({ token }) => {
                         <button className="button is-small" onClick={() => setFilteredTrips(trips)}>View All</button>
                     </form>
                 </section>
-            </section>
+            </section> */}
             {/* <TripSearch searchTerms={searchTerms} setSearchTerms={setSearchTerms} getSearchedTrips={getSearchedTrips} trips={trips} /> */}
             <TripByTag setSelectedTripByTag={setSelectedTripByTag} tagChoice={tagChoice} trips={trips} />
             <div key={`trips--${trips.id}`}>

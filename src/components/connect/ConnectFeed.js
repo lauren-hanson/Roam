@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getSubscribedTrips } from "../../managers/TripManager"
+import { getSubscribedTrips, getSearchedTrips } from "../../managers/TripManager"
 import { Link, useNavigate } from "react-router-dom"
 import { HumanDate } from "../utils/HumanDate"
 import "./Connect.css"
@@ -9,13 +9,35 @@ import "./Connect.css"
 export const ConnectFeed = ({ token }) => {
 
   const [trips, setTrips] = useState([])
+  const [searchTerms, setSearchTerms] = useState("Search Trips by Keyword")
+  const [filteredTrips, setFilteredTrips] = useState([])
   const tokenInt = parseInt(token)
   const navigate = useNavigate()
+
+
+  useEffect(() => {
+    setFilteredTrips(trips)
+  }, [])
 
   useEffect(() => {
     getSubscribedTrips(tokenInt).then((tripData) => setTrips(tripData))
 
   }, [])
+
+  const handleKeypress = (e) => {
+    //it triggers by pressing the enter key
+    if (e.keyCode === 13) {
+      handleSubmit()
+    }
+  }
+
+  const handleSubmit = (e) => {
+    // e.preventDefault()
+    getSearchedTrips(`${searchTerms}`).then((data) => setFilteredTrips(data))
+    setSearchTerms("Search Trips by Keyword")
+    document.getElementById("search").value = ""
+  }
+
 
   const mostRecentTrip = trips[0]
   const secondTrip = trips[1]
@@ -34,6 +56,23 @@ export const ConnectFeed = ({ token }) => {
 
         <article className="connectTripPages" >
           <h2 className="connectHeader">Welcome to your Connect Page...</h2>
+          <section className="posts__buttons">
+            <section className="posts__filters">
+              <form>
+                <input
+                  type="textfield"
+                  placeholder={searchTerms}
+                  id="search"
+                  onChange={(e) => setSearchTerms(e.target.value)}
+                  onKeyUp={handleKeypress}
+                ></input>
+                <button className="button is-small" type="submit" onClick={handleSubmit}>
+                  Go
+                </button>
+                <button className="button is-small" onClick={() => setFilteredTrips(trips)}>View All</button>
+              </form>
+            </section>
+          </section>
           {trips.length ? (
             <div className="connectTripsContainer">
               <div className="columns" >

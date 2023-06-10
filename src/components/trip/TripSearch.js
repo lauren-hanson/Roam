@@ -15,6 +15,8 @@ export const TripSearch = ({ searchTerms, setSearchTerms, getSearchedTrips, trip
         }
     }
 
+   
+    
     const handleSubmit = (e) => {
         e.preventDefault()
         getSearchedTrips(`${searchTerms}`).then((data) => setFilteredTrips(data))
